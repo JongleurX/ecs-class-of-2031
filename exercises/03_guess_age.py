@@ -44,8 +44,8 @@ def helper_hint(low, high):
     
     Example: "42 numbers left. Middle = 50. Guess next?"
     """
-    count = high - low + 1
-    middle = (low + high) // 2
+    count = high # FIXME
+    middle = low # FIXME
     return f"Our number is between {low} and {high}, with {count} possible numbers left. Try {middle} next!"
 
 
