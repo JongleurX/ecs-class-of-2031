@@ -1,0 +1,16 @@
+# Firefly,              firefly,
+G4		G4		E4:0.5	F4		F4		D4:0.5
+
+# Light-ing     up      the     eve-ning        sky
+E4		E4		C4		E4		D4		D4		G3:0.5
+
+# As    you     fly     your    ti-     ny      light   will    shine   through the     night
+C4		G3		D4		G3		E4		G3		F4		G3		G4:0.5	F4		E4		D4:1.0
+
+
+G3		G3		E3:0.5	F3		F3		D3:0.5
+
+E3		G3		C4		E4		D4		D4      G3:0.5		
+
+
+C4		E4		G4:0.5	C3		E3		G3:0.5		C4		E4		D4		G3		C4:1.0

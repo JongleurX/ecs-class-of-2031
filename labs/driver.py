@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 
-def _find_qt_platform_plugin_path() -> str | None:
+def _find_qt_plugin_paths() -> tuple[str, str] | None:
     spec = importlib.util.find_spec("PySide6")
     if spec is None or spec.origin is None:
         return None
@@ -13,16 +13,21 @@ def _find_qt_platform_plugin_path() -> str | None:
     package_dir = Path(spec.origin).resolve().parent
     plugins_root = package_dir / "Qt" / "plugins"
     platforms_dir = plugins_root / "platforms"
-    if platforms_dir.exists():
-        return str(plugins_root)
-    if plugins_root.exists():
-        return str(plugins_root)
-    return None
+    if not plugins_root.exists() or not platforms_dir.exists():
+        return None
 
-qt_plugins = _find_qt_platform_plugin_path()
-if qt_plugins:
-    os.environ.setdefault("QT_QPA_PLATFORM_PLUGIN_PATH", qt_plugins)
-    os.environ.setdefault("QT_PLUGIN_PATH", qt_plugins)
+    # Remove space-named duplicate dylibs created by repeated pip installs.
+    # These confuse Qt's plugin loader and cause the "cocoa not found" error.
+    for dupe in plugins_root.rglob("* *.dylib"):
+        dupe.unlink(missing_ok=True)
+
+    return str(plugins_root), str(platforms_dir)
+
+qt_plugin_paths = _find_qt_plugin_paths()
+if qt_plugin_paths:
+    plugins_root, platforms_dir = qt_plugin_paths
+    os.environ.setdefault("QT_QPA_PLATFORM_PLUGIN_PATH", platforms_dir)
+    os.environ.setdefault("QT_PLUGIN_PATH", plugins_root)
 
 try:
     from labs.midi_interface import MidiInterface
@@ -40,15 +45,18 @@ def run_gui() -> int:
         return 1
 
     # Force Qt plugin paths in environment and ensure they're not overridden
-    plugin_path = _find_qt_platform_plugin_path()
-    if plugin_path:
-        os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = plugin_path
-        os.environ["QT_PLUGIN_PATH"] = plugin_path
+    plugin_paths = _find_qt_plugin_paths()
+    plugins_root = None
+    platforms_dir = None
+    if plugin_paths:
+        plugins_root, platforms_dir = plugin_paths
+        os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = platforms_dir
+        os.environ["QT_PLUGIN_PATH"] = plugins_root
         os.environ["QT_PLUGIN_OPTIONFLAGS"] = ""
     
     # Set library paths in code
-    if plugin_path:
-        QCoreApplication.setLibraryPaths([plugin_path])
+    if plugins_root:
+        QCoreApplication.setLibraryPaths([plugins_root])
     
     # Set the platform to 'cocoa' explicitly on macOS
     if sys.platform == "darwin":
@@ -63,8 +71,10 @@ def run_gui() -> int:
         app = QGuiApplication(sys.argv)
     except Exception as e:
         print(f"Failed to create QGuiApplication: {e}")
-        print(f"Plugin path: {plugin_path}")
+        print(f"Plugins root: {plugins_root}")
+        print(f"Platforms dir: {platforms_dir}")
         print(f"QT_QPA_PLATFORM_PLUGIN_PATH: {os.environ.get('QT_QPA_PLATFORM_PLUGIN_PATH')}")
+        print(f"QT_PLUGIN_PATH: {os.environ.get('QT_PLUGIN_PATH')}")
         return 1
     
     engine = QQmlApplicationEngine()
@@ -72,6 +82,9 @@ def run_gui() -> int:
     engine.rootContext().setContextProperty("backend", backend)
 
     qml_file = Path(__file__).resolve().parent / "qml" / "Main.qml"
+    if not qml_file.exists():
+        print(f"QML file not found: {qml_file}")
+        return 1
     engine.load(str(qml_file))
     if not engine.rootObjects():
         print("Failed to load QML interface.")
@@ -106,7 +119,8 @@ def main() -> int:
     list_parser.add_argument("--direction", choices=["in", "out", "both"], default="both")
 
     send_parser = subparsers.add_parser("send", help="Send a melody to a MIDI output port")
-    send_parser.add_argument("--notes", required=True, help="Melody notes, e.g. \"C4 D4 E4 G4\" or \"[C4,E4,G4]\"")
+    send_parser.add_argument("--notes", default=None, help="Melody notes inline, e.g. \"C4 D4 E4 G4\" or \"[C4,E4,G4]\"")
+    send_parser.add_argument("--notes-file", default=None, metavar="FILE", help="Path to a text file containing the melody notes")
     send_parser.add_argument("--port", default=None, help="Output port name")
     send_parser.add_argument("--tempo", type=int, default=120, help="Tempo in BPM")
     send_parser.add_argument("--channel", type=int, default=1, help="MIDI channel (1-16)")
@@ -116,6 +130,14 @@ def main() -> int:
     gb_parser = subparsers.add_parser("garageband-set-patch", help="Set a GarageBand patch via AppleScript")
     gb_parser.add_argument("--name", required=True, help="Name of the GarageBand patch to select")
     gb_parser.add_argument("--track", type=int, default=1, help="GarageBand track number (optional)")
+    gb_parser.add_argument("--retries", type=int, default=2, help="Retry attempts if UI automation is flaky")
+
+    gb_program_parser = subparsers.add_parser("garageband-set-program", help="Set GarageBand patch by GM program number via AppleScript")
+    gb_program_parser.add_argument("--program", type=int, required=True, help="GM program number (0-127)")
+    gb_program_parser.add_argument("--track", type=int, default=1, help="GarageBand track number (optional)")
+    gb_program_parser.add_argument("--retries", type=int, default=2, help="Retry attempts if UI automation is flaky")
+
+    gb_stop_parser = subparsers.add_parser("garageband-stop", help="Send GarageBand transport stop via AppleScript")
 
     record_parser = subparsers.add_parser("record", help="Record MIDI performance from an input port")
     record_parser.add_argument("--input-port", default=None, help="MIDI input port name")
@@ -147,6 +169,16 @@ def main() -> int:
         return 0
 
     if args.command == "send":
+        notes_text = args.notes
+        if args.notes_file is not None:
+            notes_path = Path(args.notes_file)
+            if not notes_path.exists():
+                print(f"Error: notes file not found: {args.notes_file}")
+                return 1
+            notes_text = notes_path.read_text().strip()
+        if not notes_text:
+            print("Error: provide --notes or --notes-file")
+            return 1
         if args.program is not None:
             print(f"Sending program change to patch {args.program}...")
             MidiInterface.send_program_change(
@@ -155,19 +187,36 @@ def main() -> int:
                 channel=args.channel,
             )
         
-        MidiInterface.send_melody(
-            melody_text=args.notes,
-            output_port=args.port,
-            tempo=args.tempo,
-            channel=args.channel,
-            velocity=args.velocity,
-        )
-        return 0
+        try:
+            MidiInterface.send_melody(
+                melody_text=notes_text,
+                output_port=args.port,
+                tempo=args.tempo,
+                channel=args.channel,
+                velocity=args.velocity,
+            )
+            return 0
+        except KeyboardInterrupt:
+            return 130
 
     if args.command == "garageband-set-patch":
         print(f"Setting GarageBand patch to {args.name} on track {args.track}...")
-        MidiInterface.set_garageband_patch(args.name, args.track)
+        MidiInterface.set_garageband_patch(args.name, args.track, retries=args.retries)
         print("GarageBand patch automation command sent.")
+        return 0
+
+    if args.command == "garageband-set-program":
+        patch_name = MidiInterface.set_garageband_patch_by_program(
+            args.program,
+            args.track,
+            retries=args.retries,
+        )
+        print(f"GarageBand patch set from GM program {args.program}: {patch_name}")
+        return 0
+
+    if args.command == "garageband-stop":
+        MidiInterface.stop_garageband_playback()
+        print("GarageBand stop playback command sent.")
         return 0
 
     if args.command == "record":

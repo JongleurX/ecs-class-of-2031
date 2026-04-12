@@ -15,7 +15,7 @@ except ImportError:
 DEFAULT_TEMPO = 120
 DEFAULT_VELOCITY = 100
 DEFAULT_CHANNEL = 1
-DEFAULT_DURATION = 0.5
+DEFAULT_DURATION = 0.25
 
 # General MIDI Instrument List (Program 0-127)
 GM_INSTRUMENTS = {
@@ -221,7 +221,7 @@ def _escape_applescript_string(value: str) -> str:
     return value.replace("\\", "\\\\").replace('"', '\\"')
 
 
-def _run_osascript(script: str) -> None:
+def _run_osascript(script: str, timeout_seconds: float = 15.0) -> str:
     if not _osascript_available():
         raise RuntimeError("osascript is not available on this system.")
 
@@ -229,36 +229,158 @@ def _run_osascript(script: str) -> None:
         ["osascript", "-e", script],
         capture_output=True,
         text=True,
+        timeout=timeout_seconds,
     )
     if result.returncode != 0:
         raise RuntimeError(
             f"AppleScript failed: {result.stderr.strip() or result.stdout.strip()}"
         )
+    return result.stdout.strip()
 
 
-def set_garageband_patch(patch_name: str, track_number: int = 1) -> None:
+def _garageband_automation_prerequisites() -> None:
     if sys.platform != "darwin":
         raise RuntimeError("GarageBand AppleScript support is only available on macOS.")
+    if not _osascript_available():
+        raise RuntimeError("osascript is not available on this system.")
 
-    escaped_name = _escape_applescript_string(patch_name)
-    script = f'''
-    tell application "GarageBand" to activate
-    delay 0.5
+
+def stop_garageband_playback(assume_playing: bool = True) -> None:
+    """
+    Stop GarageBand playback by simulating spacebar (play/pause toggle).
+    
+    Note: GarageBand does not expose playback state via AppleScript, and the
+    toolbar play button is not accessible via standard UI automation.
+    
+    Args:
+        assume_playing: If True (default), press spacebar to toggle playback.
+                       This is safe when you KNOW playback is active (e.g., during Ctrl+C).
+                       If False, this function does nothing (reserved for future use).
+    """
+    if not assume_playing:
+        return
+    
+    _garageband_automation_prerequisites()
+
+    script = '''
+    tell application "GarageBand"
+        activate
+        delay 0.1
+    end tell
+    
     tell application "System Events"
         tell process "GarageBand"
             set frontmost to true
-            keystroke "l" using command down
-            delay 0.5
-            keystroke "{escaped_name}"
-            delay 0.3
-            keystroke return
+            delay 0.1
+            -- Press spacebar to toggle play/pause
+            -- Only safe when playback is definitely active
+            key code 49
+            delay 0.2
         end tell
     end tell
     '''
     _run_osascript(script)
 
 
+def set_garageband_patch(patch_name: str, track_number: int = 1, retries: int = 2) -> None:
+    _garageband_automation_prerequisites()
+
+    escaped_name = _escape_applescript_string(patch_name)
+    track_number = max(1, int(track_number))
+    script = f'''
+    tell application "GarageBand" to activate
+    delay 0.6
+    tell application "System Events"
+        tell process "GarageBand"
+            set frontmost to true
+            -- Best-effort track selection by index.
+            try
+                set focused of first window to true
+                tell front window
+                    repeat {track_number} - 1 times
+                        key code 125
+                        delay 0.05
+                    end repeat
+                end tell
+            end try
+
+            keystroke "l" using command down
+            delay 0.4
+            keystroke "a" using command down
+            key code 51
+            delay 0.1
+            keystroke "{escaped_name}"
+            delay 0.35
+            key code 125
+            delay 0.1
+            keystroke return
+        end tell
+    end tell
+    '''
+
+    attempts = max(1, int(retries) + 1)
+    last_error: Optional[Exception] = None
+    for attempt in range(1, attempts + 1):
+        try:
+            _run_osascript(script)
+            return
+        except Exception as exc:
+            last_error = exc
+            if attempt < attempts:
+                time.sleep(0.25)
+
+    raise RuntimeError(f"Unable to set GarageBand patch '{patch_name}': {last_error}")
+
+
+def set_garageband_patch_by_program(program: int, track_number: int = 1, retries: int = 2) -> str:
+    program_clamped = max(0, min(127, int(program)))
+    patch_name = GM_INSTRUMENTS.get(program_clamped)
+    if patch_name is None:
+        raise ValueError(f"Unknown GM program number: {program}")
+    set_garageband_patch(patch_name, track_number=track_number, retries=retries)
+    return patch_name
+
+
 class MidiInterface:
+    @staticmethod
+    def stop_garageband_playback(assume_playing: bool = True) -> None:
+        stop_garageband_playback(assume_playing=assume_playing)
+
+    @staticmethod
+    def set_garageband_patch(patch_name: str, track_number: int = 1, retries: int = 2) -> None:
+        set_garageband_patch(patch_name, track_number=track_number, retries=retries)
+
+    @staticmethod
+    def set_garageband_patch_by_program(program: int, track_number: int = 1, retries: int = 2) -> str:
+        return set_garageband_patch_by_program(program, track_number=track_number, retries=retries)
+
+    @staticmethod
+    def _send_panic_messages(port: Any, channels: Optional[Sequence[int]] = None) -> None:
+        channel_list = list(channels) if channels is not None else list(range(16))
+        for ch in channel_list:
+            # Sustain off, all sound off, all notes off.
+            port.send(mido.Message("control_change", control=64, value=0, channel=ch))
+            port.send(mido.Message("control_change", control=120, value=0, channel=ch))
+            port.send(mido.Message("control_change", control=123, value=0, channel=ch))
+
+    @staticmethod
+    def panic(output_port: Optional[str] = None, channel: Optional[int] = None) -> None:
+        ensure_mido_installed()
+        port_name = MidiInterface.resolve_port(output_port, MidiInterface.list_output_ports())
+        channels: Optional[List[int]] = None
+        if channel is not None:
+            channels = [max(0, min(15, channel - 1))]
+
+        with mido.open_output(port_name) as port:
+            MidiInterface._send_panic_messages(port, channels)
+
+    @staticmethod
+    def duration_to_seconds(duration_whole_note: float, tempo: int) -> float:
+        if tempo <= 0:
+            raise ValueError("Tempo must be greater than 0 BPM.")
+        # Duration values are fractions of a whole note: 1.0=whole, 0.5=half, 0.25=quarter.
+        return duration_whole_note * (240.0 / float(tempo))
+
     @staticmethod
     def list_output_ports() -> List[str]:
         ensure_mido_installed()
@@ -280,6 +402,12 @@ class MidiInterface:
     @staticmethod
     def parse_melody(melody_text: str) -> List[NoteEvent]:
         ensure_mido_installed()
+
+        # Strip comments while preserving sharps in note names (e.g. C#4).
+        melody_text = "\n".join(
+            re.sub(r"(^|\s)#.*$", "", line).strip()
+            for line in melody_text.splitlines()
+        )
         
         # First pass: protect chords from being split by replacing commas inside them
         import re as regex
@@ -363,68 +491,87 @@ class MidiInterface:
         velocity: int = DEFAULT_VELOCITY,
     ) -> None:
         ensure_mido_installed()
+        if not melody_text or not melody_text.strip():
+            raise ValueError("No notes were provided. Pass note text (e.g. 'C4 D4 E4') or use a valid file path with shell substitution.")
         notes = MidiInterface.parse_melody(melody_text)
+        if not notes:
+            raise ValueError("No playable notes were parsed from --notes.")
         port_name = MidiInterface.resolve_port(output_port, MidiInterface.list_output_ports())
+        midi_channel = max(0, min(15, channel - 1))
 
         print(f"Playing melody on port: {port_name}")
         with mido.open_output(port_name) as port:
-            for i, event in enumerate(notes):
-                # Handle chords (3-tuple format)
-                if len(event) == 3:
-                    note_marker, duration, chord_notes = event
-                    note_names = [_number_to_note_name(n) for n in chord_notes]
-                    chord_str = "[" + ",".join(note_names) + "]"
-                    print(f"  [{i}] {chord_str} {duration}s")
+            try:
+                for i, event in enumerate(notes):
+                    # Handle chords (3-tuple format)
+                    if len(event) == 3:
+                        note_marker, duration_whole, chord_notes = event
+                        duration_seconds = MidiInterface.duration_to_seconds(duration_whole, tempo)
+                        note_names = [_number_to_note_name(n) for n in chord_notes]
+                        chord_str = "[" + ",".join(note_names) + "]"
+                        print(f"  [{i}] {chord_str} {duration_whole:g} ({duration_seconds:.3g}s)")
+                        
+                        # Send all note_on messages
+                        for note in chord_notes:
+                            msg = mido.Message(
+                                "note_on",
+                                note=note,
+                                velocity=velocity,
+                                channel=midi_channel,
+                            )
+                            port.send(msg)
+                        
+                        # Hold for duration
+                        time.sleep(duration_seconds)
+                        
+                        # Send all note_off messages
+                        for note in chord_notes:
+                            msg = mido.Message(
+                                "note_off",
+                                note=note,
+                                velocity=0,
+                                channel=midi_channel,
+                            )
+                            port.send(msg)
+                        continue
                     
-                    # Send all note_on messages
-                    for note in chord_notes:
-                        msg = mido.Message(
-                            "note_on",
-                            note=note,
-                            velocity=velocity,
-                            channel=max(0, min(15, channel - 1)),
-                        )
-                        port.send(msg)
-                    
-                    # Hold for duration
-                    time.sleep(duration)
-                    
-                    # Send all note_off messages
-                    for note in chord_notes:
-                        msg = mido.Message(
-                            "note_off",
-                            note=note,
-                            velocity=0,
-                            channel=max(0, min(15, channel - 1)),
-                        )
-                        port.send(msg)
-                    continue
-                
-                # Handle single notes and rests (2-tuple format)
-                note, duration = event
-                if note is None:
-                    print(f"  [{i}] Rest {duration}s")
-                    time.sleep(duration)
-                    continue
+                    # Handle single notes and rests (2-tuple format)
+                    note, duration_whole = event
+                    duration_seconds = MidiInterface.duration_to_seconds(duration_whole, tempo)
+                    if note is None:
+                        print(f"  [{i}] Rest {duration_whole:g} ({duration_seconds:.3g}s)")
+                        time.sleep(duration_seconds)
+                        continue
 
-                note_on = mido.Message(
-                    "note_on",
-                    note=note,
-                    velocity=velocity,
-                    channel=max(0, min(15, channel - 1)),
-                )
-                note_off = mido.Message(
-                    "note_off",
-                    note=note,
-                    velocity=0,
-                    channel=max(0, min(15, channel - 1)),
-                )
+                    note_on = mido.Message(
+                        "note_on",
+                        note=note,
+                        velocity=velocity,
+                        channel=midi_channel,
+                    )
+                    note_off = mido.Message(
+                        "note_off",
+                        note=note,
+                        velocity=0,
+                        channel=midi_channel,
+                    )
 
-                note_name = _number_to_note_name(note)
-                print(f"  [{i}] {note_name} {duration}s")
-                port.send(note_on)
-                time.sleep(duration)
-                port.send(note_off)
+                    note_name = _number_to_note_name(note)
+                    print(f"  [{i}] {note_name} {duration_whole:g} ({duration_seconds:.3g}s)")
+                    port.send(note_on)
+                    time.sleep(duration_seconds)
+                    port.send(note_off)
+            except KeyboardInterrupt:
+                print("\nInterrupted. Sending all-notes-off...")
+                MidiInterface._send_panic_messages(port)
+                if sys.platform == "darwin":
+                    try:
+                        # We know playback is active during send_melody
+                        MidiInterface.stop_garageband_playback(assume_playing=True)
+                        print("Sent GarageBand stop playback command.")
+                    except Exception as exc:
+                        print(f"GarageBand stop command failed: {exc}")
+                raise
         
         print("Done!")
 
@@ -475,7 +622,7 @@ class MidiInterface:
         events: List[Dict[str, Any]] = []
         start_time = time.time()
 
-        def callback(message: mido.Message) -> None:
+        def callback(message: Any) -> None:
             events.append(
                 {
                     "time": round(time.time() - start_time, 6),

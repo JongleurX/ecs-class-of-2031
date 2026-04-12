@@ -58,6 +58,18 @@ python labs/driver.py load --input-file mymelody.txt
 
 # Convert a recorded GarageBand performance to melody text notation
 python labs/driver.py convert --input-file performance.json --output-file melody_from_recording.txt
+
+# Load and send a melody file (easier than shell substitution for file reading)
+python labs/driver.py send --notes-file mymelody.txt --port "IAC Driver Bus 1"
+
+# Stop GarageBand playback (macOS only)
+python labs/driver.py garageband-stop
+
+# Set GarageBand patch by name (macOS only, best-effort)
+python labs/driver.py garageband-set-patch --name "Electric Grand Piano" --retries 2
+
+# Set GarageBand patch by GM program number (macOS only)
+python labs/driver.py garageband-set-program --program 3
 ```
 
 ### Using Make for convenience
@@ -215,23 +227,43 @@ Program numbers are 0-127 and map to standard General MIDI (GM) patches. Common 
 - 48-55: Ensembles
 - 80-87: Synth leads
 
-**⚠️ GarageBand Limitation:** GarageBand does not respond to incoming MIDI program changes. Program changes only work when routing MIDI to external hardware synthesizers or other DAWs. If you're using GarageBand as your destination, you need to manually select the instrument patch in GarageBand's interface—the program change flag won't affect it.
+**⚠️ GarageBand MIDI Limitation:** GarageBand does not respond to incoming MIDI program changes. The `--program` flag only works when routing MIDI to external hardware synthesizers or other DAWs.
 
-### GarageBand AppleScript patch automation
+**✓ GarageBand AppleScript Workaround:** On macOS, use the `garageband-set-program` or `garageband-set-patch` commands to automate patch selection via AppleScript UI automation. These commands will drive GarageBand's interface to select a patch before playback starts.
 
-On macOS, you can use AppleScript to drive GarageBand's UI and try to select a patch by name. This is a best-effort helper that may require:
+### GarageBand AppleScript automation
+
+On macOS, you can use AppleScript to drive GarageBand's UI automation for patch selection and transport control. These are best-effort helpers that may require:
 
 - GarageBand already running
 - Terminal or Python to be granted Accessibility permissions
-- the GarageBand library/search field to respond to keyboard input
+- the GarageBand library/search field to respond to keyboard input (for patch selection)
 
-Use the new command:
+**Set a patch by name:**
 
 ```bash
-python labs/driver.py garageband-set-patch --name "Electric Grand Piano"
+python labs/driver.py garageband-set-patch --name "Electric Grand Piano" --retries 2
 ```
 
-If the AppleScript helper does not behave consistently, fall back to selecting the patch manually inside GarageBand.
+**Set a patch by GM program number (0-127):**
+
+```bash
+python labs/driver.py garageband-set-program --program 3 --retries 2
+```
+
+**Stop GarageBand playback (for use during Ctrl+C):**
+
+```bash
+python labs/driver.py garageband-stop
+```
+
+This command simulates pressing spacebar in GarageBand (which toggles play/pause). **It is designed for use during Ctrl+C interrupts**, where you know playback is definitely active, so the toggle reliably stops playback.
+
+⚠️ **Limitations:** Calling this command when playback is already stopped will start playback instead (toggle behavior). GarageBand does not expose playback state via AppleScript, so there is no reliable way to detect the current state. Use this command only when you know playback is active.
+
+**Integration with melody playback:** When you press Ctrl+C during `send`, the lab automatically sends an all-notes-off MIDI message AND a GarageBand stop command on macOS (where playback is definitely active), ensuring clean playback termination.
+
+If the AppleScript helpers do not behave consistently, fall back to selecting the patch manually inside GarageBand.
 
 ### GUI Instrument Selector
 
