@@ -2,6 +2,27 @@
 
 These exercises build the **hand-tracing** habit — students trace through code line by line on paper to predict what prints. This foundation makes debugging and understanding code much easier.
 
+## Code.org Single-File Option
+
+If students are working in a Code.org Python project that needs a single entry file, use `main.py` in this folder.
+
+- `main.py` contains all 10 warmup activities in one file.
+- Students are guided through all 10 warmups in order (no menu), with progress shown as a percentage.
+- For each warmup, the code is printed and students enter their predicted output before answers are unlocked.
+- After all predictions are entered, students must enter the password `buffalo` to reveal answers.
+- Password checking is case-insensitive (`buffalo`, `BUFFALO`, and `Buffalo` all work).
+- Students get 5 password attempts; if all 5 are wrong, they must re-enter all predictions from the beginning.
+- After reveal, the program shows the answer key, a total score, and colored red/green comparisons for incorrect predictions.
+- This keeps the original individual exercise files for class use while also providing one copy-paste-friendly driver.
+
+## Printable Loop Templates
+
+Use [PRINTABLE_LOOP_TRACE_TEMPLATES.html](PRINTABLE_LOOP_TRACE_TEMPLATES.html) for print-friendly tracing pages for every loop-based warmup (Exercises 3 through 10).
+
+- Includes dedicated before/after trace tables for each loop warmup.
+- Includes an expanded nested-loop breakdown for Exercise 10 (outer loop, inner loop per row, and final counting loop).
+- For a completed teacher exemplar, use [PRINTABLE_LOOP_TRACE_TEMPLATES_FILLED_EXAMPLE.html](PRINTABLE_LOOP_TRACE_TEMPLATES_FILLED_EXAMPLE.html).
+
 ---
 
 ## Teaching Progression

@@ -1,6 +1,12 @@
 # Don't commit solutions to the repo!
 teacher-guide/
 
+# Jeremy's Code.org logins for class of 2031 section
+Code.org Logins.pdf
+
+# Mac stuff
+.DS_Store/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

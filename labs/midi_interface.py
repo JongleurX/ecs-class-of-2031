@@ -4,6 +4,7 @@ import shutil
 import subprocess
 import sys
 import time
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 try:
@@ -81,6 +82,180 @@ INSTRUMENT_CATEGORIES = {
     "Woodwind": [64, 65, 66, 68, 69, 70, 73],
     "Synth": [80, 81, 82, 88, 89, 90, 91],
 }
+
+# GarageBand uses patch names that do not always match GM names.
+# This mapping provides search queries that are more likely to match GarageBand's library.
+GARAGEBAND_PROGRAM_QUERY_MAP = {
+    # Pianos
+    0: "Grand Piano",
+    1: "Bright Piano",
+    2: "Electric Grand",
+    3: "Honky Tonk Piano",
+    4: "Classic Electric Piano",
+    5: "Electric Piano",
+    6: "Harpsichord",
+    7: "Clav",
+    # Organs
+    16: "Hammond Organ",
+    17: "Organ",
+    18: "Rock Organ",
+    19: "Church Organ",
+    # Guitars
+    24: "Classical Guitar",
+    25: "Acoustic Guitar",
+    26: "Jazz Guitar",
+    27: "Clean Guitar",
+    # Basses
+    32: "Upright Bass",
+    33: "Finger Bass",
+    34: "Picked Bass",
+    35: "Fretless Bass",
+    38: "Synth Bass",
+    39: "Synth Bass",
+    # Strings / ensemble
+    40: "Violin",
+    41: "Viola",
+    42: "Cello",
+    43: "Contrabass",
+    48: "String Ensemble",
+    49: "String Ensemble",
+    50: "Synth Strings",
+    51: "Synth Strings",
+    52: "Choir",
+    53: "Choir",
+    # Brass
+    56: "Trumpet",
+    57: "Trombone",
+    58: "Tuba",
+    60: "French Horn",
+    61: "Brass Section",
+    # Woodwind
+    64: "Soprano Sax",
+    65: "Alto Sax",
+    66: "Tenor Sax",
+    67: "Baritone Sax",
+    68: "Oboe",
+    69: "English Horn",
+    70: "Bassoon",
+    71: "Clarinet",
+    73: "Flute",
+    # Synth leads / pads
+    80: "Square Lead",
+    81: "Saw Lead",
+    88: "Warm Pad",
+    89: "Soft Pad",
+    90: "Poly Synth Pad",
+    91: "Choir Pad",
+}
+
+GARAGEBAND_PATCH_INDEX_DIRS = [
+    Path("/Library/Application Support/GarageBand/Instrument Library/Plug-In Settings"),
+    Path("/Library/Application Support/GarageBand/Instrument Library/Sampler/Sampler Instruments"),
+    Path("/Library/Application Support/Logic/Plug-In Settings"),
+    Path("/Library/Application Support/Logic/Sampler Instruments"),
+    Path.home() / "Library/Audio/Presets",
+]
+
+GARAGEBAND_PATCH_FILE_EXTS = {".pst", ".exs", ".aupreset"}
+
+
+def _garageband_patch_cache_path() -> Path:
+    cache_dir = Path.home() / ".cache" / "microkorg-midi-lab"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    return cache_dir / "garageband_patch_index.json"
+
+
+def _garageband_patch_source_for_path(path: Path) -> str:
+    path_str = str(path)
+    if path_str.startswith("/Library/Application Support/GarageBand/"):
+        return "GarageBand"
+    if path_str.startswith("/Library/Application Support/Logic/"):
+        return "Logic"
+    if path_str.startswith(str(Path.home() / "Library/Audio/Presets")):
+        return "User Presets"
+    return "Other"
+
+
+def _build_garageband_patch_index() -> Dict[str, Any]:
+    patches: Dict[str, Dict[str, Any]] = {}
+    scanned_dirs: List[str] = []
+
+    for root in GARAGEBAND_PATCH_INDEX_DIRS:
+        if not root.exists():
+            continue
+        scanned_dirs.append(str(root))
+        for file_path in root.rglob("*"):
+            if not file_path.is_file() or file_path.suffix.lower() not in GARAGEBAND_PATCH_FILE_EXTS:
+                continue
+
+            name = file_path.stem.replace("_", " ").strip()
+            if not name:
+                continue
+
+            key = name.casefold()
+            item = {
+                "name": name,
+                "kind": file_path.suffix.lower().lstrip("."),
+                "source": _garageband_patch_source_for_path(file_path),
+                "path": str(file_path),
+                "folder": file_path.parent.name,
+            }
+
+            # Keep shortest path for duplicate names to reduce noise.
+            existing = patches.get(key)
+            if existing is None or len(item["path"]) < len(existing["path"]):
+                patches[key] = item
+
+    patch_list = sorted(patches.values(), key=lambda p: p["name"].casefold())
+    return {
+        "version": 1,
+        "generated_at": int(time.time()),
+        "scanned_dirs": scanned_dirs,
+        "count": len(patch_list),
+        "patches": patch_list,
+    }
+
+
+def load_garageband_patch_index(rebuild: bool = False) -> Dict[str, Any]:
+    cache_path = _garageband_patch_cache_path()
+    if not rebuild and cache_path.exists():
+        try:
+            return json.loads(cache_path.read_text())
+        except Exception:
+            pass
+
+    index = _build_garageband_patch_index()
+    cache_path.write_text(json.dumps(index, ensure_ascii=True, indent=2))
+    return index
+
+
+def search_garageband_patches(query: str = "", limit: int = 200, rebuild: bool = False) -> List[Dict[str, Any]]:
+    index = load_garageband_patch_index(rebuild=rebuild)
+    patches = index.get("patches", [])
+
+    query_clean = (query or "").strip().casefold()
+    if not query_clean:
+        return patches[: max(1, int(limit))]
+
+    results = [
+        p for p in patches
+        if query_clean in str(p.get("name", "")).casefold()
+        or query_clean in str(p.get("folder", "")).casefold()
+        or query_clean in str(p.get("source", "")).casefold()
+    ]
+    return results[: max(1, int(limit))]
+
+
+def _garageband_query_for_program(program: int, gm_name: str) -> str:
+    query = GARAGEBAND_PROGRAM_QUERY_MAP.get(program)
+    if query:
+        return query
+
+    # Fallback: strip GM numbering/parentheses and normalize for search.
+    simplified = re.sub(r"\s*\([^)]*\)", "", gm_name)
+    simplified = re.sub(r"\b\d+\b", "", simplified)
+    simplified = re.sub(r"\s+", " ", simplified).strip()
+    return simplified or gm_name
 
 
 def ensure_mido_installed() -> None:
@@ -289,11 +464,11 @@ def set_garageband_patch(patch_name: str, track_number: int = 1, retries: int = 
     track_number = max(1, int(track_number))
     script = f'''
     tell application "GarageBand" to activate
-    delay 0.6
+    delay 0.4
     tell application "System Events"
         tell process "GarageBand"
             set frontmost to true
-            -- Best-effort track selection by index.
+            -- Best-effort track selection by index before opening the browser.
             try
                 set focused of first window to true
                 tell front window
@@ -304,16 +479,61 @@ def set_garageband_patch(patch_name: str, track_number: int = 1, retries: int = 
                 end tell
             end try
 
-            keystroke "l" using command down
-            delay 0.4
+            set searchField to missing value
+
+            -- First see whether the Search Sounds field is already present.
+            set elems to entire contents of front window
+            repeat with e in elems
+                try
+                    if role of e is "AXTextField" then
+                        try
+                            set d to description of e
+                        on error
+                            set d to ""
+                        end try
+                        if d contains "search text field" then
+                            set searchField to e
+                            exit repeat
+                        end if
+                    end if
+                end try
+            end repeat
+
+            -- If not present, toggle browser open and search again.
+            if searchField is missing value then
+                key code 16
+                delay 0.45
+                set elems to entire contents of front window
+                repeat with e in elems
+                    try
+                        if role of e is "AXTextField" then
+                            try
+                                set d to description of e
+                            on error
+                                set d to ""
+                            end try
+                            if d contains "search text field" then
+                                set searchField to e
+                                exit repeat
+                            end if
+                        end if
+                    end try
+                end repeat
+            end if
+
+            if searchField is missing value then
+                error "GarageBand Search Sounds field not found"
+            end if
+
+            set focused of searchField to true
+            delay 0.1
             keystroke "a" using command down
             key code 51
-            delay 0.1
             keystroke "{escaped_name}"
             delay 0.35
             key code 125
             delay 0.1
-            keystroke return
+            key code 36
         end tell
     end tell
     '''
@@ -334,14 +554,23 @@ def set_garageband_patch(patch_name: str, track_number: int = 1, retries: int = 
 
 def set_garageband_patch_by_program(program: int, track_number: int = 1, retries: int = 2) -> str:
     program_clamped = max(0, min(127, int(program)))
-    patch_name = GM_INSTRUMENTS.get(program_clamped)
-    if patch_name is None:
+    gm_name = GM_INSTRUMENTS.get(program_clamped)
+    if gm_name is None:
         raise ValueError(f"Unknown GM program number: {program}")
-    set_garageband_patch(patch_name, track_number=track_number, retries=retries)
-    return patch_name
+    query = _garageband_query_for_program(program_clamped, gm_name)
+    set_garageband_patch(query, track_number=track_number, retries=retries)
+    return query
 
 
 class MidiInterface:
+    @staticmethod
+    def load_garageband_patch_index(rebuild: bool = False) -> Dict[str, Any]:
+        return load_garageband_patch_index(rebuild=rebuild)
+
+    @staticmethod
+    def search_garageband_patches(query: str = "", limit: int = 200, rebuild: bool = False) -> List[Dict[str, Any]]:
+        return search_garageband_patches(query=query, limit=limit, rebuild=rebuild)
+
     @staticmethod
     def stop_garageband_playback(assume_playing: bool = True) -> None:
         stop_garageband_playback(assume_playing=assume_playing)

@@ -36,15 +36,7 @@ except ImportError:
 
 
 def run_gui() -> int:
-    try:
-        from PySide6.QtGui import QGuiApplication
-        from PySide6.QtQml import QQmlApplicationEngine
-        from PySide6.QtCore import QCoreApplication
-    except ModuleNotFoundError:
-        print("PySide6 is not installed. Install the requirements and try again.")
-        return 1
-
-    # Force Qt plugin paths in environment and ensure they're not overridden
+    # Set up Qt plugin paths BEFORE importing any PySide6 modules
     plugin_paths = _find_qt_plugin_paths()
     plugins_root = None
     platforms_dir = None
@@ -54,13 +46,22 @@ def run_gui() -> int:
         os.environ["QT_PLUGIN_PATH"] = plugins_root
         os.environ["QT_PLUGIN_OPTIONFLAGS"] = ""
     
-    # Set library paths in code
-    if plugins_root:
-        QCoreApplication.setLibraryPaths([plugins_root])
-    
     # Set the platform to 'cocoa' explicitly on macOS
     if sys.platform == "darwin":
         os.environ["QT_QPA_PLATFORM"] = "cocoa"
+
+    # NOW import PySide6 after paths are set
+    try:
+        from PySide6.QtGui import QGuiApplication
+        from PySide6.QtQml import QQmlApplicationEngine
+        from PySide6.QtCore import QCoreApplication
+    except ModuleNotFoundError:
+        print("PySide6 is not installed. Install the requirements and try again.")
+        return 1
+
+    # Also set library paths in code just to be sure
+    if plugins_root:
+        QCoreApplication.setLibraryPaths([plugins_root])
 
     try:
         from labs.midi_app import MidiApp
@@ -79,6 +80,10 @@ def run_gui() -> int:
     
     engine = QQmlApplicationEngine()
     backend = MidiApp()
+    # Keep strong references alive for the lifetime of the app.
+    # Without this, backend can become null in QML on some runs.
+    app._backend = backend  # type: ignore[attr-defined]
+    app._engine = engine  # type: ignore[attr-defined]
     engine.rootContext().setContextProperty("backend", backend)
 
     qml_file = Path(__file__).resolve().parent / "qml" / "Main.qml"
@@ -136,6 +141,14 @@ def main() -> int:
     gb_program_parser.add_argument("--program", type=int, required=True, help="GM program number (0-127)")
     gb_program_parser.add_argument("--track", type=int, default=1, help="GarageBand track number (optional)")
     gb_program_parser.add_argument("--retries", type=int, default=2, help="Retry attempts if UI automation is flaky")
+
+    gb_index_parser = subparsers.add_parser("garageband-index", help="Build or read cached GarageBand patch index")
+    gb_index_parser.add_argument("--rebuild", action="store_true", help="Force rebuild from disk")
+
+    gb_list_parser = subparsers.add_parser("garageband-list-patches", help="List GarageBand patches from cached index")
+    gb_list_parser.add_argument("--query", default="", help="Optional substring filter")
+    gb_list_parser.add_argument("--limit", type=int, default=100, help="Max rows to print")
+    gb_list_parser.add_argument("--rebuild", action="store_true", help="Force rebuild before listing")
 
     gb_stop_parser = subparsers.add_parser("garageband-stop", help="Send GarageBand transport stop via AppleScript")
 
@@ -212,6 +225,28 @@ def main() -> int:
             retries=args.retries,
         )
         print(f"GarageBand patch set from GM program {args.program}: {patch_name}")
+        return 0
+
+    if args.command == "garageband-index":
+        index = MidiInterface.load_garageband_patch_index(rebuild=args.rebuild)
+        print(f"GarageBand patch index count: {index.get('count', 0)}")
+        print("Scanned directories:")
+        for directory in index.get("scanned_dirs", []):
+            print(f"  {directory}")
+        return 0
+
+    if args.command == "garageband-list-patches":
+        rows = MidiInterface.search_garageband_patches(
+            query=args.query,
+            limit=args.limit,
+            rebuild=args.rebuild,
+        )
+        if not rows:
+            print("No matching GarageBand patches found.")
+            return 0
+        for item in rows:
+            print(f"{item.get('name')}\t[{item.get('source')}/{item.get('kind')}]\t{item.get('path')}")
+        print(f"\nListed {len(rows)} patch(es).")
         return 0
 
     if args.command == "garageband-stop":

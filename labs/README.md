@@ -70,6 +70,12 @@ python labs/driver.py garageband-set-patch --name "Electric Grand Piano" --retri
 
 # Set GarageBand patch by GM program number (macOS only)
 python labs/driver.py garageband-set-program --program 3
+
+# Rebuild local GarageBand/Logic patch index cache
+python labs/driver.py garageband-index --rebuild
+
+# Search installed GarageBand/Logic patches by name
+python labs/driver.py garageband-list-patches --query "grand piano" --limit 20
 ```
 
 ### Using Make for convenience
@@ -265,6 +271,27 @@ This command simulates pressing spacebar in GarageBand (which toggles play/pause
 
 If the AppleScript helpers do not behave consistently, fall back to selecting the patch manually inside GarageBand.
 
+### Dynamic GarageBand patch index
+
+To make patch selection more reliable than GM-name guessing, the lab now builds a local index of installed patch files and caches it across runs.
+
+Scanned directories (when present):
+
+- `/Library/Application Support/GarageBand/Instrument Library/Plug-In Settings`
+- `/Library/Application Support/GarageBand/Instrument Library/Sampler/Sampler Instruments`
+- `/Library/Application Support/Logic/Plug-In Settings`
+- `/Library/Application Support/Logic/Sampler Instruments`
+- `~/Library/Audio/Presets`
+
+Use the CLI:
+
+```bash
+python labs/driver.py garageband-index --rebuild
+python labs/driver.py garageband-list-patches --query "strings" --limit 50
+```
+
+In the GUI, use **GarageBand patch picker (local index)** to search and apply exact patch names directly.
+
 ### GUI Instrument Selector
 
 The QML GUI includes a visual instrument selector with:
@@ -282,6 +309,29 @@ If `python3 -m labs.driver gui` fails with `Could not find the Qt platform plugi
 source .venv/bin/activate
 python3 -m labs.driver gui
 ```
+
+If it starts failing again, this is the minimal repeatable recovery that worked:
+
+```bash
+# 1) Activate the same venv used for the lab
+source .venv/bin/activate
+
+# 2) Clean reinstall PySide6 (no cache)
+pip uninstall -y PySide6 PySide6_Addons PySide6_Essentials shiboken6
+pip install --force-reinstall --no-cache-dir PySide6==6.10.1
+
+# 3) Verify the Cocoa plugin file exists
+ls .venv/lib/python3.14/site-packages/PySide6/Qt/plugins/platforms/libqcocoa.dylib
+
+# 4) Retry GUI launch
+python3 -m labs.driver gui
+```
+
+Why this works:
+- The GUI launcher in `labs/driver.py` sets Qt plugin paths before importing PySide6.
+- A clean PySide6 reinstall restores the platform plugin files when the install gets into a bad state.
+
+Tip: avoid mixing system Python and venv Python for this project; always launch from the activated `.venv`.
 ## Cross-platform notes
 
 - macOS: use `IAC Driver` for virtual MIDI, or the MIDI port created by your USB-MIDI adapter.

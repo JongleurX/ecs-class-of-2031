@@ -129,3 +129,32 @@ class MidiApp(QObject):
             self.setStatus(f"GarageBand patch set to {patch_name}")
         except Exception as exc:
             self.setStatus(f"GarageBand patch failed: {exc}")
+
+    @Slot(int)
+    def setGarageBandPatchByProgram(self, program: int) -> None:
+        """Set a GarageBand patch by GM program number using a GB-friendly query mapping."""
+        try:
+            query_used = MidiInterface.set_garageband_patch_by_program(program)
+            gm_name = GM_INSTRUMENTS.get(program, "Unknown")
+            self.setStatus(f"GarageBand patch set for GM {program} ({gm_name}) via '{query_used}'")
+        except Exception as exc:
+            self.setStatus(f"GarageBand patch-by-program failed: {exc}")
+
+    @Slot(str, int, bool, result=str)
+    def searchGarageBandPatches(self, query: str, limit: int = 200, rebuild: bool = False) -> str:
+        """Search dynamic GarageBand patch index. Returns JSON array."""
+        import json
+        results = MidiInterface.search_garageband_patches(query=query, limit=limit, rebuild=rebuild)
+        return json.dumps(results)
+
+    @Slot(result=str)
+    def rebuildGarageBandPatchIndex(self) -> str:
+        """Rebuild cached GarageBand patch index and return status text."""
+        try:
+            index = MidiInterface.load_garageband_patch_index(rebuild=True)
+            count = int(index.get("count", 0))
+            self.setStatus(f"Rebuilt GarageBand patch index ({count} patches)")
+            return f"ok:{count}"
+        except Exception as exc:
+            self.setStatus(f"GarageBand patch index rebuild failed: {exc}")
+            return f"error:{exc}"
