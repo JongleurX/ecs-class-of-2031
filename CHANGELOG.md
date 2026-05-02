@@ -7,6 +7,23 @@ Dates are used instead of version numbers.
 
 ---
 
+## [2026-05-02b]
+
+### Added
+- **`exercises/syntax/`** — new folder for printable Python syntax materials
+  - `PRINTABLE_Python_Reference.html` — moved here from `labs/astronomy/`; light-mode code sample, two-column annotation layout, added `input()` section
+  - `PRINTABLE_Syntax_Challenges.html` — 20-challenge student worksheet (10 fill-in-the-blank + 10 freeform creative challenges) across 4 printable pages
+  - `PRINTABLE_Syntax_Challenges_TEACHER.html` — answer key with explanations and minimal solutions
+  - `challenge_11_magic8ball.py` through `challenge_20_compliment_machine.py` — reference solutions for all 10 creative challenges
+  - `challenge_14b_caesar_decoder.py` — companion decoder for the Caesar cipher encoder; uses `getpass` to hide the ciphertext on screen
+  - `main.py` — menu launcher that runs any challenge and returns to the menu on completion or Ctrl-C
+
+### Changed
+- `labs/` reorganised: MIDI files moved into `labs/midi/` subfolder; `labs/__init__.py` updated
+- `run_gui.sh` updated for new MIDI lab path
+
+---
+
 ## [2026-05-02]
 
 Big session — added games, a second exercise format for Code.org, and a bunch of MIDI lab improvements.

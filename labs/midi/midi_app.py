@@ -5,7 +5,7 @@ from typing import List
 from PySide6.QtCore import QObject, Property, Signal, Slot
 
 try:
-    from labs.midi_interface import MidiInterface, search_instruments, get_instrument_categories, GM_INSTRUMENTS
+    from labs.midi.midi_interface import MidiInterface, search_instruments, get_instrument_categories, GM_INSTRUMENTS
 except ImportError:
     from midi_interface import MidiInterface, search_instruments, get_instrument_categories, GM_INSTRUMENTS
 

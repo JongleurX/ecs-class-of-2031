@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Python Syntax Challenges</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.4;
+  color: #1a1a2e;
+  background: white;
+}
+
+code, pre {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 9pt;
+}
+
+/* ── Page layout ── */
+.page {
+  width: 7.5in;
+  margin: 0 auto;
+  padding: 0.45in 0.5in 0.4in;
+  page-break-after: always;
+}
+.page:last-child { page-break-after: avoid; }
+
+/* ── Header ── */
+.page-header {
+  border-bottom: 2.5pt solid #2b4590;
+  padding-bottom: 5pt;
+  margin-bottom: 9pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.page-header h1 { font-size: 14pt; font-weight: 700; color: #2b4590; }
+.page-header p  { font-size: 8pt; color: #555; }
+
+/* ── Name / date bar ── */
+.name-date {
+  display: flex;
+  gap: 24pt;
+  margin-bottom: 8pt;
+  font-size: 8.5pt;
+}
+.name-date .field {
+  display: flex;
+  align-items: baseline;
+  gap: 4pt;
+}
+.name-date .line {
+  border-bottom: 1pt solid #333;
+  display: inline-block;
+}
+.name-date .line-long  { min-width: 130pt; }
+.name-date .line-short { min-width: 72pt;  }
+
+/* ── Intro text ── */
+.ch-intro {
+  font-size: 8.5pt;
+  color: #444;
+  margin-bottom: 8pt;
+  font-style: italic;
+}
+
+/* ── Two-column grid ── */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14pt;
+}
+
+/* ── Challenge cards ── */
+.challenge {
+  border: 0.75pt solid #c0c5e0;
+  border-radius: 3pt;
+  padding: 5pt 7pt;
+  margin-bottom: 7pt;
+  break-inside: avoid;
+}
+.ch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3pt;
+}
+.ch-title { font-size: 9pt; font-weight: 700; color: #1a1a2e; }
+.ch-title .num { color: #2b4590; }
+
+.diff {
+  font-size: 6.5pt;
+  font-weight: 700;
+  padding: 0.5pt 4pt;
+  border-radius: 2pt;
+  text-transform: uppercase;
+  letter-spacing: 0.3pt;
+}
+.diff-very-easy { background: #d1fae5; color: #065f46; }
+.diff-easy      { background: #dbeafe; color: #1e40af; }
+.diff-med       { background: #fef3c7; color: #92400e; }
+.diff-hard      { background: #ede9fe; color: #5b21b6; }
+
+.ch-desc { font-size: 8.5pt; margin-bottom: 3pt; }
+
+/* ── Code blocks in challenges ── */
+.challenge pre {
+  background: #f4f4f8;
+  border-left: 2.5pt solid #bbb;
+  padding: 3pt 6pt;
+  margin: 3pt 0 3pt;
+  white-space: pre-wrap;
+  font-size: 8pt;
+  line-height: 1.5;
+}
+
+p code, li code {
+  background: #eef;
+  padding: 0 2pt;
+  border-radius: 2pt;
+  font-size: 8pt;
+}
+
+/* ── Fill-in blanks ── */
+.blank {
+  display: inline-block;
+  min-width: 44pt;
+  border-bottom: 1.25pt solid #111;
+  margin: 0 1pt;
+  vertical-align: bottom;
+  height: 10pt;
+}
+.blank-sm { min-width: 26pt; }
+.bnum {
+  font-size: 6pt;
+  color: #2b4590;
+  font-weight: 700;
+  vertical-align: super;
+}
+
+/* ── Multiple choice ── */
+.choices { margin-top: 3pt; font-size: 8pt; }
+.choices-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 13pt;
+  line-height: 1.6;
+}
+.blank-label {
+  font-size: 7pt;
+  color: #777;
+  font-style: italic;
+  margin-right: 2pt;
+}
+
+/* ── Hints ── */
+.hint {
+  font-size: 7.5pt;
+  color: #555;
+  font-style: italic;
+  margin-top: 4pt;
+  padding-top: 3pt;
+  border-top: 0.5pt solid #dde;
+}
+
+/* ── Writing lines (open-ended challenges) ── */
+.write-lines { margin-top: 5pt; }
+.write-line  {
+  border-bottom: 0.5pt solid #aab0cc;
+  height: 15pt;
+  margin-bottom: 1pt;
+}
+
+/* ── Print ── */
+@media print {
+  @page { margin: 0.5in; size: letter; }
+  .page { width: 100%; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ PAGE 1 — Challenges 1–7 ══════════════════ -->
+<div class="page">
+
+<div class="page-header">
+  <h1>Python Syntax Challenges</h1>
+  <p>Challenges 1–7 &mdash; Fill in the Blank</p>
+</div>
+
+<div class="name-date">
+  <div class="field">Name: <span class="line line-long"></span></div>
+  <div class="field">Date: <span class="line line-short"></span></div>
+</div>
+
+<p class="ch-intro">Choose the best answer for each blank. Circle your choice, then write it in the blank.</p>
+
+<div class="cols">
+
+<!-- ── LEFT COLUMN ── -->
+<div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">1.</span> Print a Greeting</span>
+  <span class="diff diff-very-easy">Very Easy</span>
+</div>
+<p class="ch-desc">Fill in the blank so the output is exactly: <code>Hello, Python!</code></p>
+<pre>print(<span class="blank"></span>)</pre>
+<div class="choices">
+  <div class="choices-row">
+    <span>(A)&nbsp;Hello, Python!</span>
+    <span>(B)&nbsp;"Hello, Python!"</span>
+    <span>(C)&nbsp;Hello + Python</span>
+    <span>(D)&nbsp;(Hello, Python!)</span>
+  </div>
+</div>
+</div><!-- end challenge 1 -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">2.</span> Variable Math</span>
+  <span class="diff diff-very-easy">Very Easy</span>
+</div>
+<p class="ch-desc">Fill in both blanks so <code>total</code> stores the sum of <code>a</code> and <code>b</code>, then prints it.</p>
+<pre>a = 12
+b = 5
+total = a <span class="blank blank-sm"></span><span class="bnum">①</span> b
+print("The total is:", <span class="blank"></span><span class="bnum">②</span>)</pre>
+<div class="choices">
+  <div class="choices-row">
+    <span class="blank-label">Blank ①</span>
+    <span>(A)&nbsp;&minus;</span>
+    <span>(B)&nbsp;&times;</span>
+    <span>(C)&nbsp;+</span>
+    <span>(D)&nbsp;/</span>
+  </div>
+  <div class="choices-row">
+    <span class="blank-label">Blank ②</span>
+    <span>(A)&nbsp;"total"</span>
+    <span>(B)&nbsp;a + b</span>
+    <span>(C)&nbsp;17</span>
+    <span>(D)&nbsp;total</span>
+  </div>
+</div>
+</div><!-- end challenge 2 -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">3.</span> Remainder Check</span>
+  <span class="diff diff-very-easy">Very Easy</span>
+</div>
+<p class="ch-desc">Fill in the blank so the program prints <code>even</code> when <code>x</code> is divisible by 2.</p>
+<pre>x = 14
+if x <span class="blank blank-sm"></span> 2 == 0:
+    print("even")</pre>
+<div class="choices">
+  <div class="choices-row">
+    <span>(A)&nbsp;+</span>
+    <span>(B)&nbsp;*</span>
+    <span>(C)&nbsp;//</span>
+    <span>(D)&nbsp;%</span>
+  </div>
+</div>
+</div><!-- end challenge 3 -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">4.</span> Type Conversion</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">Fill in the blank so the output is: <code>My score is 88</code></p>
+<pre>score = 88
+print("My score is " + <span class="blank"></span>(score))</pre>
+<div class="choices">
+  <div class="choices-row">
+    <span>(A)&nbsp;int</span>
+    <span>(B)&nbsp;len</span>
+    <span>(C)&nbsp;str</span>
+    <span>(D)&nbsp;set</span>
+  </div>
+</div>
+</div><!-- end challenge 4 -->
+
+</div><!-- end left column -->
+
+<!-- ── RIGHT COLUMN ── -->
+<div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">5.</span> Unique Letters</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">Fill in both blanks to count unique letters in <code>word</code>. It should print <code>4</code>.</p>
+<pre>word = "mississippi"
+unique_count = <span class="blank blank-sm"></span><span class="bnum">①</span>( <span class="blank blank-sm"></span><span class="bnum">②</span>(word) )
+print(unique_count)</pre>
+<div class="choices">
+  <div class="choices-row">
+    <span class="blank-label">Blank ①</span>
+    <span>(A)&nbsp;set</span>
+    <span>(B)&nbsp;sum</span>
+    <span>(C)&nbsp;len</span>
+    <span>(D)&nbsp;int</span>
+  </div>
+  <div class="choices-row">
+    <span class="blank-label">Blank ②</span>
+    <span>(A)&nbsp;len</span>
+    <span>(B)&nbsp;int</span>
+    <span>(C)&nbsp;sum</span>
+    <span>(D)&nbsp;set</span>
+  </div>
+</div>
+</div><!-- end challenge 5 -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">6.</span> List Total</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">Fill in the blank to add up all values. It should print <code>50</code>.</p>
+<pre>readings = [12, 7, 19, 4, 8]
+total = <span class="blank"></span>(readings)
+print("Total:", total)</pre>
+<div class="choices">
+  <div class="choices-row">
+    <span>(A)&nbsp;len</span>
+    <span>(B)&nbsp;int</span>
+    <span>(C)&nbsp;set</span>
+    <span>(D)&nbsp;sum</span>
+  </div>
+</div>
+</div><!-- end challenge 6 -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">7.</span> Membership Test</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">Fill in the blank so the message only prints when <code>planet</code> is in the list.</p>
+<pre>planets = ["Mercury", "Venus", "Earth", "Mars",
+           "Jupiter", "Saturn", "Uranus", "Neptune"]
+planet = "Mars"
+if planet <span class="blank"></span> planets:
+    print(planet, "is in our solar system!")</pre>
+<div class="choices">
+  <div class="choices-row">
+    <span>(A)&nbsp;==</span>
+    <span>(B)&nbsp;and</span>
+    <span>(C)&nbsp;in</span>
+    <span>(D)&nbsp;not</span>
+  </div>
+</div>
+</div><!-- end challenge 7 -->
+
+</div><!-- end right column -->
+</div><!-- end cols -->
+</div><!-- end page 1 -->
+
+
+<!-- ══════════════════ PAGE 2 — Challenges 8–10 ══════════════════ -->
+<div class="page">
+
+<div class="page-header">
+  <h1>Python Syntax Challenges</h1>
+  <p>Challenges 8–10 &mdash; Write the Code</p>
+</div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">8.</span> Multiples of Four</span>
+  <span class="diff diff-med">Medium</span>
+</div>
+<p class="ch-desc">Write a <code>for</code> loop that prints every multiple of 4 from 1 to 40, each on its own line.</p>
+<p class="ch-desc">Expected output: &nbsp;<code>4 &nbsp; 8 &nbsp; 12 &nbsp; 16 &nbsp; 20 &nbsp; 24 &nbsp; 28 &nbsp; 32 &nbsp; 36 &nbsp; 40</code> &nbsp;(each on a separate line)</p>
+<div class="hint">Hint: use <code>range()</code>, <code>for</code>, <code>%</code>, and <code>if</code>.</div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div>
+</div>
+</div><!-- end challenge 8 -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">9.</span> Interactive Greeter</span>
+  <span class="diff diff-med">Medium</span>
+</div>
+<p class="ch-desc">Write a program that:</p>
+<ol style="font-size:8.5pt; padding-left:14pt; margin-bottom:3pt;">
+  <li>Asks the user for their name.</li>
+  <li>Asks for their favorite number and converts it to an integer.</li>
+  <li>Prints: &nbsp;<code>Hello, [name]! Your lucky number doubled is [n].</code></li>
+</ol>
+<div class="hint">Hint: use <code>input()</code>, <code>int()</code>, <code>str()</code>, and <code>+</code>.</div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div>
+</div>
+</div><!-- end challenge 9 -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">10.</span> Digit Puzzle Solver</span>
+  <span class="diff diff-hard">Intermediate</span>
+</div>
+<p class="ch-desc">Find every two-digit number from 10 to 99 where the tens digit plus the units digit equals 9 and both digits are different. Print each one.</p>
+<p class="ch-desc">Expected output: &nbsp;<code>18 &nbsp; 27 &nbsp; 36 &nbsp; 45 &nbsp; 54 &nbsp; 63 &nbsp; 72 &nbsp; 81 &nbsp; 90</code> &nbsp;(each on a separate line)</p>
+<div class="hint">Hint: use <code>range(10, 100)</code>, a list comprehension with <code>str(n).zfill(2)</code> to get digits, then check your conditions with <code>and</code>.</div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+</div>
+</div><!-- end challenge 10 -->
+
+</div><!-- end page 2 -->
+
+
+<!-- ══════════════════ PAGES 3–4 — Creative Challenges 11–20 ══════════════════ -->
+<div class="page">
+
+<div class="page-header">
+  <h1>Python Creative Challenges</h1>
+  <p>Challenges 11–15 &mdash; Build It Yourself</p>
+</div>
+
+<p class="ch-intro">Each challenge is a small, fun program. Write your code in the space below each one, or on a computer. You can use the Python Quick Reference sheet for help.</p>
+
+<div class="cols">
+<div><!-- left column -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">11.</span> 🎱 Magic 8-Ball</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">Ask the user to type a yes/no question. Pick a random mystical answer from a list and print it. Run it a few times — the answer should be different each time!</p>
+<p class="ch-desc">Example output: &nbsp;<code>🎱 Signs point to yes.</code></p>
+<div class="hint">Use: <code>input()</code> &nbsp; <code>random.choice(list)</code> &nbsp; a list of response strings</div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div>
+</div>
+</div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">12.</span> 🐾 Virtual Pet Mood Tracker</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">A pet named Biscuit tells you its mood based on how many times you've fed it today. 0 times = starving; 1 = hungry; 2–3 = happy; 4–5 = full; 6+ = stuffed.</p>
+<p class="ch-desc">Example: &nbsp;<code>Biscuit is feeling happy! 😸</code></p>
+<div class="hint">Use: <code>input()</code> &nbsp; <code>int()</code> &nbsp; <code>if / elif / else</code></div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+</div>
+</div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">13.</span> 🎨 Color Mixer</span>
+  <span class="diff diff-med">Medium</span>
+</div>
+<p class="ch-desc">Ask for two color names. Look up the pair in a dictionary of combos and print a fun result. Handle the case where the combo isn't in the dictionary.</p>
+<p class="ch-desc">Example: &nbsp;<code>Red + Blue = Purple — like a grape soda! 🍇</code></p>
+<div class="hint">Use: <code>input()</code> &nbsp; <code>.lower()</code> &nbsp; a dictionary &nbsp; <code>dict.get(key, default)</code></div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div>
+</div>
+</div>
+
+</div><!-- end left column -->
+<div><!-- right column -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">14.</span> 🔐 Secret Message Encoder</span>
+  <span class="diff diff-med">Medium</span>
+</div>
+<p class="ch-desc">Ask for a message. Shift every letter forward by 3 in the alphabet (A→D, Z→C). Leave spaces and punctuation unchanged.</p>
+<p class="ch-desc">Example: &nbsp;<code>hello</code> → <code>khoor</code></p>
+<div class="hint">Use: <code>input()</code> &nbsp; <code>for</code> loop &nbsp; <code>ch.isalpha()</code> &nbsp; <code>ord(ch)</code> &nbsp; <code>chr(n)</code> &nbsp; <code>%&nbsp;26</code></div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div>
+</div>
+</div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">15.</span> 🎲 Dice Duel</span>
+  <span class="diff diff-med">Medium</span>
+</div>
+<p class="ch-desc">You vs. the computer, 5 rounds. Each round, roll a random die (1–6). Keep running totals. At the end, print the scores and declare a winner.</p>
+<p class="ch-desc">Example round: &nbsp;<code>Round 3: You rolled 5, Computer rolled 2 — You win!</code></p>
+<div class="hint">Use: <code>random.randint(1, 6)</code> &nbsp; a <code>for</code> loop &nbsp; two counter variables &nbsp; <code>if / elif / else</code></div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div>
+</div>
+</div>
+
+</div><!-- end right column -->
+</div><!-- end cols -->
+</div><!-- end page 3 -->
+
+
+<div class="page">
+
+<div class="page-header">
+  <h1>Python Creative Challenges</h1>
+  <p>Challenges 16–20 &mdash; Build It Yourself</p>
+</div>
+
+<div class="cols">
+<div><!-- left column -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">16.</span> 🌦️ Mood-Based Suggester</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">Ask "How are you feeling today?" and suggest an activity based on their mood. Handle at least four different moods (e.g., happy, tired, sad, stressed) and a catch-all for anything else.</p>
+<div class="hint">Use: <code>input()</code> &nbsp; <code>.lower()</code> &nbsp; <code>in</code> for substring check &nbsp; <code>if / elif / else</code></div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div>
+</div>
+</div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">17.</span> 🍕 Pizza Order Builder</span>
+  <span class="diff diff-med">Medium</span>
+</div>
+<p class="ch-desc">Ask for a pizza size and up to 3 toppings. Print an order summary with a made-up total price (base price by size + $1.50 per topping).</p>
+<p class="ch-desc">Example: &nbsp;<code>Large, pepperoni + mushroom — $16.00</code></p>
+<div class="hint">Use: <code>input()</code> in a loop &nbsp; a dictionary for prices &nbsp; a list for toppings &nbsp; <code>f"..."</code> or <code>str()</code></div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div>
+</div>
+</div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">18.</span> 🧠 Trivia Quiz</span>
+  <span class="diff diff-med">Medium</span>
+</div>
+<p class="ch-desc">Write 5 trivia questions. Ask each one, check the answer (case-insensitive), keep a score, and award a funny title at the end based on the score.</p>
+<p class="ch-desc">Example title: &nbsp;<code>Quiz Wizard 🧙 — Perfect score!</code></p>
+<div class="hint">Use: a list of <code>(question, answer)</code> tuples &nbsp; a <code>for</code> loop &nbsp; <code>.lower()</code> &nbsp; a counter &nbsp; <code>if / elif</code> for the title</div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div>
+</div>
+</div>
+
+</div><!-- end left column -->
+<div><!-- right column -->
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">19.</span> 🐍 Name Scrambler</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">Ask for a name. Convert it to a list of characters, shuffle the list randomly, then join it back into a string and print it. Run it several times — you should get a different scramble each time.</p>
+<p class="ch-desc">Example: &nbsp;<code>Jasmine</code> → <code>mniesaJ</code></p>
+<div class="hint">Use: <code>input()</code> &nbsp; <code>list(name)</code> &nbsp; <code>random.shuffle(letters)</code> &nbsp; <code>"".join(letters)</code></div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div>
+</div>
+</div>
+
+<div class="challenge">
+<div class="ch-header">
+  <span class="ch-title"><span class="num">20.</span> 🌈 Compliment Machine</span>
+  <span class="diff diff-easy">Easy</span>
+</div>
+<p class="ch-desc">Ask for a name. Randomly pick one word from an adjectives list and one from a nouns list, then combine them into an over-the-top compliment. Add a random kicker sentence at the end.</p>
+<p class="ch-desc">Example: &nbsp;<code>Maya, you are the most cosmically brilliant force of nature in the room. Historians will write about this. 🌟</code></p>
+<div class="hint">Use: <code>input()</code> &nbsp; lists of adjectives, nouns, and extras &nbsp; <code>random.choice(list)</code> &nbsp; string concatenation or <code>f"..."</code></div>
+<div class="write-lines">
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+  <div class="write-line"></div><div class="write-line"></div>
+</div>
+</div>
+
+</div><!-- end right column -->
+</div><!-- end cols -->
+</div><!-- end page 4 -->
+
+</body>
+</html>

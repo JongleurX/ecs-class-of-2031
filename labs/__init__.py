@@ -1,1 +1,1 @@
-"""MicroKORG MIDI Lab package."""
+"""ECS labs package (midi, astronomy, ...)."""

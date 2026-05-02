@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Python Syntax Challenges — Teacher Guide</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.4;
+  color: #1a1a2e;
+  background: white;
+}
+
+code, pre {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 9pt;
+}
+
+/* ── Page layout ── */
+.page {
+  width: 7.5in;
+  margin: 0 auto;
+  padding: 0.45in 0.5in 0.4in;
+  page-break-after: always;
+}
+.page:last-child { page-break-after: avoid; }
+
+/* ── Header ── */
+.page-header {
+  border-bottom: 2.5pt solid #2b4590;
+  padding-bottom: 5pt;
+  margin-bottom: 10pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.page-header h1 { font-size: 14pt; font-weight: 700; color: #2b4590; }
+.page-header p  { font-size: 8pt; color: #555; }
+
+.teacher-badge {
+  display: inline-block;
+  background: #7a2b6e;
+  color: white;
+  font-size: 7.5pt;
+  font-weight: 700;
+  padding: 1pt 6pt;
+  border-radius: 3pt;
+  letter-spacing: 0.4pt;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 8pt;
+}
+
+/* ── Two-column grid ── */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16pt;
+}
+
+/* ── Answer key table ── */
+.answer-key {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+  margin-bottom: 12pt;
+  break-inside: avoid;
+}
+.answer-key caption {
+  font-size: 8.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  color: white;
+  background: #2b4590;
+  padding: 2pt 5pt;
+  text-align: left;
+  margin-bottom: 0;
+}
+.answer-key th {
+  background: #e8eaf6;
+  font-weight: 700;
+  text-align: left;
+  padding: 2pt 5pt;
+  border-bottom: 1pt solid #bbb;
+  font-size: 8pt;
+}
+.answer-key td {
+  padding: 2.5pt 5pt;
+  border-bottom: 0.5pt solid #ddd;
+  vertical-align: top;
+}
+.answer-key td:first-child { white-space: nowrap; color: #2b4590; font-weight: 700; }
+.correct {
+  font-weight: 700;
+  color: #166534;
+}
+
+p code, li code {
+  background: #eef;
+  padding: 0 2pt;
+  border-radius: 2pt;
+  font-size: 8pt;
+}
+
+/* ── Solution blocks (challenges 8–10) ── */
+.sol {
+  margin-bottom: 9pt;
+  break-inside: avoid;
+}
+.sol-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: white;
+  background: #1a7a4a;
+  padding: 2pt 5pt;
+  margin-bottom: 0;
+}
+.sol-header .num { opacity: 0.85; font-weight: 400; margin-right: 4pt; }
+
+pre {
+  background: #f4f4f8;
+  border-left: 2.5pt solid #1a7a4a;
+  padding: 4pt 7pt;
+  white-space: pre-wrap;
+  font-size: 8pt;
+  line-height: 1.5;
+}
+
+.sol-note {
+  font-size: 7.5pt;
+  color: #444;
+  font-style: italic;
+  padding: 2pt 5pt;
+  background: #f0f7f4;
+  border-left: 2.5pt solid #1a7a4a;
+  border-top: 0;
+}
+
+/* ── Difficulty badges ── */
+.diff {
+  font-size: 6.5pt;
+  font-weight: 700;
+  padding: 0.5pt 4pt;
+  border-radius: 2pt;
+  text-transform: uppercase;
+  letter-spacing: 0.3pt;
+}
+.diff-very-easy { background: #d1fae5; color: #065f46; }
+.diff-easy      { background: #dbeafe; color: #1e40af; }
+.diff-med       { background: #fef3c7; color: #92400e; }
+.diff-hard      { background: #ede9fe; color: #5b21b6; }
+
+/* ── Print ── */
+@media print {
+  @page { margin: 0.5in; size: letter; }
+  .page { width: 100%; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ PAGE 1 — Answer Key ══════════════════ -->
+<div class="page">
+
+<div class="page-header">
+  <h1>Python Syntax Challenges <span class="teacher-badge">Teacher Guide</span></h1>
+  <p>Answer key &amp; minimal solutions</p>
+</div>
+
+<!-- Answer key table: challenges 1–7 -->
+<table class="answer-key">
+  <caption>Challenges 1–7 &mdash; Answer Key</caption>
+  <tr>
+    <th>#</th>
+    <th>Title</th>
+    <th>Difficulty</th>
+    <th>Answer(s)</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Print a Greeting</td>
+    <td><span class="diff diff-very-easy">Very Easy</span></td>
+    <td><span class="correct">(B) &nbsp;<code>"Hello, Python!"</code></span> &mdash; strings must be in quotes</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Variable Math</td>
+    <td><span class="diff diff-very-easy">Very Easy</span></td>
+    <td>Blank&nbsp;①: <span class="correct">(C) <code>+</code></span> &nbsp;&nbsp; Blank&nbsp;②: <span class="correct">(D) <code>total</code></span> &mdash; use the variable name, not a literal value</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Remainder Check</td>
+    <td><span class="diff diff-very-easy">Very Easy</span></td>
+    <td><span class="correct">(D) &nbsp;<code>%</code></span> &mdash; modulo returns the remainder; even numbers leave remainder 0</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>Type Conversion</td>
+    <td><span class="diff diff-easy">Easy</span></td>
+    <td><span class="correct">(C) &nbsp;<code>str</code></span> &mdash; <code>int</code> would crash; you must convert the number to a string before concatenating</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>Unique Letters</td>
+    <td><span class="diff diff-easy">Easy</span></td>
+    <td>Blank&nbsp;①: <span class="correct">(C) <code>len</code></span> &nbsp;&nbsp; Blank&nbsp;②: <span class="correct">(D) <code>set</code></span> &mdash; inner call removes duplicates; outer call counts what remains</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>List Total</td>
+    <td><span class="diff diff-easy">Easy</span></td>
+    <td><span class="correct">(D) &nbsp;<code>sum</code></span> &mdash; <code>len</code> counts items, <code>set</code> removes duplicates; only <code>sum</code> adds</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>Membership Test</td>
+    <td><span class="diff diff-easy">Easy</span></td>
+    <td><span class="correct">(C) &nbsp;<code>in</code></span> &mdash; <code>==</code> compares to a single value; <code>in</code> checks against every element in the list</td>
+  </tr>
+</table>
+
+<!-- Solutions 8–10 -->
+<div class="cols">
+
+<div>
+
+<div class="sol">
+  <div class="sol-header"><span><span class="num">8.</span> Multiples of Four</span><span class="diff diff-med">Medium</span></div>
+<pre>for n in range(1, 41):
+    if n % 4 == 0:
+        print(n)</pre>
+  <div class="sol-note">Prints 4, 8, 12 … 40. <code>range(1, 41)</code> stops before 41, so 40 is included. The <code>%</code> check filters to multiples of 4.</div>
+</div>
+
+<div class="sol">
+  <div class="sol-header"><span><span class="num">9.</span> Interactive Greeter</span><span class="diff diff-med">Medium</span></div>
+<pre>name = input("What is your name? ")
+num  = int(input("Favorite number? "))
+print("Hello, " + name + "! Your lucky "
+      + "number doubled is "
+      + str(num * 2) + ".")</pre>
+  <div class="sol-note"><code>input()</code> always returns a string, so <code>int()</code> is required before arithmetic. <code>str()</code> is required before string concatenation.</div>
+</div>
+
+</div><!-- end left solution column -->
+
+<div>
+
+<div class="sol">
+  <div class="sol-header"><span><span class="num">10.</span> Digit Puzzle Solver</span><span class="diff diff-hard">Intermediate</span></div>
+<pre>for n in range(10, 100):
+    d = [int(c) for c in str(n).zfill(2)]
+    if d[0] + d[1] == 9 and d[0] != d[1]:
+        print(n)</pre>
+  <div class="sol-note">Output: 18, 27, 36, 45, 54, 63, 72, 81, 90. The list comprehension converts each digit character to an integer. <code>d[0] != d[1]</code> excludes cases where both digits are the same (none exist here, but the condition is correct). Students who just used <code>len(set(d)) == 2</code> are also correct.</div>
+</div>
+
+</div><!-- end right solution column -->
+</div><!-- end cols -->
+
+</div><!-- end page 1 -->
+
+</body>
+</html>

@@ -18,4 +18,4 @@ export DYLD_FRAMEWORK_PATH="$VENV_PATH/lib/python3.14/site-packages/PySide6/Qt/l
 export DYLD_LIBRARY_PATH="$VENV_PATH/lib/python3.14/site-packages/PySide6/Qt/lib"
 
 cd "$SCRIPT_DIR"
-python3 -m labs.driver gui
+python3 -m labs.midi.driver gui

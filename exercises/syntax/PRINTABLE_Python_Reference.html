@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Python Quick Reference — Signal ID Lab</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.4;
+  color: #1a1a2e;
+  background: white;
+}
+
+code, pre {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 9pt;
+}
+
+/* ── Page layout ── */
+.page {
+  width: 7.5in;
+  margin: 0 auto;
+  padding: 0.45in 0.5in 0.4in;
+  page-break-after: always;
+}
+.page:last-child { page-break-after: avoid; }
+
+/* ── Header ── */
+.page-header {
+  border-bottom: 2.5pt solid #2b4590;
+  padding-bottom: 5pt;
+  margin-bottom: 11pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.page-header h1 {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #2b4590;
+}
+.page-header p {
+  font-size: 8pt;
+  color: #555;
+}
+
+/* ── Two-column grid ── */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16pt;
+}
+
+/* ── Section cards ── */
+.section {
+  margin-bottom: 9pt;
+  break-inside: avoid;
+}
+.section h2 {
+  font-size: 8.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4pt;
+  color: white;
+  padding: 2pt 5pt;
+  margin-bottom: 4pt;
+}
+.section h2 code { font-size: 8.5pt; color: white; }
+
+/* Category colours */
+.cat-ops    .section h2 { background: #b84800; }
+.cat-flow   .section h2 { background: #1a7a4a; }
+.cat-func   .section h2 { background: #7a2b6e; }
+.cat-builtins .section h2 { background: #065f72; }
+.cat-data   .section h2 { background: #2b4590; }
+.section p, .section ul, .section li {
+  font-size: 8.5pt;
+  margin-bottom: 2pt;
+}
+.section ul { padding-left: 12pt; }
+
+pre {
+  background: #f4f4f8;
+  border-left: 2.5pt solid #bbb;
+  padding: 3pt 6pt;
+  margin: 3pt 0 4pt;
+  white-space: pre-wrap;
+  font-size: 8pt;
+  line-height: 1.45;
+}
+
+p code, li code {
+  background: #eef;
+  padding: 0 2pt;
+  border-radius: 2pt;
+}
+
+.ref {
+  font-size: 7pt;
+  color: #888;
+  font-style: italic;
+  margin-top: 1pt;
+}
+
+/* ── Operator table ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8pt;
+  margin-bottom: 3pt;
+}
+th {
+  background: #e8eaf6;
+  font-weight: 700;
+  text-align: left;
+  padding: 2pt 4pt;
+  border-bottom: 1pt solid #bbb;
+}
+td {
+  padding: 1.5pt 4pt;
+  border-bottom: 0.5pt solid #ddd;
+  vertical-align: top;
+}
+td:first-child { white-space: nowrap; }
+
+/* ── Column grouping wrappers ── */
+.col-group { }
+
+/* ── Page 2 — sample program ── */
+.prog-wrap {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "code ann-right"
+    "ann-left ann-right";
+  gap: 0 18pt;
+  margin-top: 6pt;
+}
+.prog-code      { grid-area: code; }
+.ann-right      { grid-area: ann-right; }
+.ann-left-below { grid-area: ann-left; padding-top: 6pt; }
+.prog-code pre {
+  background: #f9f9fc;
+  color: #1e1e2e;
+  border: 1pt solid #d0d0da;
+  padding: 8pt 10pt;
+  font-size: 8pt;
+  line-height: 1.65;
+  border-radius: 4pt;
+  white-space: pre;
+}
+/* syntax colours — light theme */
+.prog-code .ln  { color: #94a3b8; display: inline-block; width: 16pt; text-align: right; margin-right: 5pt; user-select: none; }
+.prog-code .kw  { color: #7c3aed; }
+.prog-code .fn  { color: #1d4ed8; }
+.prog-code .st  { color: #15803d; }
+.prog-code .cm  { color: #6b7280; font-style: italic; }
+.prog-code .nu  { color: #c2410c; }
+.prog-code .op  { color: #0369a1; }
+
+.annotations h3 {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: #2b4590;
+  border-bottom: 0.5pt solid #aac;
+  padding-bottom: 1pt;
+  margin-bottom: 2pt;
+}
+.ann {
+  margin-bottom: 7pt;
+  break-inside: avoid;
+}
+.ann p { font-size: 8pt; line-height: 1.4; margin-bottom: 1pt; }
+.ltag {
+  display: inline-block;
+  background: #2b4590;
+  color: white;
+  font-size: 7pt;
+  font-family: 'Courier New', monospace;
+  padding: 0 3pt;
+  border-radius: 2pt;
+  margin-right: 3pt;
+  vertical-align: middle;
+}
+
+/* ── Print ── */
+@media print {
+  @page { margin: 0.5in; size: letter; }
+  .page { width: 100%; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════ PAGE 1 ══════════════════════════ -->
+<div class="page">
+
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Signal ID Lab</h1>
+  <p>Concepts from <code>solve_3digit.py</code> &bull; <code>solve_5digit.py</code> &bull; <code>solve_7digit.py</code> &bull; <code>solve_10digit.py</code></p>
+</div>
+
+
+<!-- ══════════════════════════ PAGE 2 ══════════════════════════ -->
+<div class="page">
+
+<div class="page-header">
+  <h1>Sample Program &mdash; <code>solve_3digit.py</code></h1>
+  <p>Full source code with annotations</p>
+</div>
+
+<div class="prog-wrap">
+
+<div class="prog-code">
+<pre><span class="ln"> 1</span><span class="st">"""3-digit signal ID solver — brute-force."""</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kw">def</span> <span class="fn">ok</span>(d):
+<span class="ln"> 4</span>    <span class="kw">return</span> (
+<span class="ln"> 5</span>        d[<span class="nu">0</span>] != <span class="nu">0</span>              <span class="op">and</span>  <span class="cm"># not a leading zero</span>
+<span class="ln"> 6</span>        <span class="fn">len</span>(<span class="fn">set</span>(d)) == <span class="nu">3</span>     <span class="op">and</span>  <span class="cm"># all different</span>
+<span class="ln"> 7</span>        d[<span class="nu">0</span>] % <span class="nu">2</span> == <span class="nu">0</span>        <span class="op">and</span>  <span class="cm"># digit 1 even</span>
+<span class="ln"> 8</span>        d[<span class="nu">1</span>] == d[<span class="nu">0</span>] + <span class="nu">3</span>    <span class="op">and</span>  <span class="cm"># digit 2 = digit 1 + 3</span>
+<span class="ln"> 9</span>        d[<span class="nu">2</span>] <span class="kw">in</span> [<span class="nu">2</span>,<span class="nu">3</span>,<span class="nu">5</span>,<span class="nu">7</span>]   <span class="op">and</span>  <span class="cm"># digit 3 is prime</span>
+<span class="ln">10</span>        <span class="fn">sum</span>(d) == <span class="nu">10</span>              <span class="cm"># digits add to 10</span>
+<span class="ln">11</span>    )
+<span class="ln">12</span>
+<span class="ln">13</span><span class="kw">for</span> n <span class="kw">in</span> <span class="fn">range</span>(<span class="nu">0</span>, <span class="nu">1000</span>):
+<span class="ln">14</span>    <span class="kw">if</span> <span class="fn">ok</span>([<span class="fn">int</span>(c) <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">str</span>(n).<span class="fn">zfill</span>(<span class="nu">3</span>)]):
+<span class="ln">15</span>        <span class="fn">print</span>(n)</pre>
+</div>
+
+<div class="annotations ann-right">
+
+<div class="ann">
+<h3><span class="ltag">L1</span> Docstring</h3>
+<p>Triple-quoted <code>"""..."""</code> at the top is a <em>docstring</em> — a special comment describing the file. Python stores it but never runs it. Listing the rules here makes the file self-explanatory even without opening the code.</p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L3</span> <code>def ok(d):</code></h3>
+<p><code>def</code> defines a function named <code>ok</code>. The <code>d</code> in parentheses is a <em>parameter</em> — a placeholder for whatever list of digits is passed in when you call <code>ok([2, 5, 3])</code>. The function's body is indented below.</p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L4</span> <code>return (</code> &nbsp;— the open parenthesis</h3>
+<p>The opening <code>(</code> lets us spread a long condition across several lines for readability. Python treats everything until the matching <code>)</code> on line 11 as a single expression. <code>return</code> sends the result (<code>True</code> or <code>False</code>) back to the caller.</p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L5</span> <code>d[0] != 0</code> &nbsp;— indexing &amp; not-equal</h3>
+<p><code>d[0]</code> is the <em>first</em> element of the list — Python lists are zero-indexed (the first slot is index 0, not 1). <code>!= 0</code> means "is not equal to zero". This rejects sequences like [0, 3, 7] that would have a leading zero.</p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L5–10</span> <code>and</code> chains</h3>
+<p>All six conditions are joined by <code>and</code>. The whole expression is <code>True</code> only when <em>every</em> condition is <code>True</code>. Python evaluates left-to-right and stops as soon as any condition is <code>False</code> — so if line 5 fails, lines 6–10 are never checked.</p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L6</span> <code>len(set(d)) == 3</code></h3>
+<p><code>set(d)</code> removes duplicate digits. If all three digits are unique, the set contains 3 elements — same as the original list. <code>len(...) == 3</code> checks that. If any digit repeats (e.g. [2, 2, 5]), the set shrinks to size 2 and this is <code>False</code>.</p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L7</span> <code>d[0] % 2 == 0</code> &nbsp;— modulo</h3>
+<p><code>%</code> returns the remainder after division. Any even number divided by 2 leaves remainder 0, so <code>x % 2 == 0</code> is a compact "x is even" test. Odd numbers leave remainder 1.</p>
+</div>
+
+</div><!-- end ann-right -->
+
+<div class="annotations ann-left-below">
+
+<div class="ann">
+<h3><span class="ltag">L9</span> <code>d[2] in [2, 3, 5, 7]</code></h3>
+<p><code>in</code> tests membership. The list <code>[2, 3, 5, 7]</code> contains all single-digit primes. This is cleaner than writing <code>d[2]==2 or d[2]==3 or d[2]==5 or d[2]==7</code>, and just as correct.</p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L13</span> <code>for n in range(0, 1000):</code></h3>
+<p>Loops <code>n</code> through every integer from 0 to 999. <code>range(0, 1000)</code> stops <em>before</em> 1000 — the endpoint is always excluded. At each step, the indented lines 14–15 run once.</p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L14</span> <code>[int(c) for c in str(n).zfill(3)]</code></h3>
+<p>A <em>list comprehension</em> — a compact loop inside <code>[ ]</code>. It:<br>
+1. Converts <code>n</code> to a 3-character zero-padded string: <code>str(7).zfill(3)</code> → <code>"007"</code><br>
+2. Loops over each character <code>c</code> in that string<br>
+3. Converts each character to an integer: <code>int("0")</code> → <code>0</code><br>
+Result: <code>n=7</code> → <code>[0, 0, 7]</code> &nbsp;&nbsp; <code>n=253</code> → <code>[2, 5, 3]</code></p>
+</div>
+
+<div class="ann">
+<h3><span class="ltag">L15</span> <code>print(n)</code></h3>
+<p>Only reached when <code>ok(...)</code> returned <code>True</code>. Prints the matching number. For this puzzle there is exactly one: <strong>253</strong>.</p>
+</div>
+
+</div><!-- end ann-left-below -->
+</div><!-- end prog-wrap -->
+
+</div><!-- end page 2 -->
+
+<div class="cols">
+
+<!-- ══ LEFT COLUMN ══ -->
+<div class="col-group">
+
+<div class="cat-data">
+<div class="section">
+<h2>Comments &nbsp;<code>#</code></h2>
+<p>Anything after <code>#</code> is ignored by Python. Use comments to explain what the code does.</p>
+<pre># This line is a comment — Python skips it entirely
+x = 5   # comments can appear after code too</pre>
+<p class="ref">solve_3digit.py lines 18–23</p>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>Variables &amp; Assignment &nbsp;<code>=</code></h2>
+<p><code>=</code> <em>stores</em> a value in a variable. It does <strong>not</strong> test equality (that is <code>==</code>).</p>
+<pre>score = 10            # store the number 10
+name  = "Voyager"     # store a string
+score = score + 1     # update: score is now 11</pre>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2>Comparison Operators</h2>
+<table>
+<tr><th>Op</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+<tr><td><code>==</code></td><td>equal to</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+<tr><td><code>!=</code></td><td>not equal</td><td><code>3 != 5</code></td><td><code>True</code></td></tr>
+<tr><td><code>&lt;</code></td><td>less than</td><td><code>3 &lt; 5</code></td><td><code>True</code></td></tr>
+<tr><td><code>&gt;</code></td><td>greater than</td><td><code>5 &gt; 3</code></td><td><code>True</code></td></tr>
+<tr><td><code>&lt;=</code></td><td>less or equal</td><td><code>5 &lt;= 5</code></td><td><code>True</code></td></tr>
+<tr><td><code>&gt;=</code></td><td>greater or equal</td><td><code>6 &gt;= 5</code></td><td><code>True</code></td></tr>
+</table>
+<p class="ref">solve_3digit.py line 18 (<code>!= 0</code>), line 21 (<code>== d[0] + 3</code>)</p>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2>Arithmetic &nbsp;<code>+&nbsp; -&nbsp; *&nbsp; /&nbsp; %</code></h2>
+<table>
+<tr><th>Op</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+<tr><td><code>+</code></td><td>add numbers</td><td><code>3 + 5</code></td><td><code>8</code></td></tr>
+<tr><td><code>-</code></td><td>subtract</td><td><code>8 - 3</code></td><td><code>5</code></td></tr>
+<tr><td><code>*</code></td><td>multiply</td><td><code>4 * 2</code></td><td><code>8</code></td></tr>
+<tr><td><code>/</code></td><td>divide (decimal)</td><td><code>9 / 2</code></td><td><code>4.5</code></td></tr>
+<tr><td><code>%</code></td><td>remainder</td><td><code>7 % 2</code></td><td><code>1</code></td></tr>
+</table>
+<p>The <code>%</code> <em>(modulo)</em> operator returns the remainder after division.
+<code>x % 2 == 0</code> is a compact "x is even" test — any even number divided by 2 leaves no remainder.</p>
+<p class="ref">solve_3digit.py line 20 (<code>d[0] % 2 == 0</code>); solve_5digit.py line 23 (<code>2 * d[3]</code>)</p>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2><code>+</code> String Concatenation</h2>
+<p>The same <code>+</code> operator joins strings end-to-end. You cannot mix numbers and strings — use <code>str()</code> to convert first.</p>
+<pre>"Hello, " + "World!"    # "Hello, World!"
+"Answer: " + str(42)    # "Answer: 42"
+"ab" + "cd" + "ef"      # "abcdef"</pre>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>print()</code></h2>
+<p>Displays output on the screen. Accepts multiple values separated by commas (adds a space between them).</p>
+<pre>print(42)               # 42
+print("Score:", 10)     # Score: 10
+print(2 + 3)            # 5</pre>
+<p class="ref">solve_3digit.py line 29; solve_7digit.py line 64</p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>int()</code> &nbsp;&amp;&nbsp; <code>str()</code> &nbsp;&amp;&nbsp; <code>.zfill()</code></h2>
+<p><code>int()</code> converts text or a decimal to a whole number.
+<code>str()</code> converts anything to text.
+<code>.zfill(n)</code> pads a string with leading zeros to width <code>n</code>.</p>
+<pre>int("7")         # 7   (string → integer)
+int(3.9)         # 3   (decimal → integer, truncated)
+str(42)          # "42" (integer → string)
+str(7).zfill(3)  # "007"
+str(42).zfill(5) # "00042"</pre>
+<p class="ref">solve_3digit.py line 28 (<code>int(c)</code>, <code>str(n).zfill(3)</code>)</p>
+</div>
+</div>
+
+</div><!-- end left column -->
+
+<!-- ══ RIGHT COLUMN ══ -->
+<div class="col-group">
+
+<div class="cat-flow">
+<div class="section">
+<h2><code>range(start, stop)</code></h2>
+<p>Produces a sequence of integers from <code>start</code> up to, <strong>but not including</strong>, <code>stop</code>. The last value is always one less than <code>stop</code>.</p>
+<pre>range(0, 5)    # 0, 1, 2, 3, 4  (NOT 5)
+range(3, 7)    # 3, 4, 5, 6
+range(5)       # 0, 1, 2, 3, 4  (start defaults to 0)</pre>
+<p><code>range(0, 1000)</code> produces exactly 1,000 values: 0 through 999.</p>
+<p class="ref">solve_3digit.py line 27; solve_5digit.py line 27</p>
+</div>
+</div>
+
+<div class="cat-flow">
+<div class="section">
+<h2><code>for</code> Loops</h2>
+<p>Repeats a block of code once for each item in a sequence. The indented block runs on every iteration.</p>
+<pre><span style="color:#1a7a4a;font-weight:bold">for</span> x <span style="color:#1a7a4a;font-weight:bold">in</span> range(3):
+    print(x)       # prints 0, then 1, then 2
+
+<span style="color:#1a7a4a;font-weight:bold">for</span> c <span style="color:#1a7a4a;font-weight:bold">in</span> "abc":
+    print(c)       # prints a, then b, then c</pre>
+<p class="ref">solve_3digit.py line 27; solve_7digit.py line 54 (with <code>enumerate</code>)</p>
+</div>
+</div>
+
+<div class="cat-flow">
+<div class="section">
+<h2><code>if</code> Statements</h2>
+<p>Runs the indented block only when the condition is <code>True</code>. Nothing happens if the condition is <code>False</code>.</p>
+<pre><span style="color:#1a7a4a;font-weight:bold">if</span> x &gt; 5:
+    print("big")   # only runs when x > 5
+
+<span style="color:#1a7a4a;font-weight:bold">if</span> ok(digits):
+    print(n)       # only print valid solutions</pre>
+<p class="ref">solve_3digit.py line 28</p>
+</div>
+</div>
+
+<div class="cat-func">
+<div class="section">
+<h2><code>def</code> Functions &amp; <code>return</code></h2>
+<p>A <strong>function</strong> is a reusable named block of code. <code>def</code> defines it; <code>return</code> sends a value back to the caller. The function is not run until you call it by name.</p>
+<pre><span style="color:#7a2b6e;font-weight:bold">def</span> square(x):
+    <span style="color:#7a2b6e;font-weight:bold">return</span> x * x
+
+result = square(4)   # result = 16
+print(square(9))     # 81</pre>
+<p>In the solve scripts, <code>def ok(d):</code> takes a list of digits and returns <code>True</code> or <code>False</code>.</p>
+<p class="ref">solve_3digit.py lines 16–24</p>
+</div>
+</div>
+
+<div class="cat-func">
+<div class="section">
+<h2>Logic: <code>and</code> &nbsp; <code>or</code> &nbsp; <code>not</code></h2>
+<table>
+<tr><th>Operator</th><th>True when&hellip;</th><th>Example (x = 4)</th></tr>
+<tr><td><code>and</code></td><td>both sides are True</td><td><code>x &gt; 0 and x &lt; 10</code> → True</td></tr>
+<tr><td><code>or</code></td><td>at least one side is True</td><td><code>x == 1 or x == 4</code> → True</td></tr>
+<tr><td><code>not</code></td><td>the value is False</td><td><code>not x == 0</code> → True</td></tr>
+</table>
+<p><code>and</code> stops early — as soon as one condition is <code>False</code>, the rest are skipped. This is why putting the cheapest checks first in <code>ok()</code> speeds things up.</p>
+<p class="ref">solve_3digit.py lines 18–23 (all <code>and</code> chains)</p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>in</code> &nbsp;with Lists</h2>
+<p><code>x in [a, b, c]</code> is <code>True</code> if <code>x</code> equals any element in the list. Works on strings and sets too.</p>
+<pre>5 in [2, 3, 5, 7]    # True  — 5 is in the list
+4 in [2, 3, 5, 7]    # False — 4 is not
+"y" in "Python"      # True  — substring check</pre>
+<p>In <code>ok()</code>, this checks whether a digit is one of the four single-digit primes.</p>
+<p class="ref">solve_3digit.py line 22; solve_5digit.py line 21</p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>set()</code> &nbsp;&amp;&nbsp; <code>len()</code></h2>
+<p><code>set()</code> removes duplicates. <code>len()</code> counts items in a list, string, or set.</p>
+<pre>set([1, 2, 2, 3])     # {1, 2, 3}  — only unique values
+len([4, 5, 6])        # 3
+len("hello")          # 5
+len(set([1, 1, 2]))   # 2</pre>
+<p><code>len(set(d)) == len(d)</code> is <code>True</code> only when every digit is unique. If any digit repeats, the set shrinks and the lengths differ.</p>
+<p class="ref">solve_3digit.py line 19</p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>sum()</code></h2>
+<p>Returns the total of all numbers in a list (or any iterable of numbers).</p>
+<pre>sum([2, 5, 3])      # 10
+sum([1, 2, 3, 4])   # 10
+sum([])             # 0  (empty list → zero)</pre>
+<p class="ref">solve_3digit.py line 23; solve_5digit.py line 24</p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>input()</code></h2>
+<p>Pauses the program and waits for the user to type a line. Always returns a <strong>string</strong> — use <code>int()</code> to convert to a number.</p>
+<pre>name = input("Enter your name: ")
+print("Hello, " + name)
+
+n = int(input("Enter a number: "))
+print("Doubled:", n * 2)</pre>
+<p>The prompt text (inside the quotes) is optional but helpful. Nothing is stored until the user presses Enter.</p>
+</div>
+</div>
+
+</div><!-- end right column -->
+</div><!-- end cols -->
+</div><!-- end page 1 -->
+
+</body>
+</html>

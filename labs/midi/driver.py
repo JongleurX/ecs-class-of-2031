@@ -30,7 +30,7 @@ if qt_plugin_paths:
     os.environ.setdefault("QT_PLUGIN_PATH", plugins_root)
 
 try:
-    from labs.midi_interface import MidiInterface
+    from labs.midi.midi_interface import MidiInterface
 except ImportError:
     from midi_interface import MidiInterface
 
@@ -64,7 +64,7 @@ def run_gui() -> int:
         QCoreApplication.setLibraryPaths([plugins_root])
 
     try:
-        from labs.midi_app import MidiApp
+        from labs.midi.midi_app import MidiApp
     except ImportError:
         from midi_app import MidiApp
 

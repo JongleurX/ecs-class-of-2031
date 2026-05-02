@@ -1,0 +1,1 @@
+"""MIDI lab package."""
