@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python Paper REPL — Student Worksheet</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      font-size: 12px;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+      padding: 12mm 13mm 9mm 13mm;
+    }
+
+    /* ---- page header ---- */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid #111;
+      padding-bottom: 5px;
+      margin-bottom: 6px;
+    }
+
+    .page-header h1 { font-size: 17px; line-height: 1.1; }
+    .page-header .sub { font-size: 10.5px; color: #555; margin-top: 2px; }
+
+    .meta-row { display: flex; gap: 14px; font-size: 11px; }
+    .meta-field { display: flex; align-items: flex-end; gap: 4px; white-space: nowrap; }
+    .blank { display: inline-block; border-bottom: 1px solid #111; height: 13px; }
+    .blank-lg  { min-width: 110px; }
+    .blank-med { min-width: 60px; }
+    .blank-sm  { min-width: 44px; }
+
+    /* ---- directions bar ---- */
+    .directions {
+      background: #e8f0fe;
+      border-left: 4px solid #4a7eed;
+      padding: 4px 8px;
+      margin-bottom: 7px;
+      font-size: 10.5px;
+    }
+
+    .directions strong { font-size: 11px; }
+
+    .steps { display: flex; gap: 12px; margin-top: 3px; }
+    .step { flex: 1; }
+    .step-num { font-weight: bold; color: #1a3c8e; }
+
+    /* ---- round label ---- */
+    .round-label {
+      font-size: 10.5px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #555;
+      margin: 6px 0 4px 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2px;
+    }
+
+    /* ---- snippet ---- */
+    .snippet {
+      border: 1px solid #999;
+      border-radius: 3px;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+      page-break-inside: avoid;
+    }
+
+    /* code + goal side by side, goal top-aligned with code */
+    .code-goal {
+      display: grid;
+      grid-template-columns: 56% 44%;
+      gap: 6px;
+      align-items: start;
+      margin-bottom: 5px;
+    }
+
+    .code {
+      background: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 5px 7px;
+      white-space: pre;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .goal-area {
+      background: #fffde7;
+      border: 1px solid #f0c040;
+      border-radius: 2px;
+      padding: 4px 7px;
+      font-size: 11px;
+      color: #5a4200;
+    }
+
+    .goal-area .goal-label {
+      font-weight: bold;
+      color: #7a5c00;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+
+    /* ---- predict area ---- */
+    .predict-label {
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #555;
+      margin-bottom: 2px;
+    }
+
+    .predict-area {
+      border: 1px dashed #999;
+      min-height: 34px;
+      padding: 3px 6px;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 11px;
+      background: #fff;
+      margin-bottom: 4px;
+    }
+
+    .predict-area.tall { min-height: 50px; }
+
+    /* ---- verify + explain row ---- */
+    .bottom-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .verify-label { white-space: nowrap; font-weight: bold; }
+    .check-circles { font-size: 13px; white-space: nowrap; letter-spacing: 3px; }
+    .explain-label { white-space: nowrap; }
+    .explain-line { flex: 1; border-bottom: 1px solid #777; height: 13px; }
+
+    /* ---- page 2 ---- */
+    .page-break { page-break-before: always; }
+
+    /* ---- reflection ---- */
+    .reflection {
+      border: 1.5px solid #555;
+      border-radius: 3px;
+      padding: 6px 10px;
+      margin-top: 8px;
+    }
+
+    .reflection h3 { font-size: 11.5px; font-weight: bold; margin-bottom: 5px; }
+    .reflection ol { padding-left: 16px; }
+    .reflection li { margin: 3px 0; font-size: 11px; }
+
+    @media print {
+      body { padding: 10mm 12mm 8mm 12mm; }
+      .page-break { page-break-before: always; }
+      .snippet { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== PAGE 1 ========== -->
+
+  <div class="page-header">
+    <div>
+      <h1>Python Paper REPL</h1>
+      <div class="sub">Predict &rarr; Run in Code.org &rarr; Verify</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-field">Name <span class="blank blank-lg"></span></div>
+      <div class="meta-field">Date <span class="blank blank-med"></span></div>
+      <div class="meta-field">Period <span class="blank blank-sm"></span></div>
+    </div>
+  </div>
+
+  <div class="directions">
+    <strong>How it works:</strong>
+    <div class="steps">
+      <div class="step"><span class="step-num">① PREDICT</span> — Write exactly what you think Python will print in the box.</div>
+      <div class="step"><span class="step-num">② RUN</span> — Type the code into Code.org and run it.</div>
+      <div class="step"><span class="step-num">③ GOAL</span> — Change one or two lines to hit the goal. Run in Code.org.</div>
+      <div class="step"><span class="step-num">④ VERIFY</span> — Circle ✓ or ✗, then explain why it worked.</div>
+    </div>
+  </div>
+
+  <div class="round-label">Round A — Variables &amp; Print</div>
+
+  <!-- Snippet 1 -->
+  <div class="snippet">
+    <div class="code-goal">
+      <div class="code">name = "Avery"
+score = 3
+print(name, "has", score, "points")</div>
+      <div class="goal-area">
+        <div class="goal-label">Goal</div>
+        Make the score print as double its original value.
+      </div>
+    </div>
+    <div class="predict-label">① Predict — write exact output</div>
+    <div class="predict-area"> </div>
+    <div class="bottom-row">
+      <span class="verify-label">Goal worked?</span>
+      <span class="check-circles">✓ &nbsp; ✗</span>
+      <span class="explain-label">Why:</span>
+      <span class="explain-line"></span>
+    </div>
+  </div>
+
+  <!-- Snippet 2 -->
+  <div class="snippet">
+    <div class="code-goal">
+      <div class="code">x = 4
+y = 2
+z = x + y * 3
+print(z)</div>
+      <div class="goal-area">
+        <div class="goal-label">Goal</div>
+        Make <code>print(z)</code> output <strong>18</strong> — change only line 3.
+      </div>
+    </div>
+    <div class="predict-label">① Predict — write exact output</div>
+    <div class="predict-area"> </div>
+    <div class="bottom-row">
+      <span class="verify-label">Goal worked?</span>
+      <span class="check-circles">✓ &nbsp; ✗</span>
+      <span class="explain-label">Why:</span>
+      <span class="explain-line"></span>
+    </div>
+  </div>
+
+  <div class="round-label">Round B — Strings &amp; Conditionals</div>
+
+  <!-- Snippet 3 -->
+  <div class="snippet">
+    <div class="code-goal">
+      <div class="code">word = "Py"
+word = word + "thon"
+print(word)</div>
+      <div class="goal-area">
+        <div class="goal-label">Goal</div>
+        Output <strong>Python!</strong> (with <code>!</code>) — change only line 2.
+      </div>
+    </div>
+    <div class="predict-label">① Predict — write exact output</div>
+    <div class="predict-area"> </div>
+    <div class="bottom-row">
+      <span class="verify-label">Goal worked?</span>
+      <span class="check-circles">✓ &nbsp; ✗</span>
+      <span class="explain-label">Why:</span>
+      <span class="explain-line"></span>
+    </div>
+  </div>
+
+  <!-- Snippet 4 -->
+  <div class="snippet">
+    <div class="code-goal">
+      <div class="code">temp = 72
+if temp > 75:
+    print("Hot")
+else:
+    print("Comfortable")</div>
+      <div class="goal-area">
+        <div class="goal-label">Goal</div>
+        Make it print <strong>Hot</strong> — change only the value of <code>temp</code>.
+      </div>
+    </div>
+    <div class="predict-label">① Predict — write exact output</div>
+    <div class="predict-area"> </div>
+    <div class="bottom-row">
+      <span class="verify-label">Goal worked?</span>
+      <span class="check-circles">✓ &nbsp; ✗</span>
+      <span class="explain-label">Why:</span>
+      <span class="explain-line"></span>
+    </div>
+  </div>
+
+  <!-- ========== PAGE 2 ========== -->
+  <div class="page-break"></div>
+
+  <div class="page-header">
+    <div>
+      <h1>Python Paper REPL</h1>
+      <div class="sub">Page 2 of 2</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-field">Name <span class="blank blank-lg"></span></div>
+    </div>
+  </div>
+
+  <div class="round-label">Round C — Loops</div>
+
+  <!-- Snippet 5 -->
+  <div class="snippet">
+    <div class="code-goal">
+      <div class="code">for i in range(3):
+    print("Hi", i)</div>
+      <div class="goal-area">
+        <div class="goal-label">Goal</div>
+        Print <strong>5 lines</strong> instead of 3 — change only line 1.
+      </div>
+    </div>
+    <div class="predict-label">① Predict — write each line of output</div>
+    <div class="predict-area tall"> </div>
+    <div class="bottom-row">
+      <span class="verify-label">Goal worked?</span>
+      <span class="check-circles">✓ &nbsp; ✗</span>
+      <span class="explain-label">Why:</span>
+      <span class="explain-line"></span>
+    </div>
+  </div>
+
+  <!-- Snippet 6 -->
+  <div class="snippet">
+    <div class="code-goal">
+      <div class="code">total = 0
+for n in range(1, 4):
+    total = total + n
+print(total)</div>
+      <div class="goal-area">
+        <div class="goal-label">Goal</div>
+        Make <code>print(total)</code> output <strong>10</strong> — change only the <code>range()</code>.
+      </div>
+    </div>
+    <div class="predict-label">① Predict — write exact output</div>
+    <div class="predict-area tall"> </div>
+    <div class="bottom-row">
+      <span class="verify-label">Goal worked?</span>
+      <span class="check-circles">✓ &nbsp; ✗</span>
+      <span class="explain-label">Why:</span>
+      <span class="explain-line"></span>
+    </div>
+  </div>
+
+  <!-- Reflection -->
+  <div class="reflection">
+    <h3>Reflection</h3>
+    <ol>
+      <li>Which snippet surprised you most, and why?</li>
+      <li>What did you notice about how Python handles <code>range()</code>?</li>
+      <li>Write one question you still have:</li>
+    </ol>
+  </div>
+
+</body>
+</html>

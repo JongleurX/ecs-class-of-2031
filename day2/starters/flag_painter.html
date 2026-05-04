@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercise 07 Flag Reference Cheat Sheets</title>
+  <style>
+    :root {
+      --ink: #222;
+      --line: #cfcfcf;
+      --panel: #ffffff;
+      --muted: #666;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    @page {
+      size: letter;
+      margin: 10mm;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.25;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 7mm;
+      min-height: 0;
+      padding: 0;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: var(--panel);
+      padding: 6mm;
+      display: grid;
+      grid-template-rows: auto 1fr auto auto;
+      min-height: 0;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      margin: 2mm 0 4mm;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 1.6mm 2mm;
+      text-align: left;
+      vertical-align: middle;
+      font-size: 11px;
+      background: #fff;
+    }
+
+    th {
+      font-weight: 700;
+    }
+
+    .country {
+      width: 42%;
+    }
+
+    td.flag {
+      width: 15%;
+      text-align: center;
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .pattern {
+      width: 43%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .footer {
+      margin-top: 4mm;
+      margin-bottom: 0;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .cut {
+      margin-top: 0.4mm;
+      margin-bottom: 0;
+      height: 0;
+      line-height: 0;
+      border-top: 1px dashed #d8d8d8;
+    }
+
+    @media print {
+      .page {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card" aria-label="Flag cheat sheet 1">
+      <h1 class="title">Exercise 07: Flag Quick Reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th class="country">Country</th>
+            <th class="flag">Flag</th>
+            <th class="pattern">Pattern</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>France</td><td class="flag">🇫🇷</td><td>vertical: blue, white, red</td></tr>
+          <tr><td>Italy</td><td class="flag">🇮🇹</td><td>vertical: green, white, red</td></tr>
+          <tr><td>Germany</td><td class="flag">🇩🇪</td><td>horizontal: black, red, yellow</td></tr>
+          <tr><td>Ukraine</td><td class="flag">🇺🇦</td><td>horizontal: blue, yellow</td></tr>
+          <tr><td>Japan</td><td class="flag">🇯🇵</td><td>circle: red on white</td></tr>
+          <tr><td>Bangladesh</td><td class="flag">🇧🇩</td><td>circle: red on green</td></tr>
+        </tbody>
+      </table>
+      <div class="footer">Tip: In Code.org dark mode, colors may look different.</div>
+      <div class="cut"></div>
+    </section>
+
+    <section class="card" aria-label="Flag cheat sheet 2">
+      <h1 class="title">Exercise 07: Flag Quick Reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th class="country">Country</th>
+            <th class="flag">Flag</th>
+            <th class="pattern">Pattern</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>France</td><td class="flag">🇫🇷</td><td>vertical: blue, white, red</td></tr>
+          <tr><td>Italy</td><td class="flag">🇮🇹</td><td>vertical: green, white, red</td></tr>
+          <tr><td>Germany</td><td class="flag">🇩🇪</td><td>horizontal: black, red, yellow</td></tr>
+          <tr><td>Ukraine</td><td class="flag">🇺🇦</td><td>horizontal: blue, yellow</td></tr>
+          <tr><td>Japan</td><td class="flag">🇯🇵</td><td>circle: red on white</td></tr>
+          <tr><td>Bangladesh</td><td class="flag">🇧🇩</td><td>circle: red on green</td></tr>
+        </tbody>
+      </table>
+      <div class="footer">Tip: In Code.org dark mode, colors may look different.</div>
+      <div class="cut"></div>
+    </section>
+
+    <section class="card" aria-label="Flag cheat sheet 3">
+      <h1 class="title">Exercise 07: Flag Quick Reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th class="country">Country</th>
+            <th class="flag">Flag</th>
+            <th class="pattern">Pattern</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>France</td><td class="flag">🇫🇷</td><td>vertical: blue, white, red</td></tr>
+          <tr><td>Italy</td><td class="flag">🇮🇹</td><td>vertical: green, white, red</td></tr>
+          <tr><td>Germany</td><td class="flag">🇩🇪</td><td>horizontal: black, red, yellow</td></tr>
+          <tr><td>Ukraine</td><td class="flag">🇺🇦</td><td>horizontal: blue, yellow</td></tr>
+          <tr><td>Japan</td><td class="flag">🇯🇵</td><td>circle: red on white</td></tr>
+          <tr><td>Bangladesh</td><td class="flag">🇧🇩</td><td>circle: red on green</td></tr>
+        </tbody>
+      </table>
+      <div class="footer">Tip: In Code.org dark mode, colors may look different.</div>
+      <div class="cut"></div>
+    </section>
+
+    <section class="card" aria-label="Flag cheat sheet 4">
+      <h1 class="title">Exercise 07: Flag Quick Reference</h1>
+      <table>
+        <thead>
+          <tr>
+            <th class="country">Country</th>
+            <th class="flag">Flag</th>
+            <th class="pattern">Pattern</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>France</td><td class="flag">🇫🇷</td><td>vertical: blue, white, red</td></tr>
+          <tr><td>Italy</td><td class="flag">🇮🇹</td><td>vertical: green, white, red</td></tr>
+          <tr><td>Germany</td><td class="flag">🇩🇪</td><td>horizontal: black, red, yellow</td></tr>
+          <tr><td>Ukraine</td><td class="flag">🇺🇦</td><td>horizontal: blue, yellow</td></tr>
+          <tr><td>Japan</td><td class="flag">🇯🇵</td><td>circle: red on white</td></tr>
+          <tr><td>Bangladesh</td><td class="flag">🇧🇩</td><td>circle: red on green</td></tr>
+        </tbody>
+      </table>
+      <div class="footer">Tip: In Code.org dark mode, colors may look different.</div>
+      <div class="cut"></div>
+    </section>
+  </main>
+</body>
+</html>

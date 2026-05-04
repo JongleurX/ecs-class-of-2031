@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Decode the Signal - Chalkboard Script</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="markdown-print.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Decode the Signal - Chalkboard Script</h1>
+</header>
+<h1 id="chalkboard-script--decode-the-signal">Chalkboard Script — Decode
+the Signal</h1>
+<h3 id="35-minute-core--optional-extensions">35-Minute Core + Optional
+Extensions</h3>
+<p>Use this as a live facilitation script. Each phase gives you exactly
+what to draw, what to say, and what to ask.</p>
+<p>Print-ready note:</p>
+<ul>
+<li>This Markdown file includes page-break markers for export.</li>
+<li>Run <code>./export_chalkboard_markdown.sh</code> in this folder to
+generate a printable HTML from this Markdown.</li>
+</ul>
+<hr />
+<h2 id="quick-start-use-tomorrow">Quick Start (Use Tomorrow)</h2>
+<ol type="1">
+<li>Write the Universal Rules Board first.</li>
+<li>Run the condensed counting intuition bridge (coins -&gt; binary
+table -&gt; decimal place value).</li>
+<li>Deliver the full Voyager hook and mission framing.</li>
+<li>Solve one 3-digit puzzle live with the class using ledger +
+elimination grid.</li>
+<li>Run pair practice (Appendix A).</li>
+<li>Debrief and preview 5-digit as extension.</li>
+</ol>
+<hr />
+<h2 id="universal-rules-board-write-this-first">Universal Rules Board
+(Write This First)</h2>
+<p>Write this exactly before any puzzle-specific rules:</p>
+<table>
+<thead>
+<tr>
+<th>UNIVERSAL RULES (apply to every puzzle)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. All digits are different (no repeats).</td>
+</tr>
+<tr>
+<td>2. The first digit cannot be 0.</td>
+</tr>
+<tr>
+<td>3. We will apply puzzle-specific rules to eliminate
+possibilities.</td>
+</tr>
+</tbody>
+</table>
+<p>Teacher line:</p>
+<ul>
+<li>"Rule 2 is not optional. Digit 1 cannot be 0. We are making an ID
+code, not leaving the first slot empty."</li>
+</ul>
+<hr />
+<h2 id="core-lesson-map-35-minutes">Core Lesson Map (35 Minutes)</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th style="text-align: right;">Time</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Counting Intuition Bridge</td>
+<td style="text-align: right;">7 min (or 2 min quick version)</td>
+<td>Students justify multiplication of choices</td>
+</tr>
+<tr>
+<td>2. Hook + Mission Framing</td>
+<td style="text-align: right;">4 min</td>
+<td>Students buy into mission story</td>
+</tr>
+<tr>
+<td>3. Live Solve (3-digit)</td>
+<td style="text-align: right;">12 min</td>
+<td>Students apply elimination process</td>
+</tr>
+<tr>
+<td>4. Pair Work</td>
+<td style="text-align: right;">8 min</td>
+<td>Students practice process independently</td>
+</tr>
+<tr>
+<td>5. Debrief + 5-digit Preview</td>
+<td style="text-align: right;">4 min</td>
+<td>Students connect method to larger puzzle</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="suggested-wide-chalkboard-layout">Suggested Wide Chalkboard
+Layout</h2>
+<p>Use this layout so students always know where to look.</p>
+<img src="chalkboard_layout.png" alt="Suggested chalkboard layout diagram" class="chalkboard-layout" />
+
+<p>Balanced-use guidance:</p>
+<ul>
+<li>Left panel: write once, update only when switching puzzles.</li>
+<li>Center panel: never erase until the puzzle is solved; this is the
+"proof trail."</li>
+<li>Right panel: erase often; use for truth table, substitution, and
+quick checks.</li>
+</ul>
+<p>Suggested center-panel stack (top to bottom):</p>
+<ol type="1">
+<li>Filter ledger table</li>
+<li>Current elimination grid</li>
+<li>Candidate check lines (for Rule 2 and Rule 3)</li>
+</ol>
+<p>Teacher line:</p>
+<ul>
+<li>"Left side is our rules, center is our evidence, right side is our
+sandbox."</li>
+</ul>
+<hr />
+<h2 id="phase-1--counting-intuition-bridge-7-min">Phase 1 — Counting
+Intuition Bridge (7 min)</h2>
+<p>If students already completed statistics/permutations recently,
+abbreviate this to 2 minutes:</p>
+<ul>
+<li>Keep only: <code>2 x 2 x 2 = 8</code> and
+<code>10 x 10 = 100</code>.</li>
+<li>Then move directly to Phase 2.</li>
+</ul>
+<h3 id="draw">Draw</h3>
+<ol type="1">
+<li><code>Coin 1: H/T</code> and <code>Coin 2: H/T</code></li>
+<li>Small outcome list: <code>HH, HT, TH, TT</code></li>
+<li>Add third coin as condensed table:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Coin 1</th>
+<th>Coin 2</th>
+<th>Coin 3</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H</td>
+<td>H</td>
+<td>H</td>
+<td>HHH</td>
+</tr>
+<tr>
+<td>H</td>
+<td>H</td>
+<td>T</td>
+<td>HHT</td>
+</tr>
+<tr>
+<td>H</td>
+<td>T</td>
+<td>H</td>
+<td>HTH</td>
+</tr>
+<tr>
+<td>H</td>
+<td>T</td>
+<td>T</td>
+<td>HTT</td>
+</tr>
+<tr>
+<td>T</td>
+<td>H</td>
+<td>H</td>
+<td>THH</td>
+</tr>
+<tr>
+<td>T</td>
+<td>H</td>
+<td>T</td>
+<td>THT</td>
+</tr>
+<tr>
+<td>T</td>
+<td>T</td>
+<td>H</td>
+<td>TTH</td>
+</tr>
+<tr>
+<td>T</td>
+<td>T</td>
+<td>T</td>
+<td>TTT</td>
+</tr>
+</tbody>
+</table>
+<ol start="4" type="1">
+<li>Decimal bridge:</li>
+</ol>
+<ul>
+<li><code>Two decimal digits: 00 to 99 -&gt; 100 possibilities</code></li>
+<li><code>10 x 10 = 100</code></li>
+</ul>
+<h3 id="say">Say</h3>
+<ul>
+<li>"Each coin has 2 outcomes. Three coins gives 2 x 2 x 2 = 8
+outcomes."</li>
+<li>"That pattern is multiplication of choices per slot."</li>
+<li>"In decimal, each digit usually has 10 possibilities, so two digits
+gives 10 x 10 = 100."</li>
+<li>"In our puzzle, constraints reduce options, but the counting logic
+is still multiplication."</li>
+</ul>
+<h3 id="ask">Ask</h3>
+<ul>
+<li>"Why is it multiplication, not addition?"</li>
+<li>"If I fix one slot, do I still have choices in the next slot?"</li>
+<li>"What class topic does this remind you of?" (Expected: binary
+counting / combinations by place.)</li>
+</ul>
+<h3 id="common-misconception-fix">Common misconception fix</h3>
+<ul>
+<li>If someone says "3 coins means 2+2+2=6", respond:
+<ul>
+<li>"Let us test it by listing outcomes. We can count 8 outcomes, so
+addition misses combinations."</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="phase-2--hook--mission-framing-4-min">Phase 2 — Hook + Mission
+Framing (4 min)</h2>
+<h3 id="draw-1">Draw</h3>
+<ul>
+<li>Title: <code>MISSION: DECODE THE SIGNAL</code></li>
+<li>Under it:
+<code>Goal: Find the one possible ID that satisfies all rules.</code></li>
+</ul>
+<h3 id="say-1">Say</h3>
+<ul>
+<li>"In 1977, NASA launched Voyager 1 with a Golden Record containing
+sounds and images from Earth."</li>
+<li>"But engineers also programmed a secret 'beacon signal ID' that
+would help identify the spacecraft if it is ever found by another
+civilization, or if we lose track of it ourselves."</li>
+<li>"The engineers designed the ID using divisibility rules so that any
+mathematician, human or alien, could verify it is authentic."</li>
+<li>"The ID is a number, and it must follow a specific set of
+mathematical rules."</li>
+<li>"Your job: decode the correct signal ID from the transmission
+logs."</li>
+<li>"We are the decoding team. We are not guessing. We are
+eliminating."</li>
+</ul>
+<h3 id="ask-1">Ask</h3>
+<ul>
+<li>"What is the difference between a guess and a proof?"</li>
+<li>"How will we know we are done?" (Expected: one ID remains.)</li>
+</ul>
+<h3 id="teaching-move">Teaching move</h3>
+<ul>
+<li>If students jump to random guesses, say: "A code is only valid if it
+survives every rule."</li>
+</ul>
+<div class="page-break"></div>
+
+<hr />
+<h2 id="phase-3--live-solve-3-digit-core-puzzle-12-min">Phase 3 — Live
+Solve (3-digit core puzzle) (12 min)</h2>
+<h3 id="puzzle-for-live-solve">Puzzle for live solve</h3>
+<p>Write both sections clearly:</p>
+<p><strong>Universal rules</strong></p>
+<ol type="1">
+<li>All digits are different.</li>
+<li>First digit cannot be 0.</li>
+</ol>
+<p><strong>Puzzle-specific rules</strong></p>
+<ol type="1">
+<li>Digit 3 is 4 more than digit 2.</li>
+<li>The sum of all digits is 13.</li>
+<li>Digit 3 is 1 more than digit 1.</li>
+</ol>
+<h3 id="draw-major-board-states">Draw (major board states)</h3>
+<ol type="1">
+<li>Slot count setup:</li>
+</ol>
+<ul>
+<li><code>Digit 1: 9 choices (1-9)</code></li>
+<li><code>Digit 2: 9 choices (0-9 except d1)</code></li>
+<li><code>Digit 3: 8 choices (not d1 or d2)</code></li>
+<li><code>Start = 9 x 9 x 8 = 648</code></li>
+</ul>
+<ol start="2" type="1">
+<li>Filter ledger table:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th style="text-align: right;">Remaining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start (universal rules only)</td>
+<td style="text-align: right;">648</td>
+</tr>
+</tbody>
+</table>
+<ol start="3" type="1">
+<li>Elimination grid template:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Digit 1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Digit 2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Digit 3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="say-scripted-sequence">Say (scripted sequence)</h3>
+<ul>
+<li>"We start at 648 valid IDs before puzzle-specific rules."</li>
+<li>"Now each new rule is a filter."</li>
+</ul>
+<p>Rule 1 (<code>d3 = d2 + 4</code>):</p>
+<ul>
+<li>"What values of digit 2 are too large?"</li>
+<li>"If digit 2 were 6, digit 3 would be 10, impossible."</li>
+<li>"If the lowest d2 can be is 0, then d3 cannot be less than 4."</li>
+</ul>
+<p>Update grid snapshot:</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Digit 2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Digit 3</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Update ledger:</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th style="text-align: right;">Remaining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start (universal rules only)</td>
+<td style="text-align: right;">648</td>
+</tr>
+<tr>
+<td>+ Digit 3 is 4 more than digit 2</td>
+<td style="text-align: right;">43</td>
+</tr>
+</tbody>
+</table>
+<p>Rule 2 (sum is 13):</p>
+<ul>
+<li>"Substitute d3 = d2 + 4 into the sum rule."</li>
+<li>Write: <code>d1 + d2 + (d2 + 4) = 13 -&gt; d1 + 2*d2 = 9</code></li>
+<li>"Now test only d2 values that are still possible."</li>
+</ul>
+<p>No-shortcuts elimination logic for Rule 2:</p>
+<ol type="1">
+<li>From Rule 1, we already know <code>d2</code> can only be 0, 1, 2, 3,
+4, or 5.</li>
+<li>Use the equation <code>d1 + 2*d2 = 9</code> to compute
+<code>d1 = 9 - 2*d2</code>.</li>
+<li>Use Rule 1 again to compute <code>d3 = d2 + 4</code>.</li>
+<li>Reject any row that breaks a universal rule (repeat digit, first
+digit 0, or non-digit value).</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">d1 = 9 - 2*d2</th>
+<th style="text-align: right;">d2</th>
+<th style="text-align: right;">d3 = d2 + 4</th>
+<th>Keep?</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td>Yes</td>
+<td>Distinct digits, first digit not 0</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td>Yes</td>
+<td>Distinct digits, first digit not 0</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+<td>Yes</td>
+<td>Distinct digits, first digit not 0</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7</td>
+<td>No</td>
+<td>Repeats digit 3</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+<td>Yes</td>
+<td>Distinct digits, first digit not 0</td>
+</tr>
+<tr>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td>No</td>
+<td><code>d1</code> is not a digit</td>
+</tr>
+</tbody>
+</table>
+<p>So Rule 2 leaves exactly four candidates: <code>904</code>,
+<code>715</code>, <code>526</code>, <code>148</code>.</p>
+<p>Student sentence stems for Rule 2:</p>
+<ul>
+<li>"For <code>d2 = ___</code>, we get <code>d1 = ___</code> and
+<code>d3 = ___</code>, so this row is (valid/invalid) because ___."</li>
+<li>"I crossed out this row because it breaks rule ___."</li>
+</ul>
+<p>Update grid snapshot after substitution on Rule 2:</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Digit 1</td>
+<td>❌</td>
+<td></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td></td>
+<td>❌</td>
+<td></td>
+<td>❌</td>
+<td></td>
+</tr>
+<tr>
+<td>Digit 2</td>
+<td></td>
+<td></td>
+<td></td>
+<td>❌</td>
+<td></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Digit 3</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td></td>
+<td></td>
+<td></td>
+<td>❌</td>
+<td></td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p>Update ledger:</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th style="text-align: right;">Remaining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start (universal rules only)</td>
+<td style="text-align: right;">648</td>
+</tr>
+<tr>
+<td>+ Digit 3 is 4 more than digit 2</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td>+ Sum of all digits is 13</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+<p>Rule 3 (<code>d3 = d1 + 1</code>):</p>
+<ul>
+<li>"Check the 4 survivors against this final condition."</li>
+</ul>
+<p>No-shortcuts elimination logic for Rule 3:</p>
+<p>Check each surviving candidate directly against
+<code>d3 = d1 + 1</code>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">d1</th>
+<th style="text-align: right;">d2</th>
+<th style="text-align: right;">d3</th>
+<th>Does d3 = d1 + 1?</th>
+<th>Keep?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td>No (<code>4 != 10</code>)</td>
+<td>No</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td>No (<code>5 != 8</code>)</td>
+<td>No</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+<td>Yes (<code>6 = 6</code>)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+<td>No (<code>8 != 2</code>)</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Only <code>526</code> survives, so this is not a trick. It is a
+complete elimination check of every remaining candidate.</p>
+<p>Student sentence stems for Rule 3:</p>
+<ul>
+<li>"I tested <code>(d1,d2,d3) = (___, ___, ___)</code>. It (does/does
+not) satisfy <code>d3 = d1 + 1</code> because ___."</li>
+<li>"After Rule 3, the only surviving row is
+<code>(___, ___, ___)</code>, so the code is ___."</li>
+</ul>
+<p>Update grid snapshot after Rule 3 is applied:</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Digit 1</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Digit 2</td>
+<td>❌</td>
+<td>❌</td>
+<td></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Digit 3</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p>Final ledger:</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th style="text-align: right;">Remaining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start (universal rules only)</td>
+<td style="text-align: right;">648</td>
+</tr>
+<tr>
+<td>+ Digit 3 is 4 more than digit 2</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr>
+<td>+ Sum of all digits is 13</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td>+ Digit 3 is 1 more than digit 1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p>Final signal ID: <code>526</code></p>
+<h3 id="ask-2">Ask</h3>
+<ul>
+<li>"Which rule removed the most candidates?"</li>
+<li>"How did algebra help us avoid guessing?"</li>
+<li>"Why does the first-digit-not-zero rule matter in the count?"</li>
+</ul>
+<h3 id="if-students-stall">If students stall</h3>
+<ul>
+<li>"Pick one possible d2 value and run the equation chain all the way
+through."</li>
+</ul>
+<hr />
+<h2 id="phase-4--pair-work-8-min">Phase 4 — Pair Work (8 min)</h2>
+<h3 id="draw-2">Draw</h3>
+<ul>
+<li>Keep these visible: Universal Rules Board, filter ledger format,
+elimination grid format.</li>
+</ul>
+<h3 id="say-2">Say</h3>
+<ul>
+<li>"Now you will solve the Appendix A 3-digit puzzle in pairs."</li>
+<li>"One person proposes eliminations; one person verifies every
+step."</li>
+</ul>
+<p>Use Appendix A directly:</p>
+<ul>
+<li>Copy the Appendix A rules to the board (or project that
+section).</li>
+<li>Students solve that puzzle using the same ledger + elimination grid
+process.</li>
+</ul>
+<p>Roles:</p>
+<ul>
+<li><strong>Proposer</strong>: states the next rule to apply and what it
+removes.</li>
+<li><strong>Checker</strong>: validates arithmetic and universal
+rules.</li>
+</ul>
+<p>At 4 minutes:</p>
+<ul>
+<li>"Switch roles."</li>
+</ul>
+<h3 id="ask-while-circulating">Ask (while circulating)</h3>
+<ul>
+<li>"Which rule is strongest so far?"</li>
+<li>"Did you update both ledger and grid?"</li>
+<li>"Can you justify each cross-out with a rule?"</li>
+</ul>
+<p>Teacher note:</p>
+<ul>
+<li>Keep Appendix B as an optional fun extension only if time
+remains.</li>
+</ul>
+<hr />
+<h2 id="phase-5--debrief--5-digit-preview-4-min">Phase 5 — Debrief +
+5-digit Preview (4 min)</h2>
+<h3 id="draw-3">Draw</h3>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th style="text-align: right;">Remaining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start</td>
+<td style="text-align: right;">27,216 candidates</td>
+</tr>
+<tr>
+<td>+ Digit 2 is 5 less than digit 3</td>
+<td style="text-align: right;">1,512 remaining</td>
+</tr>
+<tr>
+<td>+ Digit 1 is 2 less than digit 2</td>
+<td style="text-align: right;">84 remaining</td>
+</tr>
+<tr>
+<td>+ Sum of all digits is 24</td>
+<td style="text-align: right;">6 remaining</td>
+</tr>
+<tr>
+<td>+ Digit 4 is 2 more than digit 5</td>
+<td style="text-align: right;">1 remaining</td>
+</tr>
+</tbody>
+</table>
+<h3 id="say-3">Say</h3>
+<ul>
+<li>"Same process, bigger search space."</li>
+<li>"The method scales: count -&gt; filter -&gt; filter -&gt; filter
+-&gt; one survivor."</li>
+</ul>
+<h3 id="ask-3">Ask</h3>
+<ul>
+<li>"What stays the same between 3-digit and 5-digit?"</li>
+<li>"What gets harder?"</li>
+</ul>
+<div class="page-break"></div>
+
+<hr />
+<h2 id="board-checklist-at-end-of-core-lesson">Board Checklist (at End
+of Core Lesson)</h2>
+<p>Make sure these are visible:</p>
+<ol type="1">
+<li>Universal Rules Board</li>
+<li>Current puzzle-specific rules</li>
+<li>Filter ledger</li>
+<li>Elimination grid</li>
+<li>Final surviving code</li>
+</ol>
+<hr />
+<h2 id="appendix-a--backup-3-digit-challenge-answer-961">Appendix A —
+Backup 3-digit Challenge (Answer: 961)</h2>
+<p>Use if core class finishes early or as next-day warmup.</p>
+<h3 id="rules-to-write-explicitly">Rules to write explicitly</h3>
+<p><strong>Universal rules</strong></p>
+<ol type="1">
+<li>All digits are different.</li>
+<li>First digit cannot be 0.</li>
+</ol>
+<p><strong>Puzzle-specific rules</strong></p>
+<ol type="1">
+<li>Digit 2 is 5 more than digit 3.</li>
+<li>Digit 2 is 3 less than digit 1.</li>
+<li>Digit 1 is odd.</li>
+</ol>
+<h3 id="count-path">Count path</h3>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th style="text-align: right;">Remaining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start (universal rules only)</td>
+<td style="text-align: right;">648 candidates</td>
+</tr>
+<tr>
+<td>+ d2 = d3 + 5</td>
+<td style="text-align: right;">36 remaining</td>
+</tr>
+<tr>
+<td>+ d2 = d1 - 3</td>
+<td style="text-align: right;">2 remaining</td>
+</tr>
+<tr>
+<td>+ d1 odd</td>
+<td style="text-align: right;">1 remaining</td>
+</tr>
+</tbody>
+</table>
+<p>Final answer: <code>961</code></p>
+<hr />
+<h2 id="appendix-b--backup-5-digit-challenge-answer-83214">Appendix B —
+Backup 5-digit Challenge (Answer: 83214)</h2>
+<p>Use as extension station, small-group challenge, or day-2 opener.</p>
+<h3 id="rules-to-write-explicitly-1">Rules to write explicitly</h3>
+<p><strong>Universal rules</strong></p>
+<ol type="1">
+<li>All digits are different.</li>
+<li>First digit cannot be 0.</li>
+</ol>
+<p><strong>Puzzle-specific rules</strong></p>
+<ol type="1">
+<li>Digit 5 is twice digit 3.</li>
+<li>The sum of all digits is 18.</li>
+<li>Digit 2 is 1 less than digit 5.</li>
+<li>Digit 4 is odd.</li>
+</ol>
+<h3 id="count-path-1">Count path</h3>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th style="text-align: right;">Remaining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start (universal rules only)</td>
+<td style="text-align: right;">27,216 candidates</td>
+</tr>
+<tr>
+<td>+ d5 = 2*d3</td>
+<td style="text-align: right;">1,176 remaining</td>
+</tr>
+<tr>
+<td>+ sum = 18</td>
+<td style="text-align: right;">68 remaining</td>
+</tr>
+<tr>
+<td>+ d2 = d5 - 1</td>
+<td style="text-align: right;">4 remaining</td>
+</tr>
+<tr>
+<td>+ d4 odd</td>
+<td style="text-align: right;">1 remaining</td>
+</tr>
+</tbody>
+</table>
+<p>Final answer: <code>83214</code></p>
+<hr />
+<h2 id="quick-prompt-bank-middle-school-friendly">Quick Prompt Bank
+(Middle School Friendly)</h2>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keep logic over guessing</td>
+<td>"Which rule proves that?"</td>
+</tr>
+<tr>
+<td>Reinforce universal rules</td>
+<td>"Did you check no repeats and first digit not zero?"</td>
+</tr>
+<tr>
+<td>Use elimination grid well</td>
+<td>"Which exact digits can we cross out right now?"</td>
+</tr>
+<tr>
+<td>Connect to prior learning</td>
+<td>"Where do you see binary/place-value thinking here?"</td>
+</tr>
+<tr>
+<td>Push explanation quality</td>
+<td>"Say why that number is impossible in one sentence."</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Generate fresh puzzles anytime:</p>
+<ul>
+<li><code>python puzzle_generator.py --digits 3</code></li>
+<li><code>python puzzle_generator.py --digits 3 --count 5</code></li>
+<li><code>python puzzle_generator.py --digits 5</code></li>
+</ul>
+</body>
+</html>

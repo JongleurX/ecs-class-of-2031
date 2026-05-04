@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntax Challenge Mod Ideas Bank</title>
+  <style>
+    :root {
+      --ink: #111;
+      --muted: #555;
+      --rule: #c9c9c9;
+      --easy: #edf8ff;
+      --medium: #f4f8e8;
+      --hard: #fff4e8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      line-height: 1.35;
+      background: #fff;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 10px 0;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-top: 20px;
+    }
+
+    p, ul {
+      margin: 8px 0;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .challenge {
+      border-top: 2px solid var(--rule);
+      padding-top: 14px;
+      margin-top: 16px;
+      page-break-inside: avoid;
+    }
+
+    .mods {
+      margin: 8px 0 0 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .mods li {
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin: 6px 0;
+      font-size: 15px;
+      background: #fff;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-right: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      border: 1px solid #888;
+    }
+
+    .easy {
+      background: var(--easy);
+    }
+
+    .medium {
+      background: var(--medium);
+    }
+
+    .hard {
+      background: var(--hard);
+    }
+
+    .tip {
+      margin-top: 18px;
+      padding: 10px 12px;
+      border: 1px dashed #888;
+      border-radius: 8px;
+      background: #fcfcfc;
+      font-size: 14px;
+    }
+
+    @media print {
+      body {
+        padding: 12mm;
+      }
+
+      .challenge {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Syntax Challenge Mod Ideas Bank</h1>
+  <p class="sub">Use this when students pick a challenge but are not sure what to change. Start with one easy mod, then stack a medium/harder mod.</p>
+
+  <section class="challenge">
+    <h2>Challenge 11: Magic 8-Ball</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Add 5 new responses to the <code>responses</code> list (funny, mysterious, or school-themed).</li>
+      <li><span class="tag easy">Easy</span>If the question does not end with a <code>?</code>, print a reminder first, then still answer.</li>
+      <li><span class="tag medium">Medium</span>Use response categories (yes / maybe / no) and print the category with the answer.</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Let the user ask 3 questions in a loop and show how many answers were positive, neutral, or negative.</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 12: Virtual Pet Mood Tracker</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Rename Biscuit and customize all mood messages for a different pet.</li>
+      <li><span class="tag easy">Easy</span>Add an input check so negative feeding counts become 0.</li>
+      <li><span class="tag medium">Medium</span>Track two things: <code>times_fed</code> and <code>minutes_played</code>, then combine them for mood logic.</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Run a 3-day tracker loop and print an overall summary (average feedings + mood each day).</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 13: Color Mixer</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Add 4 new color combinations to the <code>combos</code> dictionary.</li>
+      <li><span class="tag easy">Easy</span>Handle same-color mixes (for example, red + red).</li>
+      <li><span class="tag medium">Medium</span>Allow users to mix colors repeatedly until they type <code>quit</code>.</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Add a "favorite mix" counter that tracks how often each valid combo is used.</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 14a: Secret Message Encoder</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Change shift from 3 to 5 and update the docstring example.</li>
+      <li><span class="tag easy">Easy</span>Let the user choose a shift value (1-25).</li>
+      <li><span class="tag medium">Medium</span>Preserve spaces/punctuation (already done) and also print letter count statistics.</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Add a mode that can encode multiple messages in a loop and save them to a list before printing all results.</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 14b: Secret Message Decoder</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Swap hidden input to regular <code>input()</code> for easier debugging mode.</li>
+      <li><span class="tag easy">Easy</span>Allow custom shift input so user can decode messages not shifted by 3.</li>
+      <li><span class="tag medium">Medium</span>After decoding, ask "encode back to verify?" and show round-trip check.</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Try all 25 shifts automatically and print every possible decode (mini brute-force helper).</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 15: Dice Duel</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Increase the duel to 7 rounds and update messages.</li>
+      <li><span class="tag easy">Easy</span>Add a "double points" round (for example, round 3 counts twice).</li>
+      <li><span class="tag medium">Medium</span>Let user choose number of rounds and die size (6-sided, 8-sided, 20-sided).</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Add critical events: rolling max gives a bonus point, rolling 1 loses a point (never below 0).</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 16: Mood-Based Activity Suggester</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Add 3 new mood keyword groups and suggestions.</li>
+      <li><span class="tag easy">Easy</span>Ask for time available (5, 15, 30+ minutes) and tailor the suggestion length.</li>
+      <li><span class="tag medium">Medium</span>Give two suggestions and let the user pick one, then print a mini action plan.</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Store mood check-ins in a list and print a mood summary after 5 entries.</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 17: Pizza Order Builder</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Add one new size and base price (for example, personal or XL).</li>
+      <li><span class="tag easy">Easy</span>Add topping prices that differ by topping instead of flat $1.50.</li>
+      <li><span class="tag medium">Medium</span>Add discount rules (for example, 10% off if 3 toppings).</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Support multiple pizzas in one order and print grand total + itemized receipt.</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 18: Trivia Quiz</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Add 3 new questions to the list.</li>
+      <li><span class="tag easy">Easy</span>Accept alternate correct answers for one question (for example, "purple" or "violet").</li>
+      <li><span class="tag medium">Medium</span>Shuffle question order each run and track which were missed.</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Add category selection (math/science/misc) and load only that subset.</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 19: Name Scrambler</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Uppercase the scrambled result and add decorative symbols.</li>
+      <li><span class="tag easy">Easy</span>Reject blank names and ask again until valid input.</li>
+      <li><span class="tag medium">Medium</span>Generate 5 different scrambles and print the shortest and longest (same length here, but still good practice).</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Scramble each word separately for full names (first and last names stay as two words).</li>
+    </ul>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 20: Compliment Machine</h2>
+    <ul class="mods">
+      <li><span class="tag easy">Very Easy</span>Add 5 new adjectives, 3 new nouns, and 3 new extras.</li>
+      <li><span class="tag easy">Easy</span>Ask for how many compliments to generate (1-5) and print that many.</li>
+      <li><span class="tag medium">Medium</span>Avoid repeating adjectives in a single run by removing used choices temporarily.</li>
+      <li><span class="tag hard">Somewhat Challenging</span>Add compliment "themes" (space, sports, school) with separate word lists and user-selected theme.</li>
+    </ul>
+  </section>
+
+  <div class="tip">
+    Teacher tip: Have students pick one mod from "Very Easy/Easy" first, commit it, test it, then pick one "Medium/Somewhat Challenging" mod and iterate.
+  </div>
+</body>
+</html>

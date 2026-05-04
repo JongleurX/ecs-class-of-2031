@@ -5,7 +5,11 @@ teacher-guide/
 Code.org Logins.pdf
 
 # Mac stuff
-.DS_Store/
+.DS_Store
+**/.DS_Store
+
+# Generated data files (machine-specific paths, rebuilt at runtime)
+labs/data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

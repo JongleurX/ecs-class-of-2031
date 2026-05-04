@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Python Quick Reference — Day 2 &amp; Day 3</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 9.5pt;
+  line-height: 1.35;
+  color: #1a1a2e;
+  background: white;
+}
+
+code, pre {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 8pt;
+}
+
+/* ── Page layout ── */
+.page {
+  width: 7.5in;
+  margin: 0 auto;
+  padding: 0.38in 0.45in 0.32in;
+  page-break-after: always;
+}
+.page:last-child { page-break-after: avoid; }
+
+/* ── Page numbers via CSS counter ── */
+@media print {
+  @page {
+    margin: 0.45in;
+    size: letter;
+    @bottom-center {
+      content: counter(page) " of " counter(pages);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 8pt;
+      color: #888;
+    }
+  }
+  .page { width: 100%; padding: 0; }
+  .page-num { display: none; }
+}
+
+/* Screen fallback page number */
+.page-num {
+  text-align: right;
+  font-size: 8pt;
+  color: #999;
+  margin-bottom: 2pt;
+}
+
+/* ── Header ── */
+.page-header {
+  border-bottom: 2pt solid #2b4590;
+  padding-bottom: 4pt;
+  margin-bottom: 8pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.page-header h1 { font-size: 12pt; font-weight: 700; color: #2b4590; }
+.page-header p  { font-size: 7.5pt; color: #555; }
+
+/* ── Two-column grid ── */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14pt;
+}
+
+/* ── Section cards ── */
+.section { margin-bottom: 7pt; break-inside: avoid; }
+.section h2 {
+  font-size: 8pt; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.3pt;
+  color: white; padding: 1.5pt 4pt; margin-bottom: 3pt;
+}
+.section h2 code { font-size: 8pt; color: white; }
+
+.cat-ops      .section h2 { background: #b84800; }
+.cat-flow     .section h2 { background: #1a7a4a; }
+.cat-func     .section h2 { background: #7a2b6e; }
+.cat-builtins .section h2 { background: #065f72; }
+.cat-data     .section h2 { background: #2b4590; }
+
+.section p, .section ul, .section li { font-size: 8pt; margin-bottom: 1.5pt; }
+.section ul { padding-left: 11pt; }
+
+pre {
+  background: #f4f4f8;
+  border-left: 2pt solid #bbb;
+  padding: 2.5pt 5pt;
+  margin: 2pt 0 3pt;
+  white-space: pre-wrap;
+  font-size: 7.5pt;
+  line-height: 1.4;
+}
+
+p code, li code { background: #eef; padding: 0 2pt; border-radius: 2pt; }
+
+.ref { font-size: 6.5pt; color: #999; font-style: italic; margin-top: 0; }
+
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 7.5pt; margin-bottom: 2pt;
+}
+th {
+  background: #e8eaf6; font-weight: 700; text-align: left;
+  padding: 1.5pt 3pt; border-bottom: 1pt solid #bbb;
+}
+td { padding: 1pt 3pt; border-bottom: 0.5pt solid #ddd; vertical-align: top; }
+td:first-child { white-space: nowrap; }
+
+/* ── Index page ── */
+.index-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0 14pt;
+  margin-top: 4pt;
+}
+.idx-group { margin-bottom: 8pt; break-inside: avoid; }
+.idx-group h3 {
+  font-size: 8pt; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.3pt;
+  color: white; padding: 1.5pt 4pt; margin-bottom: 2pt;
+}
+.idx-group.cat-ops      h3 { background: #b84800; }
+.idx-group.cat-flow     h3 { background: #1a7a4a; }
+.idx-group.cat-func     h3 { background: #7a2b6e; }
+.idx-group.cat-builtins h3 { background: #065f72; }
+.idx-group.cat-data     h3 { background: #2b4590; }
+
+.idx-entry {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 7.5pt; padding: 1pt 3pt; border-bottom: 0.3pt solid #eee;
+}
+.idx-entry code { font-size: 7.5pt; background: none; padding: 0; }
+.idx-pg { font-weight: 700; color: #2b4590; white-space: nowrap; margin-left: 4pt; }
+
+.idx-intro { font-size: 8pt; line-height: 1.5; margin-bottom: 6pt; color: #333; }
+.idx-color-key {
+  display: flex; gap: 10pt; flex-wrap: wrap;
+  margin-bottom: 7pt; font-size: 7.5pt;
+}
+.ck-swatch {
+  display: inline-block; width: 8pt; height: 8pt;
+  border-radius: 1pt; vertical-align: middle; margin-right: 3pt;
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — INDEX -->
+<div class="page">
+<div class="page-num">Page 1</div>
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Index</h1>
+  <p>Day 2 &amp; Day 3 &bull; Exercises, Starters &amp; Challenges</p>
+</div>
+<p class="idx-intro">Find any function, keyword, or construct below. The bold number is the page where it is explained with examples.</p>
+<div class="idx-color-key">
+  <span><span class="ck-swatch" style="background:#b84800"></span>Operators</span>
+  <span><span class="ck-swatch" style="background:#1a7a4a"></span>Control Flow</span>
+  <span><span class="ck-swatch" style="background:#7a2b6e"></span>Functions &amp; Modules</span>
+  <span><span class="ck-swatch" style="background:#065f72"></span>Built-ins</span>
+  <span><span class="ck-swatch" style="background:#2b4590"></span>Data Types</span>
+</div>
+<div class="index-grid">
+<div>
+  <div class="idx-group cat-ops">
+    <h3>Operators</h3>
+    <div class="idx-entry"><span>Arithmetic <code>+ - * / %</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span>String concat <code>+</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span>Comparison <code>== != &lt; &gt; &lt;= &gt;=</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span>Augmented <code>+= -= *= /=</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span>Power <code>**</code></span><span class="idx-pg">6</span></div>
+    <div class="idx-entry"><span>Integer division <code>//</code></span><span class="idx-pg">6</span></div>
+    <div class="idx-entry"><span>Modulo <code>%</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span>Variable swap <code>a, b = b, a</code></span><span class="idx-pg">5</span></div>
+  </div>
+  <div class="idx-group cat-flow">
+    <h3>Control Flow</h3>
+    <div class="idx-entry"><span><code>if</code> statement</span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>if / elif / else</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>for</code> loop (range &amp; string)</span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>for</code> loop over a list</span><span class="idx-pg">4</span></div>
+    <div class="idx-entry"><span><code>while</code> loop</span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>while True</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>break</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>continue</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>try / except</code></span><span class="idx-pg">8</span></div>
+    <div class="idx-entry"><span>Logic: <code>and or not</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>in</code> (membership)</span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>range()</code></span><span class="idx-pg">2</span></div>
+  </div>
+</div>
+<div>
+  <div class="idx-group cat-func">
+    <h3>Functions &amp; Modules</h3>
+    <div class="idx-entry"><span><code>def</code> / <code>return</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>import</code></span><span class="idx-pg">6</span></div>
+    <div class="idx-entry"><span><code>random.choice()</code></span><span class="idx-pg">6</span></div>
+    <div class="idx-entry"><span><code>random.randint()</code></span><span class="idx-pg">6</span></div>
+    <div class="idx-entry"><span><code>random.shuffle()</code></span><span class="idx-pg">6</span></div>
+    <div class="idx-entry"><span><code>math.sqrt()</code></span><span class="idx-pg">7</span></div>
+    <div class="idx-entry"><span><code>math.ceil() / floor()</code></span><span class="idx-pg">7</span></div>
+    <div class="idx-entry"><span><code>math.log2()</code></span><span class="idx-pg">7</span></div>
+    <div class="idx-entry"><span><code>math.pi</code></span><span class="idx-pg">7</span></div>
+    <div class="idx-entry"><span>Caesar cipher pattern</span><span class="idx-pg">8</span></div>
+    <div class="idx-entry"><span><code>getpass.getpass()</code></span><span class="idx-pg">8</span></div>
+    <div class="idx-entry"><span>List comprehensions</span><span class="idx-pg">7</span></div>
+    <div class="idx-entry"><span>Nested <code>for</code> loops</span><span class="idx-pg">7</span></div>
+    <div class="idx-entry"><span><code>enumerate()</code></span><span class="idx-pg">7</span></div>
+  </div>
+  <div class="idx-group cat-builtins">
+    <h3>Built-in Functions</h3>
+    <div class="idx-entry"><span><code>print()</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>input()</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>int()</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>str()</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>len()</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>sum()</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>set()</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>abs()</code></span><span class="idx-pg">6</span></div>
+    <div class="idx-entry"><span><code>ord()</code></span><span class="idx-pg">8</span></div>
+    <div class="idx-entry"><span><code>chr()</code></span><span class="idx-pg">8</span></div>
+    <div class="idx-entry"><span><code>list()</code></span><span class="idx-pg">4</span></div>
+  </div>
+</div>
+<div>
+  <div class="idx-group cat-data">
+    <h3>Data Types</h3>
+    <div class="idx-entry"><span>Variables &amp; assignment</span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span>Comments <code>#</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span>f-strings</span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span>f-string format <code>:.2f</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span>Lists <code>[ ]</code></span><span class="idx-pg">4</span></div>
+    <div class="idx-entry"><span>List indexing <code>[0][-1]</code></span><span class="idx-pg">4</span></div>
+    <div class="idx-entry"><span><code>list.append()</code></span><span class="idx-pg">4</span></div>
+    <div class="idx-entry"><span>Tuple unpacking <code>for a,b in</code></span><span class="idx-pg">4</span></div>
+    <div class="idx-entry"><span>Dictionaries <code>{ }</code></span><span class="idx-pg">5</span></div>
+    <div class="idx-entry"><span><code>dict.get()</code></span><span class="idx-pg">5</span></div>
+    <div class="idx-entry"><span><code>key in dict</code></span><span class="idx-pg">5</span></div>
+    <div class="idx-entry"><span>Tuple keys</span><span class="idx-pg">5</span></div>
+    <div class="idx-entry"><span><code>True False None</code></span><span class="idx-pg">6</span></div>
+  </div>
+  <div class="idx-group cat-builtins">
+    <h3>String Methods</h3>
+    <div class="idx-entry"><span><code>.lower() .upper()</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>.strip()</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>.capitalize()</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>.isalpha() .isupper()</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>.isdigit()</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>.replace(old, new)</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>sep.join(list)</code></span><span class="idx-pg">4</span></div>
+    <div class="idx-entry"><span><code>x in string</code></span><span class="idx-pg">3</span></div>
+    <div class="idx-entry"><span><code>.zfill(n)</code></span><span class="idx-pg">2</span></div>
+    <div class="idx-entry"><span><code>.split()</code></span><span class="idx-pg">8</span></div>
+    <div class="idx-entry"><span>String methods table</span><span class="idx-pg">8</span></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- PAGE 2 — BASICS -->
+<div class="page">
+<div class="page-num">Page 2</div>
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Basics</h1>
+  <p>variables &bull; operators &bull; print &bull; input &bull; if &bull; for &bull; def &bull; built-ins</p>
+</div>
+<div class="cols">
+<div class="col-group">
+
+<div class="cat-data">
+<div class="section">
+<h2>Variables &amp; Assignment &nbsp;<code>=</code></h2>
+<p><code>=</code> <em>stores</em> a value. It does <strong>not</strong> test equality (that is <code>==</code>).</p>
+<pre>score = 10            # store the number 10
+name  = "Voyager"     # store a string
+score = score + 1     # update: score is now 11</pre>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>Comments &nbsp;<code>#</code></h2>
+<pre># This whole line is a comment
+x = 5   # comments can follow code too</pre>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2>Arithmetic &nbsp;<code>+&nbsp; -&nbsp; *&nbsp; /&nbsp; %</code></h2>
+<table>
+<tr><th>Op</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+<tr><td><code>+</code></td><td>add</td><td><code>3 + 5</code></td><td><code>8</code></td></tr>
+<tr><td><code>-</code></td><td>subtract</td><td><code>8 - 3</code></td><td><code>5</code></td></tr>
+<tr><td><code>*</code></td><td>multiply</td><td><code>4 * 2</code></td><td><code>8</code></td></tr>
+<tr><td><code>/</code></td><td>divide (decimal)</td><td><code>9 / 2</code></td><td><code>4.5</code></td></tr>
+<tr><td><code>%</code></td><td>remainder</td><td><code>7 % 2</code></td><td><code>1</code></td></tr>
+</table>
+<p><code>x % 2 == 0</code> is a compact "x is even" test.</p>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2>Comparison Operators</h2>
+<table>
+<tr><th>Op</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+<tr><td><code>==</code></td><td>equal to</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+<tr><td><code>!=</code></td><td>not equal</td><td><code>3 != 5</code></td><td><code>True</code></td></tr>
+<tr><td><code>&lt;</code></td><td>less than</td><td><code>3 &lt; 5</code></td><td><code>True</code></td></tr>
+<tr><td><code>&gt;</code></td><td>greater than</td><td><code>5 &gt; 3</code></td><td><code>True</code></td></tr>
+<tr><td><code>&lt;=</code></td><td>less or equal</td><td><code>5 &lt;= 5</code></td><td><code>True</code></td></tr>
+<tr><td><code>&gt;=</code></td><td>greater or equal</td><td><code>6 &gt;= 5</code></td><td><code>True</code></td></tr>
+</table>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2>Logic: <code>and &nbsp; or &nbsp; not</code></h2>
+<table>
+<tr><th>Op</th><th>True when&hellip;</th><th>Example (x=4)</th></tr>
+<tr><td><code>and</code></td><td>both sides True</td><td><code>x &gt; 0 and x &lt; 10</code> → <code>True</code></td></tr>
+<tr><td><code>or</code></td><td>either side True</td><td><code>x == 1 or x == 4</code> → <code>True</code></td></tr>
+<tr><td><code>not</code></td><td>value is False</td><td><code>not x == 0</code> → <code>True</code></td></tr>
+</table>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2><code>+</code> String Concatenation</h2>
+<pre>"Hello, " + "World!"  # "Hello, World!"
+"Answer: " + str(42)  # "Answer: 42"</pre>
+</div>
+</div>
+
+</div>
+<div class="col-group">
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>print()</code> &nbsp;&amp;&nbsp; <code>input()</code></h2>
+<pre>print(42)                    # 42
+print("Score:", 10)          # Score: 10
+name = input("Your name: ")  # waits for user
+n = int(input("Number: "))   # must convert to int!</pre>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>int()</code> &nbsp;&amp;&nbsp; <code>str()</code> &nbsp;&amp;&nbsp; <code>.zfill()</code></h2>
+<pre>int("7")         # 7    (string → integer)
+int(3.9)         # 3    (truncates decimal)
+str(42)          # "42" (integer → string)
+str(7).zfill(3)  # "007" (pad with zeros)</pre>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>len() &nbsp; sum() &nbsp; set()</code></h2>
+<pre>len([4, 5, 6])       # 3
+len("hello")         # 5
+sum([2, 5, 3])       # 10
+set([1, 2, 2, 3])    # {1, 2, 3} — removes duplicates
+len(set([1,1,2]))    # 2</pre>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>in</code> &mdash; membership test</h2>
+<pre>5 in [2, 3, 5, 7]    # True
+4 in [2, 3, 5, 7]    # False
+"y" in "Python"      # True  (substring)</pre>
+</div>
+</div>
+
+<div class="cat-flow">
+<div class="section">
+<h2><code>range(start, stop)</code></h2>
+<p>Integers from <code>start</code> up to but <strong>not including</strong> <code>stop</code>.</p>
+<pre>range(0, 5)  # 0 1 2 3 4  (NOT 5)
+range(5)     # 0 1 2 3 4  (start defaults to 0)
+range(1, 6)  # 1 2 3 4 5</pre>
+</div>
+</div>
+
+<div class="cat-flow">
+<div class="section">
+<h2><code>for</code> Loop &nbsp;&amp;&nbsp; <code>if</code> Statement</h2>
+<pre>for x in range(3):
+    print(x)       # 0, then 1, then 2
+
+for c in "abc":
+    print(c)       # a, then b, then c
+
+if x > 5:
+    print("big")   # only when x > 5</pre>
+</div>
+</div>
+
+<div class="cat-func">
+<div class="section">
+<h2><code>def</code> &mdash; define a function</h2>
+<p><code>def</code> creates a reusable block. <code>return</code> sends a value back.</p>
+<pre>def square(x):
+    return x * x
+
+print(square(4))    # 16
+
+def greet(name):
+    return "Hello, " + name + "!"</pre>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PAGE 3 — CONTROL FLOW & STRINGS -->
+<div class="page">
+<div class="page-num">Page 3</div>
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Control Flow &amp; Strings</h1>
+  <p>if/elif/else &bull; while &bull; break/continue &bull; += &bull; f-strings &bull; string methods</p>
+</div>
+<div class="cols">
+<div class="col-group">
+
+<div class="cat-flow">
+<div class="section">
+<h2>if / elif / else</h2>
+<p>The <em>first</em> <code>True</code> branch runs; all others are skipped.</p>
+<pre>score = int(input("Score: "))
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+elif score >= 70:
+    print("C")
+else:
+    print("Below C")</pre>
+<p class="ref">virtual_pet.py; mood_suggester.py; dice_duel.py</p>
+</div>
+</div>
+
+<div class="cat-flow">
+<div class="section">
+<h2>while Loop</h2>
+<p>Runs as long as the condition is <code>True</code>. You <em>must</em> change something inside or it loops forever.</p>
+<pre>count = 0
+while count &lt; 5:
+    print(count)   # 0 1 2 3 4
+    count += 1     # must change count each pass</pre>
+<p class="ref">guessing_game.py: <code>while guesses &lt; max_guess:</code></p>
+</div>
+</div>
+
+<div class="cat-flow">
+<div class="section">
+<h2>while True &nbsp;+&nbsp; break &nbsp;+&nbsp; continue</h2>
+<pre>while True:
+    ans = input("Type 'quit' to stop: ")
+    if ans == "quit":
+        break           # exit the loop
+    print("You said:", ans)
+
+for n in range(10):
+    if n % 2 == 0:
+        continue        # skip even numbers
+    print(n)            # 1 3 5 7 9</pre>
+<p class="ref">japanese_tutor.py: <code>while True + break</code>; guessing_game.py: <code>continue</code></p>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2>Augmented Assignment &nbsp;<code>+= &nbsp;-= &nbsp;*= &nbsp;/=</code></h2>
+<table>
+<tr><th>Shorthand</th><th>Equivalent</th></tr>
+<tr><td><code>x += n</code></td><td><code>x = x + n</code></td></tr>
+<tr><td><code>x -= n</code></td><td><code>x = x - n</code></td></tr>
+<tr><td><code>x *= n</code></td><td><code>x = x * n</code></td></tr>
+<tr><td><code>x /= n</code></td><td><code>x = x / n</code></td></tr>
+</table>
+<pre>score = 0
+score += 1    # 1
+score += 10   # 11
+score -= 4    # 7</pre>
+<p class="ref">dice_duel.py: <code>player_total += player_roll</code></p>
+</div>
+</div>
+
+</div>
+<div class="col-group">
+
+<div class="cat-data">
+<div class="section">
+<h2>f-Strings &mdash; embed values in text</h2>
+<p>Prefix with <code>f</code>. Anything inside <code>{ }</code> is evaluated and inserted.</p>
+<pre>name = "Ada"
+age  = 17
+print(f"Hello, {name}!")
+print(f"{name} is {age} years old.")
+print(f"Next year: {age + 1}.")</pre>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>f-String Format Specs &nbsp;<code>:.2f</code></h2>
+<pre>price = 7.5
+print(f"${price:.2f}")   # $7.50  (2 decimal places)
+print(f"${price:.0f}")   # $8     (rounded)
+print(f"{3.14159:.3f}")  # 3.142</pre>
+<p class="ref">pizza_builder.py: <code>f"Total: ${total:.2f}"</code></p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2>String Methods: Case, Whitespace, Testing</h2>
+<pre>"  Hi  ".strip()          # "Hi"
+"Hello".lower()           # "hello"
+"hello".upper()           # "HELLO"
+"red".capitalize()        # "Red"
+
+# Chain for user input:
+color = input("Color: ").lower().strip()
+
+"hello".isalpha()         # True  — all letters
+"abc3".isalpha()          # False — "3" is not
+"A".isupper()             # True
+"7".isdigit()             # True
+
+# Substring check:
+if "happy" in input("Mood: ").lower():
+    print("Great!")</pre>
+<p class="ref">mood_suggester.py; caesar_encoder.py</p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2>String: .replace(old, new)</h2>
+<pre>"hello world".replace("world", "Python")
+# → "hello Python"</pre>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PAGE 4 — LISTS -->
+<div class="page">
+<div class="page-num">Page 4</div>
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Lists</h1>
+  <p>creating &bull; indexing &bull; .append() &bull; for loops &bull; .join() &bull; list() &bull; shuffle &bull; tuple unpacking</p>
+</div>
+<div class="cols">
+<div class="col-group">
+
+<div class="cat-data">
+<div class="section">
+<h2>Lists &nbsp;<code>[ ]</code></h2>
+<p>Ordered. Items numbered from <strong>0</strong>. Negative indices count from the end.</p>
+<pre>animals = ["cat", "dog", "rabbit"]
+animals[0]     # "cat"    (first)
+animals[1]     # "dog"
+animals[-1]    # "rabbit" (last)
+len(animals)   # 3</pre>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>List: .append() &mdash; add to end</h2>
+<pre>toppings = []
+toppings.append("cheese")    # ["cheese"]
+toppings.append("mushrooms") # ["cheese","mushrooms"]
+print(len(toppings))         # 2</pre>
+<p class="ref">pizza_builder.py</p>
+</div>
+</div>
+
+<div class="cat-flow">
+<div class="section">
+<h2>for Loop over a List</h2>
+<pre>animals = ["cat", "dog", "rabbit"]
+
+for animal in animals:
+    print("-", animal)    # - cat / - dog / - rabbit
+
+for animal in animals:
+    print(animal.upper()) # CAT  DOG  RABBIT</pre>
+<p class="ref">list_tricks.py</p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2>list() &mdash; string &rarr; characters</h2>
+<pre>list("Alice")  # ['A','l','i','c','e']
+list("abc")    # ['a','b','c']</pre>
+<p class="ref">name_scrambler.py; caesar_encoder.py</p>
+</div>
+</div>
+
+</div>
+<div class="col-group">
+
+<div class="cat-builtins">
+<div class="section">
+<h2><code>sep.join(list)</code> &mdash; list &rarr; string</h2>
+<p>Glues a list of strings into one, with the separator between items.</p>
+<pre>", ".join(["cheese","mushrooms","olives"])
+# "cheese, mushrooms, olives"
+
+" | ".join(["red","white","blue"])
+# "red | white | blue"
+
+"".join(['h','e','l','l','o'])
+# "hello"</pre>
+<p class="ref">pizza_builder.py: <code>", ".join(toppings)</code>; name_scrambler.py: <code>"".join(letters)</code></p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2>random.shuffle(list)</h2>
+<p>Shuffles a list in place. Returns <code>None</code> — the list itself is changed.</p>
+<pre>import random
+deck = [1, 2, 3, 4, 5]
+random.shuffle(deck)      # deck is now shuffled
+print(deck)               # e.g. [3,1,5,2,4]
+
+# String scramble pattern:
+letters = list("Alice")
+random.shuffle(letters)
+print("".join(letters))   # e.g. "cAiEl"</pre>
+<p class="ref">name_scrambler.py</p>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>List of Tuples &mdash; <code>for a, b in pairs:</code></h2>
+<p><em>Unpacking</em> in a loop splits each tuple into named variables automatically.</p>
+<pre>questions = [
+    ("Capital of France?", "Paris"),
+    ("2 + 2?",             "4"),
+]
+
+for question, answer in questions:
+    resp = input(question + " ").strip().lower()
+    if resp == answer.lower():
+        print("Correct!")
+    else:
+        print("Answer:", answer)</pre>
+<p class="ref">trivia_quiz.py</p>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PAGE 5 — DICTIONARIES -->
+<div class="page">
+<div class="page-num">Page 5</div>
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Dictionaries</h1>
+  <p>create &bull; lookup &bull; .get() &bull; key in dict &bull; adding entries &bull; tuple keys &bull; variable swap</p>
+</div>
+<div class="cols">
+<div class="col-group">
+
+<div class="cat-data">
+<div class="section">
+<h2>Dictionaries &nbsp;<code>{ key: value }</code></h2>
+<p>Maps keys to values. Look up a value with <code>d[key]</code>. If the key is missing, Python raises a <code>KeyError</code> — use <code>.get()</code> to be safe.</p>
+<pre>prices = {"small": 8, "medium": 11, "large": 14}
+prices["medium"]   # 11
+prices["large"]    # 14
+
+moods = {"happy": "☀️", "tired": "😴"}
+moods["happy"]     # "☀️"</pre>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>dict.get(key, default)</h2>
+<pre>prices = {"small": 8, "medium": 11}
+prices.get("small", 0)    # 8  — found
+prices.get("jumbo", 0)    # 0  — missing → default</pre>
+<p class="ref">color_mixer.py: <code>combos.get((c1, c2), "Hmm…")</code></p>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>key in dict &nbsp;/&nbsp; key not in dict</h2>
+<pre>prices = {"small": 8, "medium": 11}
+"small" in prices        # True
+"jumbo" not in prices    # True
+
+size = input("Size: ").lower().strip()
+if size not in prices:
+    size = "medium"      # fallback
+base_price = prices[size]</pre>
+<p class="ref">pizza_builder.py</p>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>Adding &amp; Updating Entries</h2>
+<pre>d = {"a": 1, "b": 2}
+d["c"] = 3     # add   → {'a':1,'b':2,'c':3}
+d["a"] = 99    # overwrite
+
+# Frequency count pattern:
+counts = {}
+for word in ["cat", "dog", "cat"]:
+    counts[word] = counts.get(word, 0) + 1
+# {'cat': 2, 'dog': 1}</pre>
+</div>
+</div>
+
+</div>
+<div class="col-group">
+
+<div class="cat-data">
+<div class="section">
+<h2>Tuple Keys &mdash; two inputs, one lookup</h2>
+<p>When a result depends on <em>two</em> values, use a tuple <code>(a, b)</code> as the key.</p>
+<pre>combos = {
+    ("blue",  "red"):    "Purple",
+    ("blue",  "yellow"): "Green",
+    ("red",   "yellow"): "Orange",
+}
+
+c1 = input("Color 1: ").lower().strip()
+c2 = input("Color 2: ").lower().strip()
+if c2 &lt; c1:
+    c1, c2 = c2, c1        # swap to alphabetical
+result = combos.get((c1, c2), "Unknown mix")</pre>
+<p class="ref">color_mixer.py</p>
+</div>
+</div>
+
+<div class="cat-ops">
+<div class="section">
+<h2>Variable Swap &nbsp;<code>a, b = b, a</code></h2>
+<p>Swaps in one line — no temp variable needed.</p>
+<pre>x, y = 10, 20
+x, y = y, x      # x=20, y=10
+
+if color2 &lt; color1:
+    color1, color2 = color2, color1</pre>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>Iterating over a Dict</h2>
+<pre>prices = {"small": 8, "medium": 11, "large": 14}
+
+# Keys only:
+for size in prices:
+    print(size)          # small  medium  large
+
+# Keys and values together:
+for size, cost in prices.items():
+    print(f"{size}: ${cost}")
+
+# Just the values:
+for cost in prices.values():
+    print(cost)          # 8  11  14</pre>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PAGE 6 — MODULES & RANDOM -->
+<div class="page">
+<div class="page-num">Page 6</div>
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Modules &amp; Random</h1>
+  <p>import &bull; random.choice &bull; random.randint &bull; random.shuffle &bull; ** and // &bull; abs()</p>
+</div>
+<div class="cols">
+<div class="col-group">
+
+<div class="cat-func">
+<div class="section">
+<h2>import &mdash; loading a module</h2>
+<p>Put <code>import</code> at the <em>top</em> of your file before any code that uses it.</p>
+<pre>import random
+import math
+
+n = random.randint(1, 6)    # prefix: "random."
+
+from random import choice, shuffle
+result = choice(["a","b","c"])  # no prefix needed</pre>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2>random.choice(list)</h2>
+<p>Returns one random element. Equal chance for all. Does not change the list.</p>
+<pre>import random
+responses = ["Yes!", "No.", "Maybe.", "Ask again."]
+print(random.choice(responses))
+
+adjectives = ["brilliant", "radiant", "awesome"]
+adj  = random.choice(adjectives)
+noun = random.choice(["legend","genius","hero"])</pre>
+<p class="ref">magic8ball.py; compliment_machine.py</p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2>random.randint(a, b)</h2>
+<p>Random integer from <code>a</code> to <code>b</code>, <strong>including both endpoints</strong>.</p>
+<pre>random.randint(1, 6)    # 1 2 3 4 5 or 6
+random.randint(1, 100)  # any integer 1–100
+random.randint(0, 1)    # coin flip</pre>
+<p class="ref">guessing_game.py; dice_duel.py</p>
+</div>
+</div>
+
+</div>
+<div class="col-group">
+
+<div class="cat-ops">
+<div class="section">
+<h2>** Power &nbsp;&amp;&nbsp; // Integer Division</h2>
+<pre>2 ** 3      # 8    (2 cubed)
+10 ** 2     # 100  (10 squared)
+9 ** 0.5    # 3.0  (square root)
+
+7 // 2      # 3    (drop remainder)
+7 / 2       # 3.5  (keep decimal)
+(1 + 100) // 2   # 50  — midpoint</pre>
+<p class="ref">guessing_game.py: <code>(low + high) // 2</code></p>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2>abs() &mdash; absolute value</h2>
+<pre>abs(-5)    # 5
+abs(3)     # 3
+abs(-0.7)  # 0.7</pre>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>True, False, None</h2>
+<table>
+<tr><th>Value</th><th>Meaning &amp; common use</th></tr>
+<tr><td><code>True</code></td><td>boolean yes — result of <code>==</code>, <code>in</code>, etc.</td></tr>
+<tr><td><code>False</code></td><td>boolean no — <code>return False</code></td></tr>
+<tr><td><code>None</code></td><td>no value — functions that don't return anything; <code>random.shuffle()</code> returns <code>None</code></td></tr>
+</table>
+<pre>found = None          # placeholder
+if found is None:
+    print("not set")</pre>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>Ternary (inline if)</h2>
+<p>A one-line shorthand for simple if/else.</p>
+<pre>base = ord("A") if ch.isupper() else ord("a")
+# same as:
+if ch.isupper():
+    base = ord("A")
+else:
+    base = ord("a")</pre>
+<p class="ref">caesar_encoder.py</p>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PAGE 7 — MATH MODULE & ADVANCED PATTERNS -->
+<div class="page">
+<div class="page-num">Page 7</div>
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Math &amp; Advanced Patterns</h1>
+  <p>math.sqrt &bull; math.ceil/floor &bull; math.log2 &bull; list comprehensions &bull; nested loops &bull; enumerate</p>
+</div>
+<div class="cols">
+<div class="col-group">
+
+<div class="cat-func">
+<div class="section">
+<h2>import math</h2>
+<pre>import math
+
+math.sqrt(25)       # 5.0  — square root
+math.sqrt(2)        # 1.4142...
+
+math.ceil(3.2)      # 4    — round UP
+math.floor(3.9)     # 3    — round DOWN
+
+math.log2(100)      # 6.644...
+math.log2(1024)     # 10.0  (2¹⁰ = 1024)
+
+math.pi             # 3.14159...
+math.e              # 2.71828...</pre>
+</div>
+</div>
+
+<div class="cat-func">
+<div class="section">
+<h2>math in Practice</h2>
+<pre>import math
+# How many guesses for binary search on 1–100?
+max_guesses = math.ceil(math.log2(100))  # 7
+
+# Circle: is point (c,r) inside radius?
+dist = math.sqrt((c - cx)**2 + (r - cy)**2)
+if dist &lt;= radius:
+    draw_pixel()</pre>
+<p class="ref">guessing_game.py; flag_painter.py</p>
+</div>
+</div>
+
+<div class="cat-func">
+<div class="section">
+<h2>Nested for Loops</h2>
+<p>The inner loop runs fully for every step of the outer loop.</p>
+<pre>for row in range(3):
+    for col in range(4):
+        print(row, col)
+# (0,0)(0,1)(0,2)(0,3) then row 1...
+
+# Drawing a pixel grid:
+for r in range(HEIGHT):
+    for c in range(WIDTH):
+        draw_pixel(r, c)</pre>
+<p class="ref">flag_painter.py</p>
+</div>
+</div>
+
+</div>
+<div class="col-group">
+
+<div class="cat-func">
+<div class="section">
+<h2>List Comprehensions</h2>
+<p>A compact <code>[ expr for var in iterable ]</code> that builds a list in one line.</p>
+<pre># Long way:
+squares = []
+for x in range(5):
+    squares.append(x * x)  # [0, 1, 4, 9, 16]
+
+# Short way:
+squares = [x * x for x in range(5)]
+
+# Convert digit chars to ints:
+digits = [int(c) for c in "123"]   # [1, 2, 3]
+
+# With a condition:
+evens = [x for x in range(10) if x % 2 == 0]
+# [0, 2, 4, 6, 8]</pre>
+</div>
+</div>
+
+<div class="cat-builtins">
+<div class="section">
+<h2>enumerate() &mdash; index + value</h2>
+<p>Adds an automatic counter to any loop.</p>
+<pre>animals = ["cat", "dog", "rabbit"]
+
+for i, animal in enumerate(animals):
+    print(i, animal)
+# 0 cat / 1 dog / 2 rabbit
+
+# Start from 1:
+for i, animal in enumerate(animals, start=1):
+    print(f"{i}. {animal}")</pre>
+</div>
+</div>
+
+<div class="cat-data">
+<div class="section">
+<h2>Multi-assignment &amp; Packing</h2>
+<pre># Assign multiple variables at once:
+x, y, z = 1, 2, 3
+
+# Swap without a temp variable:
+x, y = y, x
+
+# Unpack a tuple:
+point = (10, 20)
+px, py = point    # px=10, py=20
+
+# Return multiple values from a function:
+def min_max(lst):
+    return min(lst), max(lst)
+
+lo, hi = min_max([3, 1, 4, 1, 5])</pre>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PAGE 8 — DAY 3 / STRING TABLE -->
+<div class="page">
+<div class="page-num">Page 8</div>
+<div class="page-header">
+  <h1>Python Quick Reference &mdash; Day 3 &amp; String Methods</h1>
+  <p>ord &amp; chr &bull; Caesar cipher &bull; try/except &bull; getpass &bull; full string methods table</p>
+</div>
+<div class="cols">
+<div class="col-group">
+
+<div class="cat-builtins">
+<div class="section">
+<h2>ord() &amp; chr()</h2>
+<pre>ord("A")  # 65   ord("a")  # 97
+ord("Z")  # 90   ord("z")  # 122
+chr(65)   # "A"  chr(97)   # "a"
+chr(72)   # "H"</pre>
+<p>A–Z: 65–90 &nbsp;&bull;&nbsp; a–z: 97–122</p>
+</div>
+</div>
+
+<div class="cat-func">
+<div class="section">
+<h2>Caesar Cipher (Day 3)</h2>
+<p>Shift each letter by 3, wrapping with <code>% 26</code>.</p>
+<pre>message = input("Message: ")
+encoded = ""
+for ch in message:
+    if ch.isalpha():
+        base = ord("A") if ch.isupper() else ord("a")
+        encoded += chr((ord(ch) - base + 3) % 26 + base)
+    else:
+        encoded += ch
+print("Encoded:", encoded)</pre>
+<p>For <code>"D"</code>: <code>3 + 3 = 6</code> → <code>chr(71) = "G"</code>. Decode: use <code>-3</code>.</p>
+<p class="ref">day3/caesar_encoder.py; caesar_decoder.py</p>
+</div>
+</div>
+
+<div class="cat-flow">
+<div class="section">
+<h2>try / except</h2>
+<p>Catches errors so the program doesn't crash.</p>
+<pre>try:
+    n = int(input("Number: "))
+    print("Double:", n * 2)
+except ValueError:
+    print("Not a valid number!")
+
+# Keep asking until valid:
+while True:
+    try:
+        n = int(input("Guess: "))
+        break
+    except ValueError:
+        print("Whole numbers only.")</pre>
+<table>
+<tr><th>Exception</th><th>Raised when…</th></tr>
+<tr><td><code>ValueError</code></td><td><code>int("abc")</code></td></tr>
+<tr><td><code>KeyError</code></td><td><code>d["missing"]</code></td></tr>
+<tr><td><code>IndexError</code></td><td><code>lst[99]</code> out of range</td></tr>
+</table>
+<p class="ref">guessing_game.py</p>
+</div>
+</div>
+
+<div class="cat-func">
+<div class="section">
+<h2>getpass &mdash; hidden input</h2>
+<pre>import getpass
+secret = getpass.getpass("Paste encoded: ")
+# nothing echoed while typing</pre>
+<p class="ref">day3/caesar_decoder.py</p>
+</div>
+</div>
+
+</div>
+<div class="col-group">
+
+<div class="cat-builtins">
+<div class="section">
+<h2>String Methods Quick Reference</h2>
+<table>
+<tr><th>Method</th><th>Returns / does</th><th>Example</th></tr>
+<tr><td><code>.lower()</code></td><td>all lowercase</td><td><code>"Hi".lower()</code> → <code>"hi"</code></td></tr>
+<tr><td><code>.upper()</code></td><td>all uppercase</td><td><code>"hi".upper()</code> → <code>"HI"</code></td></tr>
+<tr><td><code>.strip()</code></td><td>remove edge spaces</td><td><code>" hi ".strip()</code> → <code>"hi"</code></td></tr>
+<tr><td><code>.capitalize()</code></td><td>first letter upper</td><td><code>"red".capitalize()</code> → <code>"Red"</code></td></tr>
+<tr><td><code>.title()</code></td><td>every word capitalized</td><td><code>"hello world".title()</code> → <code>"Hello World"</code></td></tr>
+<tr><td><code>.isalpha()</code></td><td><code>True</code> if all letters</td><td><code>"abc".isalpha()</code> → <code>True</code></td></tr>
+<tr><td><code>.isupper()</code></td><td><code>True</code> if all upper</td><td><code>"ABC".isupper()</code> → <code>True</code></td></tr>
+<tr><td><code>.isdigit()</code></td><td><code>True</code> if all digits</td><td><code>"42".isdigit()</code> → <code>True</code></td></tr>
+<tr><td><code>.replace(a,b)</code></td><td>swap all of <code>a</code> with <code>b</code></td><td><code>"cat".replace("c","b")</code> → <code>"bat"</code></td></tr>
+<tr><td><code>sep.join(lst)</code></td><td>list → one string</td><td><code>", ".join(["a","b"])</code> → <code>"a, b"</code></td></tr>
+<tr><td><code>x in s</code></td><td><code>True</code> if substring</td><td><code>"hi" in "hi there"</code> → <code>True</code></td></tr>
+<tr><td><code>.split()</code></td><td>string → list of words</td><td><code>"a b c".split()</code> → <code>['a','b','c']</code></td></tr>
+<tr><td><code>.split(sep)</code></td><td>split on a separator</td><td><code>"a,b,c".split(",")</code> → <code>['a','b','c']</code></td></tr>
+<tr><td><code>.startswith(s)</code></td><td><code>True</code> if begins with</td><td><code>"hello".startswith("h")</code> → <code>True</code></td></tr>
+<tr><td><code>.endswith(s)</code></td><td><code>True</code> if ends with</td><td><code>"hello".endswith("o")</code> → <code>True</code></td></tr>
+<tr><td><code>.zfill(n)</code></td><td>pad with leading zeros</td><td><code>str(7).zfill(3)</code> → <code>"007"</code></td></tr>
+<tr><td><code>len(s)</code></td><td>number of characters</td><td><code>len("hello")</code> → <code>5</code></td></tr>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>

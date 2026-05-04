@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Polaris",
+    "object_type": "star",
+    "constellation": "Ursa Minor",
+    "distance_from_earth_ly": 433.0,
+    "distance_from_sun_ly": 433.0,
+    "distance_baseline": "Approximate stellar distance from Earth. The Sun is only 1 AU from Earth, so at 433 light-years the Earth and Sun distances are effectively the same.",
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "notes": "North Star; useful for navigation because it sits near the north celestial pole.",
+    "sky_position": {
+      "local_time": "any time after dark",
+      "az_deg": 0,
+      "alt_deg": 46,
+      "compass": "N",
+      "note": "Always 46° above the northern horizon from Goldendale — never rises or sets. Find it by following the two outer stars of the Big Dipper's bowl straight toward the North."
+    }
+  },
+  {
+    "name": "Arcturus",
+    "object_type": "star",
+    "constellation": "Bootes",
+    "distance_from_earth_ly": 36.7,
+    "distance_from_sun_ly": 36.7,
+    "distance_baseline": "Approximate stellar distance from Earth. The Sun is only 1 AU from Earth, so at 36.7 light-years the Earth and Sun distances are effectively the same.",
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "notes": "A bright orange giant star and one of the easiest stars to spot in spring and summer.",
+    "sky_position": {
+      "local_time": "10:00 PM",
+      "az_deg": 125,
+      "alt_deg": 53,
+      "compass": "SE",
+      "note": "Brilliant orange star high in the SE — the brightest star in the northern half of the sky. Hard to miss. Follow the arc of the Big Dipper's handle to find it."
+    }
+  },
+  {
+    "name": "Vega",
+    "object_type": "star",
+    "constellation": "Lyra",
+    "distance_from_earth_ly": 25.0,
+    "distance_from_sun_ly": 25.0,
+    "distance_baseline": "Approximate stellar distance from Earth. The Sun is only 1 AU from Earth, so at 25 light-years the Earth and Sun distances are effectively the same.",
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "notes": "Very bright blue-white star in the Summer Triangle.",
+    "sky_position": {
+      "local_time": "10:00 PM",
+      "az_deg": 57,
+      "alt_deg": 23,
+      "compass": "ENE",
+      "note": "Bright blue-white star rising in the ENE. Gets much higher by midnight. One corner of the Summer Triangle."
+    }
+  },
+  {
+    "name": "Venus",
+    "object_type": "planet",
+    "constellation": null,
+    "distance_from_earth_ly": 0.0000044,
+    "distance_from_sun_ly": 0.0000114,
+    "distance_baseline": "Average orbital-radius baseline, not a live telescope ephemeris. Earth distance is approximated as |1.000 AU - 0.723 AU| = 0.277 AU; Sun distance uses Venus's average orbital radius of 0.723 AU.",
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "notes": "Included in this list as requested; Venus is a planet, not a star.",
+    "sky_position": {
+      "local_time": "5:30 AM",
+      "az_deg": 92,
+      "alt_deg": 13,
+      "compass": "E",
+      "note": "Brilliant morning star low in the east before sunrise. Unmistakable — the brightest thing in the pre-dawn sky besides the Moon."
+    }
+  },
+  {
+    "name": "Cassiopeia",
+    "object_type": "constellation",
+    "constellation": "Cassiopeia",
+    "distance_from_earth_ly": 54.5,
+    "distance_from_sun_ly": 54.5,
+    "distance_baseline": "Rough representative distance using Caph, one of Cassiopeia's nearest bright stars. The whole constellation spans multiple distances, so this is an anchor value rather than one exact distance.",
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "notes": "Constellation (not a single star). Distance shown is a rough distance to one of its nearest bright stars (Caph).",
+    "sky_position": {
+      "local_time": "10:00 PM",
+      "az_deg": 353,
+      "alt_deg": 16,
+      "compass": "N",
+      "note": "Low in the north, close to the horizon. The W-shape is harder to see at this height. Gets higher and easier in the autumn sky."
+    }
+  },
+  {
+    "name": "Big Dipper",
+    "object_type": "asterism",
+    "constellation": "Ursa Major",
+    "distance_from_earth_ly": 78.0,
+    "distance_from_sun_ly": 78.0,
+    "distance_baseline": "Rough representative distance using Mizar, one of the bright stars in the Big Dipper. The full asterism spans multiple star distances, so this is a simple anchor value.",
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "notes": "Asterism (not a full constellation). Distance shown is a rough distance to one of its nearest bright stars (Mizar).",
+    "sky_position": {
+      "local_time": "10:00 PM",
+      "az_deg": 320,
+      "alt_deg": 75,
+      "compass": "NW",
+      "note": "Almost directly overhead, tilted toward the NW. The most prominent star pattern in the May sky — the hardest thing in the sky NOT to find."
+    }
+  },
+  {
+    "name": "Little Dipper",
+    "object_type": "asterism",
+    "constellation": "Ursa Minor",
+    "distance_from_earth_ly": 131.0,
+    "distance_from_sun_ly": 131.0,
+    "distance_baseline": "Rough representative distance using Kochab, one of the bright stars in the Little Dipper. The full asterism spans multiple star distances, so this is a simple anchor value.",
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "notes": "Asterism (not a full constellation). Distance shown is a rough distance to one of its nearest bright stars (Kochab).",
+    "sky_position": {
+      "local_time": "10:00 PM",
+      "az_deg": 346,
+      "alt_deg": 50,
+      "compass": "N",
+      "note": "High in the north, circling around Polaris. Much fainter than the Big Dipper. Polaris marks the very tip of its handle."
+    }
+  }
+]

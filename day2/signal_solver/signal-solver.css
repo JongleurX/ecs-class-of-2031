@@ -1,0 +1,91 @@
+@page {
+  size: Letter;
+  margin: 0.6in;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 11pt;
+  line-height: 1.35;
+  color: #111;
+  max-width: 7.2in;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+h1 {
+  font-size: 20pt;
+  margin-bottom: 0.2rem;
+}
+
+h2 {
+  font-size: 14pt;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.1rem;
+  margin-top: 1rem;
+}
+
+h3 {
+  font-size: 12pt;
+  margin-top: 0.8rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.4rem 0 0.7rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+th,
+td {
+  border: 1px solid #333;
+  padding: 0.2rem 0.3rem;
+  font-size: 10pt;
+}
+
+th {
+  background: #f1f1f1;
+}
+
+code,
+pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 9pt;
+}
+
+pre {
+  border: 1px solid #777;
+  background: #fafafa;
+  padding: 0.35rem 0.45rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.page-break {
+  page-break-before: always;
+  break-before: page;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.45rem auto 0.65rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+img.chalkboard-layout {
+  width: 7in;
+  max-width: 100%;
+  border: 1px solid #777;
+  background: #fff;
+}

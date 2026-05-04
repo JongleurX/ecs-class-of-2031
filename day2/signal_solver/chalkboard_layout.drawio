@@ -1,0 +1,75 @@
+<mxfile host="app.diagrams.net" modified="2026-05-03T23:20:00.000Z" agent="Mozilla/5.0" version="24.7.17" type="device">
+  <diagram id="chalkboard-layout-1" name="Chalkboard Layout">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Decode the Signal - Suggested Full Chalkboard Layout (During Live Solve)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="20" width="1440" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="board" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fff8;strokeColor=#2d2d2d;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="1520" height="860" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leftPanel" value="LEFT PANEL (Persistent)&#xa;~25%" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff4de;strokeColor=#8a6d3b;strokeWidth=2;fontSize=16;fontStyle=1;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="70" y="120" width="360" height="790" as="geometry" />
+        </mxCell>
+
+        <mxCell id="centerPanel" value="CENTER PANEL (Running Evidence)&#xa;~50%" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9f7ff;strokeColor=#31708f;strokeWidth=2;fontSize=16;fontStyle=1;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="450" y="120" width="760" height="790" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rightPanel" value="RIGHT PANEL (Scratch / Erase Often)&#xa;~25%" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f4f4f4;strokeColor=#666666;strokeWidth=2;fontSize=16;fontStyle=1;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="120" width="300" height="790" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leftRules" value="UNIVERSAL RULES&#xa;1) All digits different&#xa;2) First digit cannot be 0&#xa;3) Apply puzzle rules to eliminate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffdf7;strokeColor=#8a6d3b;strokeWidth=1.5;fontSize=14;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="190" width="320" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leftPuzzleRules" value="PUZZLE-SPECIFIC RULES&#xa;1) d3 = d2 + 4&#xa;2) d1 + d2 + d3 = 13&#xa;3) d3 = d1 + 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffdf7;strokeColor=#8a6d3b;strokeWidth=1.5;fontSize=14;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="370" width="320" height="140" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leftTiming" value="PHASE + TIMER&#xa;Phase 3 live solve&#xa;~12 minutes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffdf7;strokeColor=#8a6d3b;strokeWidth=1.5;fontSize=14;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="530" width="320" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leftReminder" value="Keep this panel mostly static." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=2;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="90" y="650" width="320" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="centerLedger" value="FILTER LEDGER&#xa;Start: 648&#xa;+ d3 = d2 + 4  -> 43&#xa;+ sum = 13    -> 4&#xa;+ d3 = d1 + 1 -> 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#31708f;strokeWidth=1.5;fontSize=14;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="480" y="190" width="700" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="centerGrid" value="ELIMINATION GRID (3x10) - running updates&#xa;&#xa;Digit 1: X X X X X 5 X X X X&#xa;Digit 2: X X 2 X X X X X X X&#xa;Digit 3: X X X X X X 6 X X X" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#31708f;strokeWidth=1.5;fontSize=14;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="480" y="340" width="700" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="centerChecks" value="NO-SHORTCUT CHECKS&#xa;Rule 2: compute (d1,d2,d3) rows and reject invalid rows&#xa;Rule 3: check each survivor against d3 = d1 + 1&#xa;&#xa;Final surviving code: 526" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#31708f;strokeWidth=1.5;fontSize=14;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="480" y="580" width="700" height="190" as="geometry" />
+        </mxCell>
+
+        <mxCell id="centerRule" value="Center panel = proof trail. Do not erase until solved." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=2;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="480" y="790" width="700" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rightCoins" value="COIN / BINARY BRIDGE&#xa;2x2x2 = 8&#xa;HHH HHT HTH HTT&#xa;THH THT TTH TTT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;strokeWidth=1.5;fontSize=13;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="190" width="260" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rightMath" value="SCRATCH MATH&#xa;d1 + d2 + d3 = 13&#xa;d3 = d2 + 4&#xa;=> d1 + 2*d2 = 9" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;strokeWidth=1.5;fontSize=13;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="370" width="260" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rightScratch" value="ERASE + REWRITE AREA&#xa;(student ideas, quick checks, mistakes)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;strokeWidth=1.5;fontSize=13;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="520" width="260" height="250" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

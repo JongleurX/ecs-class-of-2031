@@ -1,40 +1,52 @@
-# Python Intro for Scratch Students
+# ECS G7 Spring Computational Thinking Block Curriculum
 
-A set of beginner-friendly Python exercises designed for 11-12 year olds transitioning from Scratch to text-based coding.
+This repository contains Python teaching materials and printable resources for
+the ECS Spring 2026 computational thinking block. These activities are designed to help introduce 11-12 year old students transition from Scratch programming into Python programming for the first time. There is a companion teacher's guide at [G7 ECS CS Lesson Plans 2025-2026](https://docs.google.com/document/d/1eqvwf6xUf6dYRwR7-1Oa6eNIcvG8NE2ppLJUQMMULEo/edit?usp=sharing).
 
-Goals:
-- Start with copy-edit / number changes
-- Introduce variables, print, input, arithmetic, string operations
-- Progress to writing simple functions with driver code
-- Keep it pure Python (no pip, no extra libraries)
+Everything in this repo is pure Python, without the need for pip or extra libraries. One primary reason for this is that student Chromebooks do not have any native tools for running Python. Doing so would require installing Linux, which was too burdensome for a volunteer-led class with no IT staff.
 
-How to use:
-1. Open a terminal in this folder.
-2. Run `python3 exercises/01_hello_world.py` (or any exercise file).
-3. Read the comments at the top of the file and make the changes asked.
-4. Re-run to check behavior.
+The launcher system is designed to make it easy and efficient to create Code.org Python Lab "console output"-style projects that can easily be imported from GitHub to boostrap "remixable" environments. This is an efficient means of getting foundational code onto a learner's screen and avoiding them needing to type anything, and avoiding complexity in having school administrators grant access to GitHub or other external sites beyond Code.org.
 
-Structure:
-- `exercises/` contains numbered exercises.
-- `teacher-guide/` contains suggested solutions (optional for teacher use).
+## Current Layout
 
-Exercise 07 Notes:
-- Simplified to focus on abstraction: same geometry functions create different flags
-- Vertical stripes: France (blue-white-red left-to-right) and Italy (green-white-red left-to-right)
-- Horizontal stripes: Germany (black-red-yellow top-to-bottom, 3 stripes) and Ukraine (blue-yellow top-to-bottom, 2 stripes)
-- Circle flags: Japan (red circle on white) and Bangladesh (green circle on red background)
-- Students fix WRONG function calls and parameters to make flags correct
-- Demonstrates how geometry code stays the same while colors and orientations change
-- Uses ANSI color codes for terminal display (works in most modern terminals)
-- Solutions file: 07a_flag_painter_solutions.py shows all flags correct
+- `day1/`:
+  - Intro HTML activities and handouts.
+- `day2/`:
+  - Starter Python activities in `day2/starters/`.
+  - Challenge Python activities in `day2/challenges/`.
+  - `signal_solver/` HTML/CSS/Markdown materials.
+  - `main.py` launches all Day 2 Python scripts recursively.
+- `day3/`:
+  - `caesar_cipher/` scripts.
+  - `signal_solver_demo/` scripts, including puzzle generator and solvers.
+  - `main.py` launches all Day 3 Python scripts recursively.
+- `day4/`:
+  - Games and strategy projects in `hanoi/`, `maze/`, and `nim/`.
+  - `main.py` launches all Day 4 Python scripts recursively.
+- `bonus/`:
+  - Extra astronomy-themed scripts and data, per Ms. Alison's request.
+- `abandoned/`:
+  - Archived or retired materials and earlier folder structures.
 
-Current Exercises:
-1. Hello World - Simple variable editing
-2. Calculator - Fix a typo and change values  
-3. Number Guessing Game - Binary search with helper mode
-4. Function Practice - Implement greet_user() and is_even()
-5. Lists and Loops - Add animals, uppercase loop, vowel counter
-6. Japanese Tutor - Character recognition with progress tracking
-7. Flag Painter - Fix function calls and parameters for 6 flags (France, Italy, Germany, Ukraine, Japan, Bangladesh)
+## Running Day Menus
 
-Have fun learning programming! 🌟
+From the repo root, run any day launcher:
+
+```bash
+python3 day1/main.py
+python3 day2/main.py
+python3 day3/main.py
+python3 day4/main.py
+```
+
+Each day launcher:
+- Finds Python files in that day folder and all subfolders.
+- Shows a numbered menu.
+- Runs the selected script and returns to the menu afterward.
+
+## Notes
+
+- Some scripts are designed as importable support modules (for example, game
+  helper files). They are still listed because the launcher is file-based.
+- If a script requires local relative imports, the launcher temporarily changes
+  working directory and `sys.path` so those imports still work.

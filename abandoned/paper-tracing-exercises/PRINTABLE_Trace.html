@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Printable Loop Trace Templates</title>
+  <style>
+    :root {
+      --ink: #111;
+      --muted: #444;
+      --rule: #bbb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      line-height: 1.35;
+      background: #fff;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 10px 0;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-top: 20px;
+    }
+
+    h3 {
+      font-size: 17px;
+      margin-top: 16px;
+    }
+
+    p, ul, ol {
+      margin: 8px 0;
+    }
+
+    .meta {
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .blank {
+      display: inline-block;
+      border-bottom: 1px solid var(--ink);
+      min-width: 180px;
+      height: 18px;
+      vertical-align: baseline;
+      margin: 0 6px;
+    }
+
+    .section {
+      border-top: 2px solid var(--rule);
+      padding-top: 16px;
+      margin-top: 20px;
+      page-break-inside: avoid;
+    }
+
+    .code {
+      border: 1px solid var(--rule);
+      background: #fafafa;
+      padding: 10px;
+      margin: 10px 0;
+      white-space: pre;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #666;
+      padding: 6px;
+      text-align: left;
+      vertical-align: top;
+      min-height: 26px;
+    }
+
+    td {
+      height: 28px;
+    }
+
+    .write-lines {
+      margin: 8px 0 0 0;
+    }
+
+    .write-line {
+      border-bottom: 1px solid #333;
+      height: 26px;
+      margin: 6px 0;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media print {
+      body {
+        padding: 12mm;
+      }
+
+      .page-break {
+        page-break-before: always;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Printable Loop Trace Templates</h1>
+
+  <p class="meta">
+    Name <span class="blank"></span>
+    Date <span class="blank"></span>
+    Class <span class="blank"></span>
+  </p>
+
+  <p>Use these pages to trace loop warmups on paper before running code.</p>
+  <ol>
+    <li>Write the sequence produced by <code>range(...)</code> or by iterating over a string/list.</li>
+    <li>Fill the trace table one row per loop pass.</li>
+    <li>Write the exact printed output (one line per print).</li>
+  </ol>
+
+  <section class="section">
+    <h2>Exercise 1: Counting Up</h2>
+    <div class="code">total = 0
+for i in range(1, 4):
+    total = total + i
+    print("Power:", total)</div>
+    <p>Range sequence: <span class="blank" style="min-width: 420px"></span></p>
+    <table>
+      <tr><th>Pass</th><th>i value</th><th>total before</th><th>total after total = total + i</th><th>Printed this pass</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p>Final printed output (top to bottom):</p>
+    <div class="write-lines"><div class="write-line"></div><div class="write-line"></div><div class="write-line"></div></div>
+  </section>
+
+  <section class="section page-break">
+    <h2>Exercise 2: Building a Word</h2>
+    <div class="code">word = ""
+for letter in "CAT":
+    word = word + letter
+    print(word)
+print("Final:", word)</div>
+    <p>Sequence of letter values: <span class="blank" style="min-width: 360px"></span></p>
+    <table>
+      <tr><th>Pass</th><th>letter</th><th>word before</th><th>word after word = word + letter</th><th>Printed inside loop</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p>Printed after the loop (<code>print("Final:", word)</code>):</p>
+    <div class="write-lines"><div class="write-line"></div></div>
+    <p>All printed output (in order):</p>
+    <div class="write-lines"><div class="write-line"></div><div class="write-line"></div><div class="write-line"></div><div class="write-line"></div></div>
+  </section>
+
+  <section class="section">
+    <h2>Exercise 3: Hidden Message (Every Third Letter)</h2>
+    <div class="code">text = "S12P34A56C78E90"
+secret = ""
+for i in range(0, 15, 3):
+    secret = secret + text[i]
+print(secret)</div>
+    <p>Range sequence for i: <span class="blank" style="min-width: 420px"></span></p>
+    <table>
+      <tr><th>Pass</th><th>i value</th><th>text[i]</th><th>secret before</th><th>secret after</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>5</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p>Final printed output:</p>
+    <div class="write-lines"><div class="write-line"></div></div>
+  </section>
+
+  <section class="section page-break">
+    <h2>Exercise 4: Launch Pattern Loop</h2>
+    <div class="code">for level in range(1, 5):
+    line = ""
+    for count in range(level):
+        line = line + "🚀"
+    print("Level", level, ":", line)</div>
+    <p>Outer range sequence for level: <span class="blank" style="min-width: 390px"></span></p>
+    <table>
+      <tr><th>Outer pass</th><th>level value</th><th>Inner range: range(level) gives...</th><th>line after inner loop</th><th>Printed this row</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p>Final printed output:</p>
+    <div class="write-lines"><div class="write-line"></div><div class="write-line"></div><div class="write-line"></div><div class="write-line"></div></div>
+  </section>
+
+  <section class="section">
+    <h2>Exercise 5: Multi Accumulator</h2>
+    <div class="code">team_a = 0
+team_b = 0
+for n in range(1, 6):
+    if n % 2 == 0:
+        team_a = team_a + n
+    else:
+        team_b = team_b + n
+print("Team A:", team_a)
+print("Team B:", team_b)</div>
+    <p>Range sequence for n: <span class="blank" style="min-width: 420px"></span></p>
+    <table>
+      <tr><th>Pass</th><th>n value</th><th>n % 2 == 0?</th><th>team_a before</th><th>team_b before</th><th>team_a after</th><th>team_b after</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p>Printed outputs:</p>
+    <div class="write-lines"><div class="write-line"></div><div class="write-line"></div></div>
+  </section>
+
+  <section class="section page-break">
+    <h2>Exercise 6: Secret Code (Part A)</h2>
+    <div class="code">words = ["SNAKE", "TIGER", "EAGLE", "MOOSE"]
+secret = ""
+for word in words:
+    secret = secret + word[0]
+print(secret)</div>
+    <table>
+      <tr><th>Pass</th><th>word value</th><th>word[0]</th><th>secret before</th><th>secret after</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p>Printed output:</p>
+    <div class="write-lines"><div class="write-line"></div></div>
+    </section>
+
+  <section class="section">
+    <h2>Exercise 7: Astronomy Visibility List</h2>
+    <div class="code">planets = ["Mercury", "Venus", "Mars", "Jupiter"]
+visible = [False, True, False, True]
+seen = ""
+
+for i in range(4):
+    if visible[i]:
+    seen = seen + planets[i][:3] + " "
+
+print("Seen:", seen)</div>
+    <p>Range sequence for i: <span class="blank" style="min-width: 420px"></span></p>
+    <table>
+      <tr><th>Pass</th><th>i value</th><th>visible[i]</th><th>planet[:3]</th><th>seen before</th><th>seen after</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    <p>Printed output:</p>
+    <div class="write-lines"><div class="write-line"></div></div>
+  </section>
+
+  <section class="section page-break">
+    <h2>Exercise 8: Integration Challenge (Nested Loops)</h2>
+    <div class="code">grid = ""
+for row in range(3):
+    for col in range(4):
+        if (row + col) % 2 == 0:
+        grid = grid + "✅"
+        else:
+        grid = grid + "❌"
+    grid = grid + "\n"
+print(grid)
+
+count = 0
+for char in grid:
+    if char == "✅":
+        count = count + 1
+  print("Check count:", count)</div>
+
+    <h3>Part A: Build each row of the grid (outer loop)</h3>
+    <p>Outer range sequence for row: <span class="blank" style="min-width: 390px"></span></p>
+    <table>
+      <tr><th>Outer pass</th><th>row value</th><th>grid before this row</th><th>grid after this row (include newline)</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td></tr>
+    </table>
+
+    <h3>Part B: Use one detailed row trace, then continue the pattern</h3>
+    <p class="small">Fully trace Row 0. Then use what you notice to predict Rows 1 and 2 above.</p>
+    <table>
+      <tr><th>col</th><th>row + col</th><th>(row + col) % 2 == 0?</th><th>Symbol added</th><th>grid so far within this row</th></tr>
+      <tr><td>0</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+
+    <p class="small">Tips: even sums make ✅, odd sums make ❌. Each new row starts fresh, then ends with a newline.</p>
+
+    <p>Printed output for <code>print(grid)</code>:</p>
+    <div class="write-lines"><div class="write-line"></div><div class="write-line"></div><div class="write-line"></div></div>
+
+    <h3>Part C: Trace the final counting loop</h3>
+    <p class="small">You do not need to trace every character in the full string. Track ✅ and newline characters carefully.</p>
+    <table>
+      <tr><th>Pass</th><th>char value</th><th>char == "✅"?</th><th>count before</th><th>count after</th></tr>
+      <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>5</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>6</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>7</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>8</td><td></td><td></td><td></td><td></td></tr>
+    </table>
+
+    <p>Printed output for <code>print("Check count:", count)</code>:</p>
+    <div class="write-lines"><div class="write-line"></div></div>
+  </section>
+
+  <section class="section">
+    <h2>Quick Self-Check Rules</h2>
+    <ul>
+      <li><code>range(start, stop)</code> includes <code>start</code> and excludes <code>stop</code>.</li>
+      <li>Fill one table row per loop pass.</li>
+      <li>Always separate before vs after values.</li>
+      <li>For nested loops, trace outer loop first, then inner loop for each outer pass.</li>
+      <li>Match spacing, punctuation, and capitalization exactly in predicted output.</li>
+    </ul>
+  </section>
+</body>
+</html>

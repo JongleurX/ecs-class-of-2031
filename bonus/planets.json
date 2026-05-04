@@ -1,0 +1,200 @@
+[
+  {
+    "number": 1,
+    "name": "Mercury",
+    "symbol": ".",
+    "type": "terrestrial",
+    "etymology": "Named after the swift Roman messenger god, reflecting its blazing speed — Mercury orbits the Sun faster than any other planet, completing a full year in just 88 Earth days.",
+    "distance_au": 0.387,
+    "mass_earth": 0.055,
+    "avg_temp_c": 167,
+    "moons": 0,
+    "diameter_km": 4879,
+    "year_days": 88.0,
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "sky_position": {
+      "local_time": "9:00 PM",
+      "az_deg": 291,
+      "alt_deg": 11,
+      "compass": "WNW",
+      "note": "Low in the WNW sky during evening twilight. Look just after sunset while the sky is still bright. Binoculars help — it sets quickly."
+    }
+  },
+  {
+    "number": 2,
+    "name": "Venus",
+    "symbol": "o",
+    "type": "terrestrial",
+    "etymology": "Named after the Roman goddess of love and beauty, since it is the brightest object in the night sky after the Moon. Ancient astronomers called it the 'Evening Star' or 'Morning Star.'",
+    "distance_au": 0.723,
+    "mass_earth": 0.815,
+    "avg_temp_c": 464,
+    "moons": 0,
+    "diameter_km": 12104,
+    "year_days": 224.7,
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "sky_position": {
+      "local_time": "5:30 AM",
+      "az_deg": 92,
+      "alt_deg": 13,
+      "compass": "E",
+      "note": "Brilliant morning star rising in the east before sunrise — by far the brightest point in the pre-dawn sky."
+    }
+  },
+  {
+    "number": 3,
+    "name": "Earth",
+    "symbol": "@",
+    "type": "terrestrial",
+    "etymology": "Derived from Old English 'eorþe' and Germanic 'Erde,' simply meaning ground or soil. It is the only planet whose name does not come from a Greco-Roman deity.",
+    "distance_au": 1.0,
+    "mass_earth": 1.0,
+    "avg_temp_c": 15,
+    "moons": 1,
+    "diameter_km": 12756,
+    "year_days": 365.25,
+    "visible_naked_eye": false,
+    "visible_goldendale_telescope": false,
+    "sky_position": {
+      "local_time": null,
+      "az_deg": null,
+      "alt_deg": null,
+      "compass": null,
+      "note": "You are standing on it. Earth cannot be observed from its own surface."
+    }
+  },
+  {
+    "number": 4,
+    "name": "Mars",
+    "symbol": ".",
+    "type": "terrestrial",
+    "etymology": "Named after the Roman god of war for its blood-red appearance, caused by iron oxide — rust — blanketing much of its surface.",
+    "distance_au": 1.524,
+    "mass_earth": 0.107,
+    "avg_temp_c": -65,
+    "moons": 2,
+    "diameter_km": 6792,
+    "year_days": 687.0,
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "sky_position": {
+      "local_time": "5:30 AM",
+      "az_deg": 85,
+      "alt_deg": 8,
+      "compass": "E",
+      "note": "Very low on the eastern horizon just before dawn. Faint reddish point; binoculars recommended. Near Venus in the same part of the sky."
+    }
+  },
+  {
+    "number": 5,
+    "name": "Jupiter",
+    "symbol": "O",
+    "type": "gas giant",
+    "etymology": "Named after Jupiter, king of the Roman gods. Fitting for the largest planet in the solar system — it is more massive than all other planets combined, more than twice over.",
+    "distance_au": 5.203,
+    "mass_earth": 317.8,
+    "avg_temp_c": -110,
+    "moons": 95,
+    "diameter_km": 142984,
+    "year_days": 4333.0,
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "sky_position": {
+      "local_time": "10:00 PM",
+      "az_deg": 278,
+      "alt_deg": 25,
+      "compass": "W",
+      "note": "Bright yellowish-white point in the western sky after dark. One of the brightest things up. Sets around midnight."
+    }
+  },
+  {
+    "number": 6,
+    "name": "Saturn",
+    "symbol": "O",
+    "type": "gas giant",
+    "etymology": "Named after Saturn, the Roman god of agriculture and time, and the father of Jupiter. Galileo first observed its spectacular ring system in 1610, though his telescope was too weak to resolve the rings — he described them as strange 'ears.'",
+    "distance_au": 9.537,
+    "mass_earth": 95.2,
+    "avg_temp_c": -140,
+    "moons": 146,
+    "diameter_km": 120536,
+    "year_days": 10759.0,
+    "visible_naked_eye": true,
+    "visible_goldendale_telescope": true,
+    "sky_position": {
+      "local_time": "5:30 AM",
+      "az_deg": 123,
+      "alt_deg": 16,
+      "compass": "ESE",
+      "note": "Pre-dawn sky, low in the ESE. A telescope may reveal its rings. Look for a steady golden point near the horizon."
+    }
+  },
+  {
+    "number": 7,
+    "name": "Uranus",
+    "symbol": "0",
+    "type": "ice giant",
+    "etymology": "Named after Ouranos, the ancient Greek personification of the sky. Discovered in 1781 by William Herschel, it was the first planet found with a telescope rather than the naked eye.",
+    "distance_au": 19.191,
+    "mass_earth": 14.5,
+    "avg_temp_c": -195,
+    "moons": 28,
+    "diameter_km": 51118,
+    "year_days": 30589.0,
+    "visible_naked_eye": false,
+    "visible_goldendale_telescope": true,
+    "sky_position": {
+      "local_time": null,
+      "az_deg": null,
+      "alt_deg": null,
+      "compass": null,
+      "note": "Not observable this night: sets around 8:20 PM before the sky is fully dark and does not rise again until just before dawn. At magnitude 5.8 it is also at the edge of naked-eye visibility."
+    }
+  },
+  {
+    "number": 8,
+    "name": "Neptune",
+    "symbol": "0",
+    "type": "ice giant",
+    "etymology": "Named after Neptune, the Roman god of the sea, inspired by its vivid deep-blue color. Discovered in 1846, it was the first planet whose existence was predicted mathematically before it was ever observed.",
+    "distance_au": 30.07,
+    "mass_earth": 17.1,
+    "avg_temp_c": -200,
+    "moons": 16,
+    "diameter_km": 49528,
+    "year_days": 60182.0,
+    "visible_naked_eye": false,
+    "visible_goldendale_telescope": true,
+    "sky_position": {
+      "local_time": "5:00 AM",
+      "az_deg": 107,
+      "alt_deg": 12,
+      "compass": "ESE",
+      "note": "Pre-dawn sky, low in the ESE, but at magnitude 8 it requires a telescope. Not visible to the naked eye."
+    }
+  },
+  {
+    "number": 9,
+    "name": "Pluto",
+    "symbol": "*",
+    "type": "dwarf planet",
+    "etymology": "Named after the Roman god of the underworld. Pluto was classified as the ninth planet until 2006, when it was reclassified as a dwarf planet by the International Astronomical Union.",
+    "distance_au": 39.482,
+    "mass_earth": 0.0022,
+    "avg_temp_c": -229,
+    "moons": 5,
+    "diameter_km": 2377,
+    "year_days": 90560.0,
+    "visible_naked_eye": false,
+    "visible_goldendale_telescope": false,
+    "sky_position": {
+      "local_time": null,
+      "az_deg": null,
+      "alt_deg": null,
+      "compass": null,
+      "note": "Not observable without a large professional telescope. At magnitude 14.5 it is far too faint for school equipment. Rises around 1:30 AM in the SE but invisible regardless."
+    }
+  }
+]

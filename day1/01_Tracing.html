@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trace Challenge Code Cards (Landscape)</title>
+  <style>
+    :root {
+      --ink: #000;
+      --paper: #fff;
+      --rule: #222;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+
+    @page {
+      size: landscape;
+      margin: 0.4in;
+    }
+
+    .sheet {
+      min-height: calc(8.5in - 0.9in);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border: 3px solid var(--rule);
+      padding: 0.28in;
+      page-break-after: always;
+      break-after: page;
+    }
+
+    .sheet:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 28px;
+      letter-spacing: 0.3px;
+    }
+
+    .subtitle {
+      margin: 0 0 14px 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .note {
+      margin: 0 0 12px 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .code {
+      margin: 0;
+      border: 3px solid #000;
+      background: #fff;
+      padding: 0.2in;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 28px;
+      line-height: 1.35;
+      white-space: pre;
+      overflow-wrap: normal;
+      word-break: normal;
+      flex: 1;
+      display: block;
+    }
+
+    .footer {
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      border-top: 2px dashed #000;
+      padding-top: 8px;
+    }
+
+    @media screen {
+      body {
+        padding: 12px;
+        background: #f3f3f3;
+      }
+
+      .sheet {
+        width: min(100%, 1200px);
+        min-height: 560px;
+        margin: 0 auto 14px auto;
+        background: #fff;
+      }
+    }
+
+    @media print {
+      .sheet.compact {
+        min-height: 0;
+        padding-bottom: 0.16in;
+      }
+
+      .sheet.compact .code {
+        flex: 0 0 auto;
+      }
+
+      .sheet.compact .footer {
+        margin-top: 6px;
+      }
+
+      .sheet.last-sample .code {
+        font-size: 24px;
+        line-height: 1.28;
+        padding: 0.16in;
+      }
+
+      .sheet.last-sample {
+        min-height: 0;
+        border-width: 2px;
+        padding: 0.22in;
+      }
+
+      .sheet.last-sample .footer {
+        margin-top: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="sheet compact">
+    <h1>Exercise 1: Counting Up</h1>
+    <p class="subtitle">Trace this code in your notebook.</p>
+    <pre class="code">total = 0
+for i in range(1, 4):
+    total = total + i
+    print("Power:", total)</pre>
+    <p class="footer">Write: range values, each pass, and final output lines.</p>
+  </section>
+
+  <section class="sheet compact">
+    <h1>Exercise 2: Building a Word</h1>
+    <p class="subtitle">Trace this code in your notebook.</p>
+    <pre class="code">word = ""
+for letter in "CAT":
+    word = word + letter
+    print(word)
+print("Final:", word)</pre>
+    <p class="footer">Write: sequence of letters, loop prints, then final print.</p>
+  </section>
+
+  <section class="sheet compact">
+    <h1>Exercise 3: Hidden Message (Every Third Letter)</h1>
+    <p class="subtitle">Trace this code in your notebook.</p>
+    <pre class="code">text = "S12P34A56C78E90"
+secret = ""
+for i in range(0, 15, 3):
+    secret = secret + text[i]
+print(secret)</pre>
+    <p class="footer">Write: i values, picked letters, and secret after each pass.</p>
+  </section>
+
+  <section class="sheet compact">
+    <h1>Exercise 4: Launch Pattern Loop</h1>
+    <p class="subtitle">Trace this code in your notebook.</p>
+    <pre class="code">for level in range(1, 5):
+    line = ""
+    for count in range(level):
+        line = line + "🚀"
+    print("Level", level, ":", line)</pre>
+    <p class="footer">Write: outer pass, inner range values, and printed line.</p>
+  </section>
+
+  <section class="sheet compact">
+    <h1>Exercise 5: Multi Accumulator</h1>
+    <p class="subtitle">Trace this code in your notebook.</p>
+    <pre class="code">team_a = 0
+team_b = 0
+for n in range(1, 6):
+    if n % 2 == 0:
+        team_a = team_a + n
+    else:
+        team_b = team_b + n
+print("Team A:", team_a)
+print("Team B:", team_b)</pre>
+    <p class="footer">Write: condition result each pass and both totals before/after.</p>
+  </section>
+
+  <section class="sheet compact">
+    <h1>Exercise 6: Secret Code (Part A)</h1>
+    <p class="subtitle">Trace this code in your notebook.</p>
+    <pre class="code">words = ["SNAKE", "TIGER", "EAGLE", "MOOSE"]
+secret = ""
+for word in words:
+    secret = secret + word[0]
+print(secret)</pre>
+    <p class="footer">Write: current word, first letter, and secret growth.</p>
+  </section>
+
+  <section class="sheet compact">
+    <h1>Exercise 7: Astronomy Visibility List</h1>
+    <p class="subtitle">Trace this code in your notebook.</p>
+    <pre class="code">planets = ["Mercury", "Venus", "Mars", "Jupiter"]
+visible = [False, True, False, True]
+seen = ""
+
+for i in range(4):
+    if visible[i]:
+        seen = seen + planets[i][:3] + " "
+
+print("Seen:", seen)</pre>
+    <p class="footer">Write: visible[i], seen before/after, and final printed line.</p>
+  </section>
+
+  <section class="sheet last-sample">
+    <h1>Exercise 8: Integration Challenge (Nested Loops)</h1>
+    <p class="subtitle">Trace this code in your notebook.</p>
+    <pre class="code">grid = ""
+for row in range(3):
+    for col in range(4):
+        if (row + col) % 2 == 0:
+            grid = grid + "✅"
+        else:
+            grid = grid + "❌"
+    grid = grid + "\n"
+print(grid)
+
+count = 0
+for char in grid:
+    if char == "✅":
+        count = count + 1
+print("Check count:", count)</pre>
+    <p class="footer">Write: build each row, then trace the counting loop.</p>
+  </section>
+</body>
+</html>

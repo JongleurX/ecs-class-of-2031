@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Printable Loop Trace Templates - Filled Example</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap">
+  <style>
+    :root {
+      --ink: #111;
+      --muted: #444;
+      --rule: #bbb;
+      --fill: #f2f7ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      line-height: 1.35;
+      background: #fff;
+    }
+
+    h1, h2, h3 { margin: 0 0 10px 0; line-height: 1.2; }
+    h1 { font-size: 28px; margin-bottom: 16px; }
+    h2 { font-size: 22px; margin-top: 20px; }
+    h3 { font-size: 17px; margin-top: 16px; }
+
+    p, ul, ol { margin: 8px 0; }
+
+    .meta {
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .section {
+      border-top: 2px solid var(--rule);
+      padding-top: 16px;
+      margin-top: 20px;
+      page-break-inside: avoid;
+    }
+
+    .code {
+      border: 1px solid var(--rule);
+      background: #fafafa;
+      padding: 10px;
+      margin: 10px 0;
+      white-space: pre;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #666;
+      padding: 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .fill {
+      background: var(--fill);
+      font-family: "Caveat", cursive;
+      font-size: 17px;
+      font-weight: 700;
+      color: #1a4acc;
+    }
+
+    .output {
+      border: 1px solid #999;
+      background: var(--fill);
+      padding: 8px;
+      white-space: pre-wrap;
+      margin: 8px 0;
+      font-family: "Caveat", cursive;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a4acc;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media print {
+      body { padding: 12mm; }
+      .page-break { page-break-before: always; }
+      .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Printable Loop Trace Templates - Filled Example</h1>
+  <p class="meta">Teacher exemplar with one complete way to fill each trace.</p>
+
+  <section class="section">
+    <h2>Exercise 1: Counting Up</h2>
+    <div class="code">total = 0
+for i in range(1, 4):
+    total = total + i
+    print("Power:", total)</div>
+    <p>Range sequence: <span class="fill">1, 2, 3</span></p>
+    <table>
+      <tr><th>Pass</th><th>i value</th><th>total before</th><th>total after total = total + i</th><th>Printed this pass</th></tr>
+      <tr><td>1</td><td class="fill">1</td><td class="fill">0</td><td class="fill">1</td><td class="fill">Power: 1</td></tr>
+      <tr><td>2</td><td class="fill">2</td><td class="fill">1</td><td class="fill">3</td><td class="fill">Power: 3</td></tr>
+      <tr><td>3</td><td class="fill">3</td><td class="fill">3</td><td class="fill">6</td><td class="fill">Power: 6</td></tr>
+    </table>
+    <p>Final printed output:</p>
+    <div class="output">Power: 1
+Power: 3
+Power: 6</div>
+  </section>
+
+  <section class="section page-break">
+    <h2>Exercise 2: Building a Word</h2>
+    <div class="code">word = ""
+for letter in "CAT":
+    word = word + letter
+    print(word)
+print("Final:", word)</div>
+    <p>Sequence of letter values: <span class="fill">C, A, T</span></p>
+    <table>
+      <tr><th>Pass</th><th>letter</th><th>word before</th><th>word after</th><th>Printed inside loop</th></tr>
+      <tr><td>1</td><td class="fill">C</td><td class="fill">""</td><td class="fill">"C"</td><td class="fill">C</td></tr>
+      <tr><td>2</td><td class="fill">A</td><td class="fill">"C"</td><td class="fill">"CA"</td><td class="fill">CA</td></tr>
+      <tr><td>3</td><td class="fill">T</td><td class="fill">"CA"</td><td class="fill">"CAT"</td><td class="fill">CAT</td></tr>
+    </table>
+    <p>Printed after loop:</p>
+    <div class="output">Final: CAT</div>
+    <p>All printed output:</p>
+    <div class="output">C
+CA
+CAT
+Final: CAT</div>
+  </section>
+
+  <section class="section">
+    <h2>Exercise 3: Hidden Message (Every Third Letter)</h2>
+    <div class="code">text = "S12P34A56C78E90"
+secret = ""
+for i in range(0, 15, 3):
+    secret = secret + text[i]
+print(secret)</div>
+    <p>Range sequence for i: <span class="fill">0, 3, 6, 9, 12</span></p>
+    <table>
+      <tr><th>Pass</th><th>i value</th><th>text[i]</th><th>secret before</th><th>secret after</th></tr>
+      <tr><td>1</td><td class="fill">0</td><td class="fill">S</td><td class="fill">""</td><td class="fill">"S"</td></tr>
+      <tr><td>2</td><td class="fill">3</td><td class="fill">P</td><td class="fill">"S"</td><td class="fill">"SP"</td></tr>
+      <tr><td>3</td><td class="fill">6</td><td class="fill">A</td><td class="fill">"SP"</td><td class="fill">"SPA"</td></tr>
+      <tr><td>4</td><td class="fill">9</td><td class="fill">C</td><td class="fill">"SPA"</td><td class="fill">"SPAC"</td></tr>
+      <tr><td>5</td><td class="fill">12</td><td class="fill">E</td><td class="fill">"SPAC"</td><td class="fill">"SPACE"</td></tr>
+    </table>
+    <p>Final printed output:</p>
+    <div class="output">SPACE</div>
+  </section>
+
+  <section class="section page-break">
+    <h2>Exercise 4: Launch Pattern Loop</h2>
+    <div class="code">for level in range(1, 5):
+    line = ""
+    for count in range(level):
+        line = line + "🚀"
+    print("Level", level, ":", line)</div>
+    <p>Outer range sequence for level: <span class="fill">1, 2, 3, 4</span></p>
+    <table>
+      <tr><th>Outer pass</th><th>level value</th><th>Inner range</th><th>line after inner loop</th><th>Printed this row</th></tr>
+      <tr><td>1</td><td class="fill">1</td><td class="fill">[0]</td><td class="fill">🚀</td><td class="fill">Level 1 : 🚀</td></tr>
+      <tr><td>2</td><td class="fill">2</td><td class="fill">[0, 1]</td><td class="fill">🚀🚀</td><td class="fill">Level 2 : 🚀🚀</td></tr>
+      <tr><td>3</td><td class="fill">3</td><td class="fill">[0, 1, 2]</td><td class="fill">🚀🚀🚀</td><td class="fill">Level 3 : 🚀🚀🚀</td></tr>
+      <tr><td>4</td><td class="fill">4</td><td class="fill">[0, 1, 2, 3]</td><td class="fill">🚀🚀🚀🚀</td><td class="fill">Level 4 : 🚀🚀🚀🚀</td></tr>
+    </table>
+    <p>Final printed output:</p>
+    <div class="output">Level 1 : 🚀
+Level 2 : 🚀🚀
+Level 3 : 🚀🚀🚀
+Level 4 : 🚀🚀🚀🚀</div>
+  </section>
+
+  <section class="section">
+    <h2>Exercise 5: Multi Accumulator</h2>
+    <div class="code">team_a = 0
+team_b = 0
+for n in range(1, 6):
+    if n % 2 == 0:
+        team_a = team_a + n
+    else:
+        team_b = team_b + n
+print("Team A:", team_a)
+print("Team B:", team_b)</div>
+    <p>Range sequence for n: <span class="fill">1, 2, 3, 4, 5</span></p>
+    <table>
+      <tr><th>Pass</th><th>n value</th><th>n % 2 == 0?</th><th>team_a before</th><th>team_b before</th><th>team_a after</th><th>team_b after</th></tr>
+      <tr><td>1</td><td class="fill">1</td><td class="fill">False</td><td class="fill">0</td><td class="fill">0</td><td class="fill">0</td><td class="fill">1</td></tr>
+      <tr><td>2</td><td class="fill">2</td><td class="fill">True</td><td class="fill">0</td><td class="fill">1</td><td class="fill">2</td><td class="fill">1</td></tr>
+      <tr><td>3</td><td class="fill">3</td><td class="fill">False</td><td class="fill">2</td><td class="fill">1</td><td class="fill">2</td><td class="fill">4</td></tr>
+      <tr><td>4</td><td class="fill">4</td><td class="fill">True</td><td class="fill">2</td><td class="fill">4</td><td class="fill">6</td><td class="fill">4</td></tr>
+      <tr><td>5</td><td class="fill">5</td><td class="fill">False</td><td class="fill">6</td><td class="fill">4</td><td class="fill">6</td><td class="fill">9</td></tr>
+    </table>
+    <p>Printed outputs:</p>
+    <div class="output">Team A: 6
+Team B: 9</div>
+  </section>
+
+  <section class="section page-break">
+    <h2>Exercise 6: Secret Code (Part A)</h2>
+    <div class="code">words = ["SNAKE", "TIGER", "EAGLE", "MOOSE"]
+secret = ""
+for word in words:
+    secret = secret + word[0]
+print(secret)</div>
+    <table>
+      <tr><th>Pass</th><th>word value</th><th>word[0]</th><th>secret before</th><th>secret after</th></tr>
+      <tr><td>1</td><td class="fill">SNAKE</td><td class="fill">S</td><td class="fill">""</td><td class="fill">"S"</td></tr>
+      <tr><td>2</td><td class="fill">TIGER</td><td class="fill">T</td><td class="fill">"S"</td><td class="fill">"ST"</td></tr>
+      <tr><td>3</td><td class="fill">EAGLE</td><td class="fill">E</td><td class="fill">"ST"</td><td class="fill">"STE"</td></tr>
+      <tr><td>4</td><td class="fill">MOOSE</td><td class="fill">M</td><td class="fill">"STE"</td><td class="fill">"STEM"</td></tr>
+    </table>
+    <p>Printed output:</p>
+    <div class="output">STEM</div>
+  </section>
+
+  <section class="section">
+    <h2>Exercise 7: Astronomy Visibility List</h2>
+    <div class="code">planets = ["Mercury", "Venus", "Mars", "Jupiter"]
+visible = [False, True, False, True]
+seen = ""
+
+for i in range(4):
+    if visible[i]:
+    seen = seen + planets[i][:3] + " "
+
+print("Seen:", seen)</div>
+    <p>Range sequence for i: <span class="fill">0, 1, 2, 3</span></p>
+    <table>
+      <tr><th>Pass</th><th>i value</th><th>visible[i]</th><th>planet[:3]</th><th>seen before</th><th>seen after</th></tr>
+      <tr><td>1</td><td class="fill">0</td><td class="fill">False</td><td class="fill">M</td><td class="fill">""</td><td class="fill">""</td></tr>
+      <tr><td>2</td><td class="fill">1</td><td class="fill">True</td><td class="fill">V</td><td class="fill">""</td><td class="fill">"Ven "</td></tr>
+      <tr><td>3</td><td class="fill">2</td><td class="fill">False</td><td class="fill">M</td><td class="fill">"Ven "</td><td class="fill">"Ven "</td></tr>
+      <tr><td>4</td><td class="fill">3</td><td class="fill">True</td><td class="fill">J</td><td class="fill">"Ven "</td><td class="fill">"Ven Jup "</td></tr>
+    </table>
+    <p>Printed output:</p>
+    <div class="output">Seen: Ven Jup </div>
+  </section>
+
+  <section class="section page-break">
+    <h2>Exercise 8: Integration Challenge (Nested Loops)</h2>
+    <div class="code">grid = ""
+for row in range(3):
+    for col in range(4):
+        if (row + col) % 2 == 0:
+            grid = grid + "✅"
+        else:
+            grid = grid + "❌"
+    grid = grid + "\n"
+print(grid)
+
+count = 0
+for char in grid:
+    if char == "✅":
+        count = count + 1
+print("Check count:", count)</div>
+
+    <h3>Part A: Outer loop rows</h3>
+    <p>Outer range sequence for row: <span class="fill">0, 1, 2</span></p>
+    <table>
+      <tr><th>Outer pass</th><th>row value</th><th>grid before this row</th><th>grid after this row (include newline)</th></tr>
+      <tr><td>1</td><td class="fill">0</td><td class="fill">""</td><td class="fill">"✅❌✅❌\n"</td></tr>
+      <tr><td>2</td><td class="fill">1</td><td class="fill">"✅❌✅❌\n"</td><td class="fill">"✅❌✅❌\n❌✅❌✅\n"</td></tr>
+      <tr><td>3</td><td class="fill">2</td><td class="fill">"✅❌✅❌\n❌✅❌✅\n"</td><td class="fill">"✅❌✅❌\n❌✅❌✅\n✅❌✅❌\n"</td></tr>
+    </table>
+
+    <h3>Part B: Inner loop detail</h3>
+    <p class="small">Row 0</p>
+    <table>
+      <tr><th>col</th><th>row + col</th><th>(row + col) % 2 == 0?</th><th>Symbol added</th><th>row string so far</th></tr>
+      <tr><td>0</td><td class="fill">0</td><td class="fill">True</td><td class="fill">✅</td><td class="fill">✅</td></tr>
+      <tr><td>1</td><td class="fill">1</td><td class="fill">False</td><td class="fill">❌</td><td class="fill">✅❌</td></tr>
+      <tr><td>2</td><td class="fill">2</td><td class="fill">True</td><td class="fill">✅</td><td class="fill">✅❌✅</td></tr>
+      <tr><td>3</td><td class="fill">3</td><td class="fill">False</td><td class="fill">❌</td><td class="fill">✅❌✅❌</td></tr>
+    </table>
+
+    <p class="small">Row 1</p>
+    <table>
+      <tr><th>col</th><th>row + col</th><th>(row + col) % 2 == 0?</th><th>Symbol added</th><th>row string so far</th></tr>
+      <tr><td>0</td><td class="fill">1</td><td class="fill">False</td><td class="fill">❌</td><td class="fill">❌</td></tr>
+      <tr><td>1</td><td class="fill">2</td><td class="fill">True</td><td class="fill">✅</td><td class="fill">❌✅</td></tr>
+      <tr><td>2</td><td class="fill">3</td><td class="fill">False</td><td class="fill">❌</td><td class="fill">❌✅❌</td></tr>
+      <tr><td>3</td><td class="fill">4</td><td class="fill">True</td><td class="fill">✅</td><td class="fill">❌✅❌✅</td></tr>
+    </table>
+
+    <p class="small">Row 2</p>
+    <table>
+      <tr><th>col</th><th>row + col</th><th>(row + col) % 2 == 0?</th><th>Symbol added</th><th>row string so far</th></tr>
+      <tr><td>0</td><td class="fill">2</td><td class="fill">True</td><td class="fill">✅</td><td class="fill">✅</td></tr>
+      <tr><td>1</td><td class="fill">3</td><td class="fill">False</td><td class="fill">❌</td><td class="fill">✅❌</td></tr>
+      <tr><td>2</td><td class="fill">4</td><td class="fill">True</td><td class="fill">✅</td><td class="fill">✅❌✅</td></tr>
+      <tr><td>3</td><td class="fill">5</td><td class="fill">False</td><td class="fill">❌</td><td class="fill">✅❌✅❌</td></tr>
+    </table>
+
+    <p>Printed output for print(grid):</p>
+    <div class="output">✅❌✅❌
+❌✅❌✅
+✅❌✅❌</div>
+
+    <h3>Part C: Count checks</h3>
+    <table>
+      <tr><th>Pass</th><th>char value</th><th>char == "✅"?</th><th>count before</th><th>count after</th></tr>
+      <tr><td>1</td><td class="fill">✅</td><td class="fill">True</td><td class="fill">0</td><td class="fill">1</td></tr>
+      <tr><td>2</td><td class="fill">❌</td><td class="fill">False</td><td class="fill">1</td><td class="fill">1</td></tr>
+      <tr><td>3</td><td class="fill">✅</td><td class="fill">True</td><td class="fill">1</td><td class="fill">2</td></tr>
+      <tr><td>4</td><td class="fill">❌</td><td class="fill">False</td><td class="fill">2</td><td class="fill">2</td></tr>
+      <tr><td>5</td><td class="fill">\n</td><td class="fill">False</td><td class="fill">2</td><td class="fill">2</td></tr>
+      <tr><td>6</td><td class="fill">❌</td><td class="fill">False</td><td class="fill">2</td><td class="fill">2</td></tr>
+      <tr><td>7</td><td class="fill">✅</td><td class="fill">True</td><td class="fill">2</td><td class="fill">3</td></tr>
+      <tr><td>8</td><td class="fill">❌</td><td class="fill">False</td><td class="fill">3</td><td class="fill">3</td></tr>
+      <tr><td>9</td><td class="fill">✅</td><td class="fill">True</td><td class="fill">3</td><td class="fill">4</td></tr>
+      <tr><td>10</td><td class="fill">\n</td><td class="fill">False</td><td class="fill">4</td><td class="fill">4</td></tr>
+      <tr><td>11</td><td class="fill">✅</td><td class="fill">True</td><td class="fill">4</td><td class="fill">5</td></tr>
+      <tr><td>12</td><td class="fill">❌</td><td class="fill">False</td><td class="fill">5</td><td class="fill">5</td></tr>
+      <tr><td>13</td><td class="fill">✅</td><td class="fill">True</td><td class="fill">5</td><td class="fill">6</td></tr>
+      <tr><td>14</td><td class="fill">❌</td><td class="fill">False</td><td class="fill">6</td><td class="fill">6</td></tr>
+      <tr><td>15</td><td class="fill">\n</td><td class="fill">False</td><td class="fill">6</td><td class="fill">6</td></tr>
+    </table>
+
+    <p>Printed output for print("Check count:", count):</p>
+    <div class="output">Check count: 6</div>
+  </section>
+</body>
+</html>

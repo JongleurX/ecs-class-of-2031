@@ -1,66 +1,63 @@
 # Changelog
 
-Notable changes to this project. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+Notable changes to this project. Format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Dates are used instead of version numbers.
 
 ## [Unreleased]
 
 ---
 
-## [2026-05-02b]
-
-### Added
-- **`exercises/syntax/`** — new folder for printable Python syntax materials
-  - `PRINTABLE_Python_Reference.html` — moved here from `labs/astronomy/`; light-mode code sample, two-column annotation layout, added `input()` section
-  - `PRINTABLE_Syntax_Challenges.html` — 20-challenge student worksheet (10 fill-in-the-blank + 10 freeform creative challenges) across 4 printable pages
-  - `PRINTABLE_Syntax_Challenges_TEACHER.html` — answer key with explanations and minimal solutions
-  - `challenge_11_magic8ball.py` through `challenge_20_compliment_machine.py` — reference solutions for all 10 creative challenges
-  - `challenge_14b_caesar_decoder.py` — companion decoder for the Caesar cipher encoder; uses `getpass` to hide the ciphertext on screen
-  - `main.py` — menu launcher that runs any challenge and returns to the menu on completion or Ctrl-C
-
-### Changed
-- `labs/` reorganised: MIDI files moved into `labs/midi/` subfolder; `labs/__init__.py` updated
-- `run_gui.sh` updated for new MIDI lab path
-
----
-
 ## [2026-05-02]
 
-Big session — added games, a second exercise format for Code.org, and a bunch of MIDI lab improvements.
-
 ### Added
-- **Games** — maze solver with DFS step-by-step walkthrough (watch mode, algorithm-coach mode, free play), Tower of Hanoi, and Nim
-- **`exercises/ex##_*.py`** — cleaner versions of the 7 exercises designed for Code.org's single-file workflow, with a `main.py` driver that runs and checks each one
-- **Warmup `main.py`** — single-file runner for all 10 warmups; students predict output first, then unlock answers with a class password
-- Printable HTML trace templates for the loop warmups (blank + filled-out teacher example)
-- Printable HTML flag reference sheet for Exercise 07
-- GarageBand patch picker in the MIDI lab GUI — searches your locally installed patches instead of guessing from GM names
+- Games: maze solver, Tower of Hanoi, and Nim.
+- Code.org-friendly exercise variants and launchers.
+- Warmup launchers and printable tracing materials.
+- MIDI lab patch picker support for local GarageBand patches.
+### Added
+- `exercises/syntax/` folder for printable Python syntax materials
+  - `PRINTABLE_Python_Reference.html`
+  - `PRINTABLE_Syntax_Challenges.html`
+  - `PRINTABLE_Syntax_Challenges_TEACHER.html`
+  - `challenge_11_magic8ball.py` through `challenge_20_compliment_machine.py`
+  - `challenge_14b_caesar_decoder.py`
+  - `main.py` menu launcher
+- `day1/main.py` launcher for Day 1.
+- `day3/main.py` launcher for Day 3.
 
 ### Fixed
-- Maze: backtracking bug where the algorithm coach would send you back to a dead end you'd already visited
-- Maze: algorithm coach line count was variable (causing the maze to jump around on screen); now always 7 lines
-- `.DS_Store` was in `.gitignore` with a trailing `/` so it only matched directories — fixed to match files
+- Maze backtracking behavior and coach display consistency.
+- `.DS_Store` ignore pattern.
 
 ### Changed
-- Maze menu simplified from two levels (w/p then a/f) to a single prompt (w/a/f)
-- MIDI lab GUI startup fixed on macOS by setting Qt plugin paths before importing PySide6
-- `labs/data/` added to `.gitignore` — it's machine-specific generated data, rebuilt at runtime
+- Maze menu simplified.
+- MIDI GUI startup improvements on macOS.
+- Added generated lab data path to `.gitignore`.
+- `labs/` reorganized with MIDI files moved into `labs/midi/`.
+- `run_gui.sh` updated for the new MIDI lab path.
+- Replaced `day2/main.py` with a recursive day launcher that discovers and runs
+  Python files in `day2/` and all subfolders.
+- Replaced `day4/main.py` with a recursive day launcher that discovers and runs
+  Python files in `day4/` and all subfolders.
+- Updated `README.md` for the current `day1`-`day4` structure and launcher usage.
+- Updated `ACTIVITY_INVENTORY.md` to reflect the current folder layout and
+  activities after the folder moves.
 
 ---
 
 ## [2026-04-12]
 
 ### Added
-- MIDI lab (`labs/`) — send notes, chords, and rhythms to a MIDI port using a simple text notation
-- QML GUI for the MIDI lab
-- GarageBand instrument control via AppleScript (by name or GM program number)
-- Example songs: Heart and Soul, Firefly, Maya's Favorite
-- 10 warmup exercises for hand-tracing practice, with a teacher guide
+- MIDI lab scripts and GUI.
+- GarageBand instrument control support.
+- Example MIDI songs.
+- Warmup tracing exercises and teacher guide.
 
 ---
 
 ## [2026-03-22]
 
 ### Added
-- Initial exercises 01–07: hello world, fix-the-typo, guessing game, functions, lists, Japanese tutor, flag painter
-- README and `.gitignore`
+- Initial beginner exercises.
+- Early README and `.gitignore`.

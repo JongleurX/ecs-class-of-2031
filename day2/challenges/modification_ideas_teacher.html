@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntax Challenge Mod Hint Snippets</title>
+  <style>
+    :root {
+      --ink: #111;
+      --rule: #c7c7c7;
+      --soft: #f7f7f7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 22px;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      line-height: 1.32;
+      background: #fff;
+    }
+
+    h1, h2, h3 { margin: 0 0 8px 0; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 21px; margin-top: 18px; }
+    h3 { font-size: 15px; margin-top: 0; }
+
+    p { margin: 8px 0; }
+
+    .sub {
+      color: #444;
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .challenge {
+      border-top: 2px solid var(--rule);
+      padding-top: 12px;
+      margin-top: 14px;
+      page-break-inside: avoid;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .card {
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 8px;
+      background: #fff;
+      page-break-inside: avoid;
+    }
+
+    .level {
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1px solid #888;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      letter-spacing: 0.2px;
+      background: var(--soft);
+    }
+
+    .idea {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    pre {
+      margin: 0;
+      border: 1px solid #b8b8b8;
+      background: #fcfcfc;
+      border-radius: 6px;
+      padding: 7px;
+      font-size: 12.5px;
+      line-height: 1.25;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      white-space: pre-wrap;
+    }
+
+    .tip {
+      margin-top: 16px;
+      border: 1px dashed #888;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 14px;
+      background: #fcfcfc;
+    }
+
+    @media print {
+      body { padding: 10mm; }
+      .challenge, .card { page-break-inside: avoid; }
+    }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Syntax Challenge Mod Hint Snippets</h1>
+  <p class="sub">Quick teacher helper: each mod has a tiny outline snippet (not full solution code) so you can unblock students fast.</p>
+
+  <section class="challenge">
+    <h2>Challenge 11: Magic 8-Ball</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="level">Very Easy</span>
+        <div class="idea">Add extra responses.</div>
+        <pre>responses.extend([
+    "Absolutely yes.",
+    "No chance.",
+    "Try tomorrow.",
+])</pre>
+      </article>
+      <article class="card">
+        <span class="level">Easy</span>
+        <div class="idea">Check for a question mark.</div>
+        <pre>question = input("Ask: ")
+if not question.strip().endswith("?"):
+    print("Tip: Ask as a question ending with ?")</pre>
+      </article>
+      <article class="card">
+        <span class="level">Medium</span>
+        <div class="idea">Use response categories.</div>
+        <pre>yes = ["It is certain."]
+maybe = ["Ask again later."]
+no = ["Very doubtful."]
+category = random.choice(["yes", "maybe", "no"])</pre>
+      </article>
+      <article class="card">
+        <span class="level">Somewhat Challenging</span>
+        <div class="idea">Ask 3 questions and count categories.</div>
+        <pre>counts = {"yes": 0, "maybe": 0, "no": 0}
+for _ in range(3):
+    input("Ask: ")
+    c = random.choice(["yes", "maybe", "no"])
+    counts[c] += 1</pre>
+      </article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 12: Virtual Pet Mood Tracker</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="level">Very Easy</span>
+        <div class="idea">Customize pet name and mood lines.</div>
+        <pre>pet_name = "Mochi"
+if times_fed == 0:
+    mood = f"{pet_name} is hungry!"</pre>
+      </article>
+      <article class="card">
+        <span class="level">Easy</span>
+        <div class="idea">Clamp negative input to 0.</div>
+        <pre>times_fed = int(input("Fed times: "))
+if times_fed < 0:
+    times_fed = 0</pre>
+      </article>
+      <article class="card">
+        <span class="level">Medium</span>
+        <div class="idea">Combine feeding + play time.</div>
+        <pre>play_minutes = int(input("Play minutes: "))
+if times_fed <= 1 and play_minutes < 10:
+    mood = "Needs attention"
+elif times_fed <= 3 and play_minutes >= 10:
+    mood = "Very happy"</pre>
+      </article>
+      <article class="card">
+        <span class="level">Somewhat Challenging</span>
+        <div class="idea">Track 3 days and summarize.</div>
+        <pre>feed_log = []
+for day in range(1, 4):
+    feed_log.append(int(input(f"Day {day}: ")))
+avg = sum(feed_log) / len(feed_log)
+print("Average fed:", avg)</pre>
+      </article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 13: Color Mixer</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Add more combos.</div><pre>combos[("green", "white")] = "Mint"
+combos[("red", "black")] = "Maroon"</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Handle same-color mixes.</div><pre>if color1 == color2:
+    print("Double", color1, "->", color1.capitalize())
+else:
+    print(combos.get((color1, color2), "Unknown"))</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">Repeat until quit.</div><pre>while True:
+    c1 = input("Color 1 (or quit): ").lower().strip()
+    if c1 == "quit":
+        break
+    c2 = input("Color 2: ").lower().strip()</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Track most-used mix.</div><pre>mix_counts = {}
+key = (c1, c2)
+mix_counts[key] = mix_counts.get(key, 0) + 1
+print("Used", key, mix_counts[key], "times")</pre></article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 14a: Secret Message Encoder</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Change shift value.</div><pre>SHIFT = 5
+encoded += chr((ord(ch) - base + SHIFT) % 26 + base)</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Let user choose shift.</div><pre>shift = int(input("Shift 1-25: ")) % 26
+encoded += chr((ord(ch) - base + shift) % 26 + base)</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">Count encoded letters.</div><pre>letters_changed = 0
+if ch.isalpha():
+    letters_changed += 1
+print("Letters encoded:", letters_changed)</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Encode multiple messages.</div><pre>outputs = []
+while True:
+    msg = input("Message (blank to stop): ")
+    if msg == "":
+        break
+    outputs.append(encode(msg, shift))</pre></article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 14b: Secret Message Decoder</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Toggle hidden input.</div><pre>debug = True
+if debug:
+    encoded = input("Paste encoded: ")
+else:
+    encoded = getpass.getpass("Paste encoded: ")</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Custom decode shift.</div><pre>shift = int(input("Decode shift: ")) % 26
+decoded += chr((ord(ch) - base - shift) % 26 + base)</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">Round-trip verify.</div><pre>decoded = decode(encoded, shift)
+check = encode(decoded, shift)
+print("Round-trip matches:", check == encoded)</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Try all shifts.</div><pre>for s in range(1, 26):
+    candidate = decode(encoded, s)
+    print(s, "->", candidate)</pre></article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 15: Dice Duel</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Use more rounds.</div><pre>for round_num in range(1, 8):
+    # same rolling logic
+    pass</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Double-points round.</div><pre>multiplier = 2 if round_num == 3 else 1
+player_total += player_roll * multiplier
+computer_total += computer_roll * multiplier</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">Choose rounds + die size.</div><pre>rounds = int(input("Rounds: "))
+die = int(input("Die sides: "))
+player_roll = random.randint(1, die)</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Bonus/penalty events.</div><pre>if player_roll == die:
+    player_total += 1
+if player_roll == 1:
+    player_total = max(0, player_total - 1)</pre></article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 16: Mood-Based Activity Suggester</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Add more mood keyword groups.</div><pre>elif "angry" in mood or "mad" in mood:
+    suggestion = "Take 10 deep breaths."
+elif "calm" in mood:
+    suggestion = "Try journaling."</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Use available time input.</div><pre>minutes = int(input("How many minutes? "))
+if minutes <= 10:
+    suggestion = "Quick stretch"
+else:
+    suggestion = "Longer activity"</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">Offer two options + pick one.</div><pre>options = ["Walk", "Draw"]
+print("1)", options[0], "2)", options[1])
+choice = input("Pick 1 or 2: ")
+print("Try:", options[int(choice) - 1])</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Track 5 check-ins.</div><pre>history = []
+for _ in range(5):
+    m = input("Mood: ").lower().strip()
+    history.append(m)
+print("Entries:", len(history))</pre></article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 17: Pizza Order Builder</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Add a new size and price.</div><pre>prices["xl"] = 17
+size = input("Size: ").lower().strip()</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Per-topping prices.</div><pre>topping_prices = {"pepperoni": 2.0, "olives": 1.0}
+for topping in toppings:
+    total += topping_prices.get(topping.lower(), 1.5)</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">3-topping discount.</div><pre>if len(toppings) == 3:
+    total = total * 0.9
+print(f"Discounted total: ${total:.2f}")</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Multiple pizzas + receipt list.</div><pre>grand_total = 0
+receipt = []
+for _ in range(num_pizzas):
+    item_total = build_one_pizza()
+    grand_total += item_total
+    receipt.append(item_total)</pre></article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 18: Trivia Quiz</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Add questions.</div><pre>questions.append(("What is 9 + 10?", "19"))
+questions.append(("Largest ocean?", "pacific"))</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Accept alternate answers.</div><pre>acceptable = {"purple": {"purple", "violet"}}
+if response in acceptable.get(answer, {answer}):
+    score += 1</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">Shuffle and track misses.</div><pre>random.shuffle(questions)
+missed = []
+if response != answer:
+    missed.append(question)</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Category selection.</div><pre>bank = {"math": math_qs, "science": sci_qs}
+cat = input("Category: ").lower().strip()
+questions = bank.get(cat, math_qs)</pre></article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 19: Name Scrambler</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Uppercase output styling.</div><pre>scrambled = "".join(letters).upper()
+print("***", scrambled, "***")</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Reject blank input.</div><pre>name = input("Name: ").strip()
+while name == "":
+    name = input("Please enter a name: ").strip()</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">Generate 5 unique scrambles.</div><pre>results = set()
+while len(results) < 5:
+    letters = list(name)
+    random.shuffle(letters)
+    results.add("".join(letters))</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Scramble each word separately.</div><pre>parts = name.split()
+out = []
+for part in parts:
+    letters = list(part)
+    random.shuffle(letters)
+    out.append("".join(letters))</pre></article>
+    </div>
+  </section>
+
+  <section class="challenge">
+    <h2>Challenge 20: Compliment Machine</h2>
+    <div class="grid">
+      <article class="card"><span class="level">Very Easy</span><div class="idea">Expand word lists.</div><pre>adjectives.append("incredibly focused")
+nouns.append("team player")
+extras.append("Crowds are cheering.")</pre></article>
+      <article class="card"><span class="level">Easy</span><div class="idea">Generate multiple compliments.</div><pre>count = int(input("How many compliments (1-5)? "))
+for _ in range(count):
+    print(make_compliment(name))</pre></article>
+      <article class="card"><span class="level">Medium</span><div class="idea">Avoid repeated adjectives in one run.</div><pre>available = adjectives[:]
+idx = random.randrange(len(available))
+adj = available.pop(idx)
+# use adj, repeat until list empty</pre></article>
+      <article class="card"><span class="level">Somewhat Challenging</span><div class="idea">Theme-based compliments.</div><pre>themes = {
+    "space": {"adj": [...], "noun": [...], "extra": [...]},
+    "sports": {"adj": [...], "noun": [...], "extra": [...]},
+}
+theme = input("Theme: ").lower().strip()</pre></article>
+    </div>
+  </section>
+
+  <div class="tip">Use tip flow when students are stuck: 1) point to one snippet, 2) have them copy and adapt names/variables, 3) test immediately, 4) add one more mod only after first one works.</div>
+</body>
+</html>

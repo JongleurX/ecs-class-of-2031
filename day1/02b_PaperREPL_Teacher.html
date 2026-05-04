@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python Paper REPL — Teacher Key (Code.org)</title>
+  <style>
+    :root {
+      --ink: #111;
+      --muted: #444;
+      --rule: #bbb;
+      --correct: #1a6e2e;
+      --correct-bg: #edf7ef;
+      --warn: #7a5c00;
+      --warn-bg: #fffde7;
+      --hint1-bg: #e8f0fe;
+      --hint2-bg: #fce8ff;
+      --hint3-bg: #fff0e6;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      background: #fff;
+    }
+
+    h1 { font-size: 26px; margin: 0 0 4px 0; }
+    h2 { font-size: 19px; margin: 0 0 8px 0; }
+    h3 { font-size: 15px; font-weight: bold; margin: 0 0 6px 0; }
+
+    .tagline { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+
+    .teacher-badge {
+      display: inline-block;
+      background: #b71c1c;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+
+    .overview {
+      border: 1.5px solid #999;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      background: #fafafa;
+    }
+
+    .overview table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .overview th {
+      background: #ececec;
+      font-weight: bold;
+      padding: 5px 8px;
+      border: 1px solid #bbb;
+      text-align: left;
+    }
+
+    .overview td {
+      padding: 5px 8px;
+      border: 1px solid #bbb;
+      vertical-align: top;
+    }
+
+    /* ---- Round header ---- */
+    .round {
+      border-top: 3px solid var(--ink);
+      padding-top: 14px;
+      margin-top: 28px;
+    }
+
+    .round-label {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      margin-bottom: 2px;
+    }
+
+    .round-topic {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    /* ---- Answer card ---- */
+    .answer-card {
+      border: 1.5px solid #999;
+      border-radius: 4px;
+      margin-bottom: 18px;
+      page-break-inside: avoid;
+    }
+
+    .card-header {
+      background: #ececec;
+      padding: 8px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #bbb;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .card-header .num { font-weight: bold; font-size: 15px; }
+    .card-header .topic { font-size: 12px; color: var(--muted); }
+
+    .card-body { padding: 12px 14px; }
+
+    .code {
+      background: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      margin: 6px 0;
+      white-space: pre;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .answer-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 10px 0;
+    }
+
+    .box {
+      border-radius: 3px;
+      padding: 8px 12px;
+    }
+
+    .box-correct {
+      background: var(--correct-bg);
+      border: 1px solid #82c491;
+    }
+
+    .box-mod {
+      background: #e8f0fe;
+      border: 1px solid #7aafee;
+    }
+
+    .box-label {
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
+
+    .answer-text {
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 13px;
+      color: var(--correct);
+      white-space: pre;
+    }
+
+    .mod-text {
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 13px;
+      color: #1a3c8e;
+      white-space: pre;
+    }
+
+    /* ---- Mistakes ---- */
+    .mistakes {
+      background: var(--warn-bg);
+      border: 1px solid #f0c040;
+      border-radius: 3px;
+      padding: 8px 12px;
+      margin: 8px 0;
+    }
+
+    .mistakes .box-label { color: var(--warn); }
+
+    .mistakes ul {
+      margin: 4px 0 0 0;
+      padding-left: 18px;
+    }
+
+    .mistakes li { margin: 3px 0; }
+
+    /* ---- Hint Ladder ---- */
+    .hint-ladder {
+      margin: 10px 0 0 0;
+    }
+
+    .hint-ladder-title {
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .hint {
+      border-radius: 3px;
+      padding: 7px 12px;
+      margin: 4px 0;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 13px;
+    }
+
+    .hint-1 { background: var(--hint1-bg); border-left: 4px solid #4a7eed; }
+    .hint-2 { background: var(--hint2-bg); border-left: 4px solid #a040c0; }
+    .hint-3 { background: var(--hint3-bg); border-left: 4px solid #e07020; }
+
+    .hint-badge {
+      font-weight: bold;
+      font-size: 12px;
+      min-width: 56px;
+      padding-top: 1px;
+    }
+
+    .hint-1 .hint-badge { color: #1a3c8e; }
+    .hint-2 .hint-badge { color: #6a00a0; }
+    .hint-3 .hint-badge { color: #a04000; }
+
+    .hint-text { flex: 1; }
+
+    .hint-code {
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      background: rgba(0,0,0,0.06);
+      padding: 1px 5px;
+      border-radius: 2px;
+    }
+
+    /* ---- Discussion footer ---- */
+    .discussion {
+      border: 2px solid #555;
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin-top: 28px;
+    }
+
+    .discussion h3 { margin-bottom: 8px; }
+
+    .discussion ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .discussion li { margin: 6px 0; }
+
+    @media print {
+      body { padding: 12mm; font-size: 12px; }
+      .page-break { page-break-before: always; }
+      .answer-card { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Python Paper REPL</h1>
+  <p class="tagline">Teacher Key &amp; Hint Ladder &mdash; Predict &rarr; Run in Code.org &rarr; Verify</p>
+  <div class="teacher-badge">TEACHER COPY</div>
+
+  <!-- ===== OVERVIEW TABLE ===== -->
+  <div class="overview">
+    <strong>Quick-reference overview</strong> &mdash; <em style="font-size:12px;font-weight:normal">Students predict on paper, type into Code.org to verify, then change one line to hit the goal.</em>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Topic</th>
+          <th>Original output</th>
+          <th>Goal</th>
+          <th>Accepted mod (students type in Code.org)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Variables + print</td>
+          <td><code>Avery has 3 points</code></td>
+          <td>Double the score</td>
+          <td><code>score = 6</code> <em>or</em> <code>score = score * 2</code></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Arithmetic expression</td>
+          <td><code>10</code></td>
+          <td>Output 18</td>
+          <td><code>z = x * y * 3 + 6</code> <em>or</em> <code>z = 18</code> <em>or</em> <code>x = 6</code></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>String concatenation</td>
+          <td><code>Python</code></td>
+          <td>Output Python!</td>
+          <td><code>word = word + "thon!"</code> <em>or</em> <code>word = word + "thon" + "!"</code></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>if / else</td>
+          <td><code>Comfortable</code></td>
+          <td>Print Hot</td>
+          <td>Any value <code>temp &gt; 75</code>, e.g. <code>temp = 80</code></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>for loop</td>
+          <td><code>Hi 0</code> / <code>Hi 1</code> / <code>Hi 2</code></td>
+          <td>Print 5 lines</td>
+          <td><code>range(5)</code></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Accumulator loop</td>
+          <td><code>6</code></td>
+          <td>Output 10</td>
+          <td><code>range(1, 5)</code> (sums 1+2+3+4=10)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== ROUND A ===== -->
+  <div class="round">
+    <div class="round-label">Round A &mdash; Variables &amp; Print</div>
+    <div class="round-topic">Key idea: a variable is a named box; <code>print()</code> shows its contents.</div>
+
+    <!-- A1 -->
+    <div class="answer-card">
+      <div class="card-header">
+        <span class="num">Snippet 1 — Variables + print</span>
+        <span class="topic">name = "Avery" / score = 3</span>
+      </div>
+      <div class="card-body">
+        <div class="code">name = "Avery"
+score = 3
+print(name, "has", score, "points")</div>
+
+        <div class="answer-row">
+          <div class="box box-correct">
+            <div class="box-label">Expected output</div>
+            <div class="answer-text">Avery has 3 points</div>
+          </div>
+          <div class="box box-mod">
+            <div class="box-label">Accepted modifications</div>
+            <div class="mod-text">score = 6
+<em style="font-family:sans-serif;font-size:12px;color:#555">— or —</em>
+score = score * 2</div>
+          </div>
+        </div>
+
+        <div class="mistakes">
+          <div class="box-label">Common mistakes</div>
+          <ul>
+            <li>Writing <code>score * 2</code> in the <code>print</code> call — valid Python, but the goal says change the variable assignment</li>
+            <li>Forgetting quotes around string arguments in <code>print()</code></li>
+            <li>Expecting output <code>Avery has 3 * 2 points</code> — multiplication is not shown literally</li>
+          </ul>
+        </div>
+
+        <div class="hint-ladder">
+          <div class="hint-ladder-title">Hint Ladder (give only if stuck)</div>
+          <div class="hint hint-1">
+            <span class="hint-badge">Hint 1</span>
+            <span class="hint-text">Look at the line that says <span class="hint-code">score = 3</span>. What number is double 3?</span>
+          </div>
+          <div class="hint hint-2">
+            <span class="hint-badge">Hint 2</span>
+            <span class="hint-text">Change <em>just</em> the number after <span class="hint-code">score =</span>. You only need to edit that one line.</span>
+          </div>
+          <div class="hint hint-3">
+            <span class="hint-badge">Hint 3 (reveal)</span>
+            <span class="hint-text">Replace line 2 with <span class="hint-code">score = 6</span>. Output becomes <span class="hint-code">Avery has 6 points</span>.</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /A1 -->
+
+    <!-- A2 -->
+    <div class="answer-card">
+      <div class="card-header">
+        <span class="num">Snippet 2 — Arithmetic expression</span>
+        <span class="topic">z = x + y * 3</span>
+      </div>
+      <div class="card-body">
+        <div class="code">x = 4
+y = 2
+z = x + y * 3
+print(z)</div>
+
+        <div class="answer-row">
+          <div class="box box-correct">
+            <div class="box-label">Expected output</div>
+            <div class="answer-text">10</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px">4 + (2×3) = 4 + 6 = 10 &mdash; order of operations!</div>
+          </div>
+          <div class="box box-mod">
+            <div class="box-label">Accepted modifications (output 18)</div>
+            <div class="mod-text">z = 18
+<em style="font-family:sans-serif;font-size:12px;color:#555">or change x/y/operator so result = 18</em>
+x = 6  → 6 + 2*3 = 12 ✗ (not 18)
+z = x * y * 3  → 4*2*3 = 24 ✗
+z = (x + y) * 3  → 18 ✓</div>
+          </div>
+        </div>
+
+        <div class="mistakes">
+          <div class="box-label">Common mistakes</div>
+          <ul>
+            <li>Predicting 18 for the original code — forgetting order of operations (multiplication before addition)</li>
+            <li>Trying to change <code>print(z)</code> to <code>print(18)</code> — technically works but misses the point</li>
+            <li>Adding parentheses incorrectly: <code>(x + y) * 3</code> is a great find — praise it!</li>
+          </ul>
+        </div>
+
+        <div class="hint-ladder">
+          <div class="hint-ladder-title">Hint Ladder</div>
+          <div class="hint hint-1">
+            <span class="hint-badge">Hint 1</span>
+            <span class="hint-text">Python does multiplication before addition. Recalculate: <span class="hint-code">y * 3</span> first, then add <span class="hint-code">x</span>.</span>
+          </div>
+          <div class="hint hint-2">
+            <span class="hint-badge">Hint 2</span>
+            <span class="hint-text">To get 18, think: what two numbers multiply to 18? Can you use <span class="hint-code">x</span> and <span class="hint-code">y</span>? Try adding parentheses.</span>
+          </div>
+          <div class="hint hint-3">
+            <span class="hint-badge">Hint 3 (reveal)</span>
+            <span class="hint-text">Change line 3 to <span class="hint-code">z = (x + y) * 3</span>. That gives (4+2)×3 = 18.</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /A2 -->
+  </div><!-- end Round A -->
+
+  <!-- ===== ROUND B ===== -->
+  <div class="round page-break">
+    <div class="round-label">Round B &mdash; Strings &amp; Conditionals</div>
+    <div class="round-topic">Key idea: <code>+</code> joins strings; <code>if/else</code> picks a branch based on a condition.</div>
+
+    <!-- B1 -->
+    <div class="answer-card">
+      <div class="card-header">
+        <span class="num">Snippet 3 — String concatenation</span>
+        <span class="topic">word = "Py" + "thon"</span>
+      </div>
+      <div class="card-body">
+        <div class="code">word = "Py"
+word = word + "thon"
+print(word)</div>
+
+        <div class="answer-row">
+          <div class="box box-correct">
+            <div class="box-label">Expected output</div>
+            <div class="answer-text">Python</div>
+          </div>
+          <div class="box box-mod">
+            <div class="box-label">Accepted modifications (output Python!)</div>
+            <div class="mod-text">word = word + "thon!"
+<em style="font-family:sans-serif;font-size:12px;color:#555">— or —</em>
+word = word + "thon" + "!"</div>
+          </div>
+        </div>
+
+        <div class="mistakes">
+          <div class="box-label">Common mistakes</div>
+          <ul>
+            <li>Adding <code>!</code> as a separate line after <code>print</code> — <code>print(word + "!")</code> works but changes line 3, not line 2</li>
+            <li>Typing <code>"thon" + "!"</code> without re-reading which line to change</li>
+            <li>Forgetting the quotes around <code>"!"</code></li>
+          </ul>
+        </div>
+
+        <div class="hint-ladder">
+          <div class="hint-ladder-title">Hint Ladder</div>
+          <div class="hint hint-1">
+            <span class="hint-badge">Hint 1</span>
+            <span class="hint-text">Look at line 2. The <span class="hint-code">+</span> glues pieces of text together. How would you glue <span class="hint-code">!</span> onto the end?</span>
+          </div>
+          <div class="hint hint-2">
+            <span class="hint-badge">Hint 2</span>
+            <span class="hint-text">Add <span class="hint-code">+ "!"</span> somewhere on line 2, inside the quotes or after them.</span>
+          </div>
+          <div class="hint hint-3">
+            <span class="hint-badge">Hint 3 (reveal)</span>
+            <span class="hint-text">Change line 2 to <span class="hint-code">word = word + "thon!"</span>. Output: <span class="hint-code">Python!</span></span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /B1 -->
+
+    <!-- B2 -->
+    <div class="answer-card">
+      <div class="card-header">
+        <span class="num">Snippet 4 — if / else</span>
+        <span class="topic">temp = 72 → "Comfortable"</span>
+      </div>
+      <div class="card-body">
+        <div class="code">temp = 72
+if temp > 75:
+    print("Hot")
+else:
+    print("Comfortable")</div>
+
+        <div class="answer-row">
+          <div class="box box-correct">
+            <div class="box-label">Expected output</div>
+            <div class="answer-text">Comfortable</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px">72 &gt; 75 is False → else branch runs</div>
+          </div>
+          <div class="box box-mod">
+            <div class="box-label">Accepted modifications (print Hot)</div>
+            <div class="mod-text">Any temp &gt; 75:
+temp = 76  ✓
+temp = 100 ✓
+temp = 75  ✗ (not strictly &gt;)</div>
+          </div>
+        </div>
+
+        <div class="mistakes">
+          <div class="box-label">Common mistakes</div>
+          <ul>
+            <li>Setting <code>temp = 75</code> — the condition is <code>&gt;</code> (strictly greater), so 75 prints <em>Comfortable</em></li>
+            <li>Changing the <code>&gt;</code> to <code>&gt;=</code> instead of changing <code>temp</code> — valid, but the goal says change only the value</li>
+            <li>Predicting <em>Hot</em> for the original — not checking the comparison carefully</li>
+          </ul>
+        </div>
+
+        <div class="hint-ladder">
+          <div class="hint-ladder-title">Hint Ladder</div>
+          <div class="hint hint-1">
+            <span class="hint-badge">Hint 1</span>
+            <span class="hint-text">The condition on line 2 says <span class="hint-code">temp &gt; 75</span>. Is 72 greater than 75?</span>
+          </div>
+          <div class="hint hint-2">
+            <span class="hint-badge">Hint 2</span>
+            <span class="hint-text">To enter the <span class="hint-code">if</span> branch, <span class="hint-code">temp</span> must be more than 75. Change line 1 to a number bigger than 75.</span>
+          </div>
+          <div class="hint hint-3">
+            <span class="hint-badge">Hint 3 (reveal)</span>
+            <span class="hint-text">Change line 1 to <span class="hint-code">temp = 80</span>. Now 80 &gt; 75 is True, so Python prints <span class="hint-code">Hot</span>.</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /B2 -->
+  </div><!-- end Round B -->
+
+  <!-- ===== ROUND C ===== -->
+  <div class="round page-break">
+    <div class="round-label">Round C &mdash; Loops</div>
+    <div class="round-topic">Key idea: <code>range(n)</code> counts from 0 up to (but not including) n; accumulator keeps a running total.</div>
+
+    <!-- C1 -->
+    <div class="answer-card">
+      <div class="card-header">
+        <span class="num">Snippet 5 — for loop</span>
+        <span class="topic">range(3) → Hi 0, Hi 1, Hi 2</span>
+      </div>
+      <div class="card-body">
+        <div class="code">for i in range(3):
+    print("Hi", i)</div>
+
+        <div class="answer-row">
+          <div class="box box-correct">
+            <div class="box-label">Expected output (3 lines)</div>
+            <div class="answer-text">Hi 0
+Hi 1
+Hi 2</div>
+          </div>
+          <div class="box box-mod">
+            <div class="box-label">Accepted modification (5 lines)</div>
+            <div class="mod-text">for i in range(5):
+    print("Hi", i)</div>
+          </div>
+        </div>
+
+        <div class="mistakes">
+          <div class="box-label">Common mistakes</div>
+          <ul>
+            <li>Predicting output starts at 1 — <code>range(3)</code> starts at 0, not 1</li>
+            <li>Using <code>range(1, 5)</code> — produces 4 lines (1,2,3,4), not 5</li>
+            <li>Confusing number of iterations with the final value of <code>i</code></li>
+          </ul>
+        </div>
+
+        <div class="hint-ladder">
+          <div class="hint-ladder-title">Hint Ladder</div>
+          <div class="hint hint-1">
+            <span class="hint-badge">Hint 1</span>
+            <span class="hint-text"><span class="hint-code">range(3)</span> gives three numbers: 0, 1, 2. The loop runs once per number. How many numbers does <span class="hint-code">range(5)</span> give?</span>
+          </div>
+          <div class="hint hint-2">
+            <span class="hint-badge">Hint 2</span>
+            <span class="hint-text">To get 5 lines, change the number inside <span class="hint-code">range( )</span> to 5.</span>
+          </div>
+          <div class="hint hint-3">
+            <span class="hint-badge">Hint 3 (reveal)</span>
+            <span class="hint-text">Change line 1 to <span class="hint-code">for i in range(5):</span>. Output: Hi 0 through Hi 4 — five lines total.</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /C1 -->
+
+    <!-- C2 -->
+    <div class="answer-card">
+      <div class="card-header">
+        <span class="num">Snippet 6 — Accumulator loop</span>
+        <span class="topic">range(1, 4) → total = 6</span>
+      </div>
+      <div class="card-body">
+        <div class="code">total = 0
+for n in range(1, 4):
+    total = total + n
+print(total)</div>
+
+        <div class="answer-row">
+          <div class="box box-correct">
+            <div class="box-label">Expected output</div>
+            <div class="answer-text">6</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px">1 + 2 + 3 = 6 &nbsp;(range stops before 4)</div>
+          </div>
+          <div class="box box-mod">
+            <div class="box-label">Accepted modification (output 10)</div>
+            <div class="mod-text">range(1, 5)
+→ 1+2+3+4 = 10 ✓</div>
+          </div>
+        </div>
+
+        <div class="mistakes">
+          <div class="box-label">Common mistakes</div>
+          <ul>
+            <li>Predicting total = 10 for original — forgetting <code>range(1, 4)</code> stops at 3, not 4</li>
+            <li>Using <code>range(1, 10)</code> — sum is 45, far more than 10</li>
+            <li>Using <code>range(4)</code> — sums 0+1+2+3 = 6, not 10</li>
+            <li>Thinking <code>range(1, 5)</code> includes 5 — it stops before the end value</li>
+          </ul>
+        </div>
+
+        <div class="hint-ladder">
+          <div class="hint-ladder-title">Hint Ladder</div>
+          <div class="hint hint-1">
+            <span class="hint-badge">Hint 1</span>
+            <span class="hint-text"><span class="hint-code">range(1, 4)</span> produces 1, 2, 3 (stops <em>before</em> 4). Add them: 1+2+3 = ? Now what numbers add up to 10?</span>
+          </div>
+          <div class="hint hint-2">
+            <span class="hint-badge">Hint 2</span>
+            <span class="hint-text">1+2+3+4 = 10. So you need the loop to reach 4. What second number in <span class="hint-code">range(1, ?)</span> would let it include 4?</span>
+          </div>
+          <div class="hint hint-3">
+            <span class="hint-badge">Hint 3 (reveal)</span>
+            <span class="hint-text">Change line 2 to <span class="hint-code">for n in range(1, 5):</span>. The loop runs for 1, 2, 3, 4 → total = 10.</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /C2 -->
+  </div><!-- end Round C -->
+
+  <!-- ===== DEBRIEF GUIDE ===== -->
+  <div class="discussion">
+    <h3>Whole-class debrief talking points</h3>
+    <ul>
+      <li><strong>Snippet 2 — Order of operations:</strong> Ask students what they predicted and why. Many will say 18. Use this to introduce that Python (like math) does <code>*</code> before <code>+</code>.</li>
+      <li><strong>Snippet 4 — Off-by-one on condition:</strong> Ask what happens with <code>temp = 75</code>. Use it to contrast <code>&gt;</code> vs <code>&gt;=</code>.</li>
+      <li><strong>Snippet 5 — Zero-indexing:</strong> Point out that <code>range(3)</code> starts at 0. Foreshadows list indexing later.</li>
+      <li><strong>Snippet 6 — range upper bound is exclusive:</strong> A recurring Python "gotcha." The mnemonic: <em>range goes up to, but doesn't include, the stop value.</em></li>
+      <li><strong>Code.org verify:</strong> Circulate while students type snippets in. Remind them to predict on paper <em>before</em> running, not after. The paper prediction is the key cognitive move.</li>
+      <li><strong>Goal round:</strong> Students only change one or two lines in Code.org — they do <em>not</em> write the modified code on the worksheet. Keeping it digital speeds iteration and removes fear of erasing.</li>
+    </ul>
+  </div>
+
+</body>
+</html>
