@@ -33,11 +33,12 @@ The launcher system is designed to make it easy and efficient to create Code.org
 From the repo root, run any day launcher:
 
 ```bash
-python3 day1/main.py
 python3 day2/main.py
 python3 day3/main.py
 python3 day4/main.py
 ```
+
+There is no committed code for day 1, because we'll be mostly tracing things on paper and typing in some simple programs from scratch into the Code.org editor.
 
 Each day launcher:
 - Finds Python files in that day folder and all subfolders.
