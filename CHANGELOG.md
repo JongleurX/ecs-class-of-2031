@@ -41,8 +41,10 @@ Dates are used instead of version numbers.
 - Replaced `day4/main.py` with a recursive day launcher that discovers and runs
   Python files in `day4/` and all subfolders.
 - Updated `README.md` for the current `day1`-`day4` structure and launcher usage.
-- Updated `ACTIVITY_INVENTORY.md` to reflect the current folder layout and
-  activities after the folder moves.
+- Updated `ACTIVITY_INVENTORY.md` to reflect the current folder layout and activities after the folder moves.
+  ### Changed
+- Moved the Day 4 treasure-hunt PDFs into `day4/treasure-hunter-unplugged/`.
+- Updated the project docs to reflect the current Day 4 folder layout.
 
 ---
 

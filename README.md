@@ -22,6 +22,7 @@ The launcher system is designed to make it easy and efficient to create Code.org
   - `main.py` launches all Day 3 Python scripts recursively.
 - `day4/`:
   - Games and strategy projects in `hanoi/`, `maze/`, and `nim/`.
+  - Unplugged treasure-hunt PDFs in `treasure-hunter-unplugged/`.
   - `main.py` launches all Day 4 Python scripts recursively.
 - `bonus/`:
   - Extra astronomy-themed scripts and data, per Ms. Alison's request.
