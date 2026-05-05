@@ -28,3 +28,7 @@ def exercise_02():
             print("Result:", a / b)
     else:
         print("Unknown operation")
+
+
+if __name__ == "__main__":
+    exercise_02()

@@ -52,3 +52,7 @@ def exercise_03():
             high = guess - 1
             print("  Too high!")
     print(f"\nGame over!  The number was {secret}.")
+
+
+if __name__ == "__main__":
+    exercise_03()

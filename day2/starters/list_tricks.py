@@ -16,3 +16,7 @@ def exercise_05():
 
     # TODO: add a second loop here that prints each animal in uppercase
     # Hint: use .upper() on the animal name inside the loop
+
+
+if __name__ == "__main__":
+    exercise_05()

@@ -32,3 +32,7 @@ def exercise_04():
         print(n, "is even")
     else:
         print(n, "is odd")
+
+
+if __name__ == "__main__":
+    exercise_04()

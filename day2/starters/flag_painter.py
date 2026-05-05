@@ -126,3 +126,7 @@ def exercise_07():
     print("- circle_flag() creates a circle on a background")
     print("- Same functions, different parameters = different results!")
     print("=" * 60)
+
+
+if __name__ == "__main__":
+    exercise_07()

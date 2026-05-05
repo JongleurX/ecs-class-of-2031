@@ -104,6 +104,8 @@ def run_script(item, pause_after=True):
         runpy.run_path(item["path"], run_name="__main__")
     except KeyboardInterrupt:
         print("\n(Returned to starter menu)")
+    except Exception as err:
+        print(f"\nScript error: {err}")
     print("-" * 56)
     if pause_after:
         input("Press Enter to return to the starter menu...")

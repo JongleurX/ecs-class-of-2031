@@ -15,3 +15,7 @@ def exercise_01():
     print("My name is", your_name)
     print("My favourite number is", fav_number)
     print("Double my number is", fav_number * 2)
+
+
+if __name__ == "__main__":
+    exercise_01()

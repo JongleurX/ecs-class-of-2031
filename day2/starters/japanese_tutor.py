@@ -132,3 +132,7 @@ def play_game_06():
 
 def exercise_06():
     play_game_06()
+
+
+if __name__ == "__main__":
+    exercise_06()
